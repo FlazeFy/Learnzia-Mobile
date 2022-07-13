@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  stories_for_flutter
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

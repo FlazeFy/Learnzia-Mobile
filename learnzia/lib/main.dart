@@ -35,10 +35,10 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _widgetOptions = <Widget>[
-      HomePage(),
-      ContactPage(),
-      GlobalPage(),
-      ProfilePage(),
+      const HomePage(),
+      const ContactPage(),
+      const GlobalPage(),
+      const ProfilePage(),
     ];
     return Scaffold(
     bottomNavigationBar: CurvedNavigationBar(
@@ -57,7 +57,7 @@ class _NavBarState extends State<NavBar> {
         ),
       ],
       color: Colors.white.withOpacity(0.2),
-      buttonBackgroundColor: Color(0xFFF1C40F).withOpacity(0.9),
+      buttonBackgroundColor: const Color(0xFFF1C40F).withOpacity(0.9),
       backgroundColor: Colors.white.withOpacity(0),
       animationCurve: Curves.easeInOut,
       animationDuration: const Duration(milliseconds: 600),
