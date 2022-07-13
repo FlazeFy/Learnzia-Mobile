@@ -35,7 +35,7 @@ class GetQuestion extends StatelessWidget {
               if(data['image'] == "null"){
                 return Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                  child: Text("${data['subject']} - ${data['question']}", style: TextStyle(color: Colors.white))
+                  child: Text("${data['subject']} - ${data['question']}", style: const TextStyle(color: Colors.white))
                 );
               } else {
                 return Container(
@@ -49,7 +49,7 @@ class GetQuestion extends StatelessWidget {
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 5),
-                        child: Text("${data['subject']} - ${data['question']}", style: TextStyle(color: Colors.white))
+                        child: Text("${data['subject']} - ${data['question']}", style: const TextStyle(color: Colors.white))
                       )
                     ]
                   )
@@ -57,7 +57,7 @@ class GetQuestion extends StatelessWidget {
               }
             }
             return Container(
-              margin: const EdgeInsets.only(bottom: 10),
+              margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
               padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,23 +73,21 @@ class GetQuestion extends StatelessWidget {
                             'assets/images/User.jpg', width: 40),
                           ),
                       ),
-                      Container(
+                      SizedBox(
                         width: fullWidth*0.15,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("flazefy", style: TextStyle(color: Colors.white, fontSize: 16)),
-                            Text(data['category'], style: TextStyle(color: Colors.grey, fontSize: 14)),
+                            const Text("flazefy", style: TextStyle(color: Colors.white, fontSize: 16)),
+                            Text(data['category'], style: const TextStyle(color: Colors.grey, fontSize: 14)),
                           ],
                         ),
                       ),
                       const Spacer(),
-                      Container(
-                        child: IconButton(
-                          icon: const Icon(Icons.more_vert),
-                          color: Colors.white,
-                          onPressed: () {},
-                        ),
+                      IconButton(
+                        icon: const Icon(Icons.more_vert),
+                        color: Colors.white,
+                        onPressed: () {},
                       ),
                     ]
                   ),
