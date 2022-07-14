@@ -1,7 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learnzia/SecondaryMenu/TabController/createPost.dart';
+import 'package:learnzia/SecondaryMenu/TabController/myPost.dart';
 import 'package:learnzia/Widgets/customPainter.dart';
-import 'package:learnzia/Widgets/dropdown.dart';
 
 String categoryCtrl = "";
 
@@ -13,26 +13,7 @@ class myDiscussionPage extends StatefulWidget {
 }
 
 class _myDiscussionPageState extends State<myDiscussionPage> {
-  CollectionReference disc = FirebaseFirestore.instance.collection('discussion');
-
-  //Create account.
-  Future<void> createDiscussion() {
-    return disc
-      .add({
-        'subject': subjectCtrl.text, 
-        'question': questionCtrl.text, 
-        'category': categoryCtrl, 
-        'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
-        'image': 'null', // for now. 
-      })
-      .then((value) => print("Akun berhasil didaftar"))
-      .catchError((error) => print("Failed to add user: $error"));
-  }
   
-  
-  var subjectCtrl = TextEditingController();
-  var questionCtrl = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     double fullHeight = MediaQuery.of(context).size.height;
@@ -139,76 +120,57 @@ class _myDiscussionPageState extends State<myDiscussionPage> {
                   borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10), topRight: Radius.circular(55)),
                 )
               ), //End of preview container.
-
-              Container(
-                margin: EdgeInsets.only(top: fullHeight*0.1),
+              DefaultTabController(
+                length: 2,
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      child: const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text("Preview Post", style: TextStyle(color: Colors.white, fontWeight:FontWeight.bold, fontSize: 18)),
-                      )
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Row(
-                        children:const [
-                          Text("Category :", style: TextStyle(color: Colors.white, fontSize: 16)),
-                          Spacer(),
-                          DropDownCategory()
-                        ]
-                      )
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: TextField(
-                        controller: subjectCtrl,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Subject',
-                          fillColor: Color(0xFF5A5d5e),
-                          hintStyle: TextStyle(color: Colors.white),
-                          filled: true,
+                      constraints: const BoxConstraints(maxHeight: 150.0),
+                      child: const Material(
+                        color: Colors.white,
+                        child: TabBar(
+                          indicatorColor: Colors.transparent,
+                          tabs: [
+                            Tab(
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text("Create Post"),
+                              ),
+                            ),
+                            Tab(
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text("My Post"),
+                              ),
+                            ),
+                          ],
+                          labelColor: Colors.black,
+                          unselectedLabelColor: Colors.grey,
+                          indicatorSize: TabBarIndicatorSize.label,
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              topRight: Radius.circular(5),
+                            ),
+                            color: Color.fromARGB(255, 166, 204, 242),
+                          ),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: TextField(
-                        controller: questionCtrl,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Question',
-                          fillColor: Color(0xFF5A5d5e),
-                          hintStyle: TextStyle(color: Colors.white),
-                          filled: true,
+                    Expanded(
+                      child: Container(
+                        height: fullHeight,
+                        child: TabBarView(
+                          children: [
+                            CreatePost(),
+                            MyPost(),
+                          ],
                         ),
                       ),
                     ),
-                  ]
+                  ],
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 5),
-                width: fullWidth*0.3,
-                child: ElevatedButton.icon(
-                  icon: const Icon(Icons.add),
-                  label: const Text("Post", style: TextStyle(fontSize: 16)),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 226, 184, 14)),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      )
-                    )
-                  ),
-                  onPressed: () async{
-                    createDiscussion();
-                  },
-                ),
-              ),
+              ),  
             ]
           )
         )
