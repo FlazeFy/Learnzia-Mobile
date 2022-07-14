@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learnzia/Firebase/GetQuestion.dart';
 
 class MyPost extends StatefulWidget {
   const MyPost({Key key}) : super(key: key);
@@ -20,13 +21,13 @@ class _MyPostState extends State<MyPost> {
     double fullWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: ListView(
-        padding: const EdgeInsets.only(top: 0),
-        children:[
-          
-        ]
+      body: SizedBox(
+        height: fullHeight,
+        child: Flexible(
+          child:
+            GetMyQuestion(),
+        ),
       )
-      
     );
   }
 }

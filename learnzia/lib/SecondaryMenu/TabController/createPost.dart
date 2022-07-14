@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:learnzia/Widgets/dropdown.dart';
 import 'package:learnzia/SecondaryMenu/myDiscussionPage.dart';
 
+String categoryCtrl = "";
+
 class CreatePost extends StatefulWidget {
   const CreatePost({Key key}) : super(key: key);
 
@@ -38,17 +40,10 @@ class _CreatePostState extends State<CreatePost> {
 
     return Scaffold(
       body: ListView(
-        padding: const EdgeInsets.only(top: 0),
+        padding: const EdgeInsets.only(top: 0, left: 5, right: 5),
         children:[
           Column(
             children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                child: const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Create Post", style: TextStyle(color: Colors.white, fontWeight:FontWeight.bold, fontSize: 18)),
-                )
-              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(

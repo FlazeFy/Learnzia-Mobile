@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                           context,
                           PageRouteBuilder(
-                            pageBuilder: (c, a1, a2) => const myDiscussionPage(),
+                            pageBuilder: (c, a1, a2) => const MyDiscussionPage(),
                             transitionsBuilder: (context, animation, secondaryAnimation, child) {
                               final tween = Tween(begin: const Offset(0.0, 1.0), end: Offset.zero);
                               final curvedAnimation = CurvedAnimation(

@@ -3,16 +3,14 @@ import 'package:learnzia/SecondaryMenu/TabController/createPost.dart';
 import 'package:learnzia/SecondaryMenu/TabController/myPost.dart';
 import 'package:learnzia/Widgets/customPainter.dart';
 
-String categoryCtrl = "";
-
-class myDiscussionPage extends StatefulWidget {
-  const myDiscussionPage({Key key}) : super(key: key);
+class MyDiscussionPage extends StatefulWidget {
+  const MyDiscussionPage({Key key}) : super(key: key);
 
   @override
-  _myDiscussionPageState createState() => _myDiscussionPageState();
+  _MyDiscussionPageState createState() => _MyDiscussionPageState();
 }
 
-class _myDiscussionPageState extends State<myDiscussionPage> {
+class _MyDiscussionPageState extends State<MyDiscussionPage> {
   
   @override
   Widget build(BuildContext context) {
@@ -120,55 +118,59 @@ class _myDiscussionPageState extends State<myDiscussionPage> {
                   borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10), topRight: Radius.circular(55)),
                 )
               ), //End of preview container.
+              SizedBox(height: fullHeight*0.08),
               DefaultTabController(
                 length: 2,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      constraints: const BoxConstraints(maxHeight: 150.0),
-                      child: const Material(
-                        color: Colors.white,
-                        child: TabBar(
-                          indicatorColor: Colors.transparent,
-                          tabs: [
-                            Tab(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text("Create Post"),
+                child: Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        constraints: const BoxConstraints(maxHeight: 150.0),
+                        child: const Material(
+                          color: Colors.transparent,
+                          child: TabBar(
+                            indicatorColor: Colors.transparent,
+                            tabs: [
+                              Tab(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text("Create Post"),
+                                ),
                               ),
-                            ),
-                            Tab(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text("My Post"),
+                              Tab(
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text("My Post"),
+                                ),
                               ),
+                            ],
+                            labelColor: Colors.black,
+                            unselectedLabelColor: Colors.grey,
+                            indicatorSize: TabBarIndicatorSize.label,
+                            indicator: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5),
+                                topRight: Radius.circular(5),
+                              ),
+                              color: Color.fromARGB(255, 166, 204, 242),
                             ),
-                          ],
-                          labelColor: Colors.black,
-                          unselectedLabelColor: Colors.grey,
-                          indicatorSize: TabBarIndicatorSize.label,
-                          indicator: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5),
-                            ),
-                            color: Color.fromARGB(255, 166, 204, 242),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: fullHeight,
-                        child: TabBarView(
-                          children: [
-                            CreatePost(),
-                            MyPost(),
-                          ],
+                      Flexible(
+                        child: Container(
+                          padding: const EdgeInsets.only(top: 10),
+                          height: fullHeight,
+                          child: const TabBarView(
+                            children: [
+                              CreatePost(),
+                              MyPost(),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),  
             ]
