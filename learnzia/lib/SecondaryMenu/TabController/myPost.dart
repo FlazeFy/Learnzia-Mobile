@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learnzia/Firebase/GetQuestion.dart';
+import 'package:learnzia/Firebase/Forum/GetQuestion.dart';
 
 class MyPost extends StatefulWidget {
   const MyPost({Key key}) : super(key: key);

@@ -11,7 +11,6 @@ class GetQuestion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double fullHeight = MediaQuery.of(context).size.height;
     double fullWidth = MediaQuery.of(context).size.width;
 
     return StreamBuilder<QuerySnapshot>(
@@ -168,7 +167,6 @@ class GetMyQuestion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double fullHeight = MediaQuery.of(context).size.height;
     double fullWidth = MediaQuery.of(context).size.width;
 
     return StreamBuilder<QuerySnapshot>(
@@ -241,7 +239,7 @@ class GetMyQuestion extends StatelessWidget {
                           ),
                       ),
                       SizedBox(
-                        width: fullWidth*0.15,
+                        width: fullWidth*0.3,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

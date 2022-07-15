@@ -3,6 +3,9 @@ import 'package:learnzia/SecondaryMenu/TabController/createPost.dart';
 import 'package:learnzia/SecondaryMenu/TabController/myPost.dart';
 import 'package:learnzia/Widgets/customPainter.dart';
 
+String subjectPrev = "-";
+String questionPrev = "-";
+
 class MyDiscussionPage extends StatefulWidget {
   const MyDiscussionPage({Key key}) : super(key: key);
 
@@ -48,26 +51,28 @@ class _MyDiscussionPageState extends State<MyDiscussionPage> {
                             ),
                         ),
                         SizedBox(
-                          width: fullWidth*0.15,
+                          width: fullWidth*0.3,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text("flazefy", style: TextStyle(color: Colors.white, fontSize: 16)),
-                              Text("-", style: TextStyle(color: Colors.grey, fontSize: 14)),
+                              Text(categoryCtrl, style: TextStyle(color: Colors.grey, fontSize: 14)),
                             ],
                           ),
                         ),
                         const Spacer(),
                         IconButton(
-                          icon: const Icon(Icons.more_vert),
+                          icon: const Icon(Icons.refresh),
                           color: Colors.white,
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {});
+                          },
                         ),
                       ]
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                      child: const Text("-", style: TextStyle(color: Colors.white))
+                      child: Text("${subjectPrev} ~ ${questionPrev}", style: TextStyle(color: Colors.white))
                     ),
                     Row(
                       children: [

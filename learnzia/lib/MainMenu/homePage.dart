@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learnzia/Firebase/GetQuestion.dart';
+import 'package:learnzia/Firebase/Forum/GetQuestion.dart';
 import 'package:learnzia/SecondaryMenu/myDiscussionPage.dart';
 import 'package:learnzia/Widgets/customPainter.dart';
 import 'package:stories_for_flutter/stories_for_flutter.dart';

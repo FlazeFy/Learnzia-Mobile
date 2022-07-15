@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learnzia/Widgets/dropdown.dart';
 import 'package:learnzia/SecondaryMenu/myDiscussionPage.dart';
+import 'package:learnzia/Widgets/dropdown.dart';
 
 String categoryCtrl = "";
 
@@ -58,6 +58,7 @@ class _CreatePostState extends State<CreatePost> {
                 padding: const EdgeInsets.only(bottom: 10),
                 child: TextField(
                   controller: subjectCtrl,
+                  onChanged: (value) => subjectPrev = value.toString(),
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Subject',
@@ -71,6 +72,7 @@ class _CreatePostState extends State<CreatePost> {
                 padding: const EdgeInsets.only(bottom: 10),
                 child: TextField(
                   controller: questionCtrl,
+                  onChanged: (value) => questionPrev = value.toString(),
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Question',
