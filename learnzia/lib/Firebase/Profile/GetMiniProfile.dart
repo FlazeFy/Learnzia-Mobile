@@ -77,8 +77,8 @@ class GetMiniProfile extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFFF1C40F).withOpacity(0.9),
-                  Color.fromARGB(255, 244, 140, 13).withOpacity(0.9),
+                  const Color(0xFFF1C40F).withOpacity(0.9),
+                  const Color.fromARGB(255, 244, 140, 13).withOpacity(0.9),
                 ],
               ),
               borderRadius: const BorderRadius.all(Radius.circular(10)),

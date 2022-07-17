@@ -55,8 +55,8 @@ class _MyDiscussionPageState extends State<MyDiscussionPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("flazefy", style: TextStyle(color: Colors.white, fontSize: 16)),
-                              Text(categoryCtrl, style: TextStyle(color: Colors.grey, fontSize: 14)),
+                              const Text("flazefy", style: TextStyle(color: Colors.white, fontSize: 16)),
+                              Text(categoryCtrl, style: const TextStyle(color: Colors.grey, fontSize: 14)),
                             ],
                           ),
                         ),
@@ -72,7 +72,7 @@ class _MyDiscussionPageState extends State<MyDiscussionPage> {
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                      child: Text("${subjectPrev} ~ ${questionPrev}", style: TextStyle(color: Colors.white))
+                      child: Text("${subjectPrev} ~ ${questionPrev}", style: const TextStyle(color: Colors.white))
                     ),
                     Row(
                       children: [
