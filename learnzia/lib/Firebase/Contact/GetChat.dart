@@ -3,6 +3,7 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:learnzia/main.dart';
 
 class GetChat extends StatefulWidget {
@@ -14,8 +15,8 @@ class GetChat extends StatefulWidget {
 }
 
 class _GetChatState extends State<GetChat> {
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('message').orderBy('datetime', descending: true).snapshots();
-
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('message').orderBy('datetime', descending: false).snapshots();
+  
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -46,15 +47,72 @@ class _GetChatState extends State<GetChat> {
             if(data['id_user_sender'] == '0Xnz2jIQf3BLk7MZ9jiA'){
               return Column(
                 children: [
-                  BubbleSpecialThree(
-                    text: data['body'],
-                    color: containerColor,
-                    tail: true,
-                    isSender: true,
-                    textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16
+                  GestureDetector(
+                    child: BubbleSpecialThree(
+                      text: data['body'],
+                      color: containerColor,
+                      tail: true,
+                      isSender: true,
+                      textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16
+                      ),
                     ),
+                    onLongPress: () {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          content: Container(
+                            height: 145,
+                            transform: Matrix4.translationValues(0.0, -20.0, 0.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children:[
+                                Container(
+                                  transform: Matrix4.translationValues(20.0, 0.0, 0.0),
+                                  child: IconButton(
+                                    icon: Icon(Icons.close, color: mainColor),
+                                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: OutlinedButton.icon(
+                                    onPressed: () {
+                                      Clipboard.setData(ClipboardData(text: data['body']));
+                                    },
+                                    icon: const Icon(Icons.copy, size: 18, color: Colors.white),
+                                    label: const Text("Copy Message", style: TextStyle(color: Colors.white)),
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(mainColor),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: OutlinedButton.icon(
+                                    onPressed: () async{
+                                      CollectionReference message = FirebaseFirestore.instance.collection('message');
+                                      
+                                      return message
+                                        .doc(document.id)
+                                        .delete()
+                                        .then((value) => Navigator.pop(context))
+                                        .catchError((error) => print("Failed to delete chat: $error"));
+                                    },
+                                    icon: const Icon(Icons.delete, size: 18, color: Colors.white),
+                                    label: const Text("Delete Message", style: TextStyle(color: Colors.white)),
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(mainColor),
+                                    ),
+                                  )
+                                )
+                              ]
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 5, right: 30),

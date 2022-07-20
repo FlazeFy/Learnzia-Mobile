@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:learnzia/Firebase/Contact/GetChat.dart';
@@ -17,6 +18,22 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPage extends State<ChatPage> {
   final _messageTextCtrl = TextEditingController();
+
+  CollectionReference message= FirebaseFirestore.instance.collection('message');
+
+  //Create account.
+  Future<void> sendChat() {
+    return message
+      .add({
+        'body': _messageTextCtrl.text, 
+        'id_contact': widget.passIdContact, 
+        'id_user_sender': '0Xnz2jIQf3BLk7MZ9jiA', 
+        'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
+        'type': 'text', // for now. 
+      })
+      .then((value) => print("Chat has been sended"))
+      .catchError((error) => print("Failed to send chat: $error"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,16 +125,19 @@ class _ChatPage extends State<ChatPage> {
                         decoration: const InputDecoration(
                           hintText: "Type your message...",
                           hintStyle: TextStyle(color: Colors.white),
+                          fillColor: Colors.white,
                           border: InputBorder.none
                         ),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                     const SizedBox(width: 15,),
                     FloatingActionButton(
                       onPressed: () async{
+                        sendChat();
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const ChatPage()),
+                          MaterialPageRoute(builder: (context) => ChatPage(passIdContact: widget.passIdContact, passContactName: widget.passContactName)),
                         );
                       },
                       child: const Icon(Icons.send,color: Colors.white,size: 18,),
