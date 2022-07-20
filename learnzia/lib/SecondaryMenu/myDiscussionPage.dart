@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learnzia/SecondaryMenu/TabController/createPost.dart';
 import 'package:learnzia/SecondaryMenu/TabController/myPost.dart';
 import 'package:learnzia/Widgets/customPainter.dart';
+import 'package:learnzia/main.dart';
 
 String subjectPrev = "-";
 String questionPrev = "-";
@@ -119,7 +120,7 @@ class _MyDiscussionPageState extends State<MyDiscussionPage> {
                   ],
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF5A5D5E).withOpacity(0.8),
+                  color: containerColor,
                   borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10), topRight: Radius.circular(55)),
                 )
               ), //End of preview container.

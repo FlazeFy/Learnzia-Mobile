@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learnzia/main.dart';
 
 class GetQuestion extends StatelessWidget {
 
@@ -147,7 +148,7 @@ class GetQuestion extends StatelessWidget {
                 ],
               ),
               decoration: BoxDecoration(
-                color: const Color(0xFF5A5D5E).withOpacity(0.8),
+                color: containerColor,
                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10), topRight: Radius.circular(55)),
               )
             );
@@ -303,7 +304,7 @@ class GetMyQuestion extends StatelessWidget {
                 ],
               ),
               decoration: BoxDecoration(
-                color: const Color(0xFF5A5D5E).withOpacity(0.8),
+                color: containerColor,
                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10), topRight: Radius.circular(55)),
               )
             );

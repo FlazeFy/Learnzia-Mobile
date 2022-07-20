@@ -9,6 +9,9 @@ import 'package:learnzia/MainMenu/profilePage.dart';
 
 bool shouldUseFirestoreEmulator = false;
 
+var containerColor = Color(0xFF202020);
+var mainColor = Color(0xFFF1C40F);
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
     Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF313436)),
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF0A0C10)),
       home: const NavBar(),
     );
     }
@@ -57,9 +60,9 @@ class _NavBarState extends State<NavBar> {
       index: 0,
       height: 60.0,
       items: <Widget>[
-        const Icon(Icons.home, size: 30, color: Color(0xFF313436)),
-        const Icon(Icons.chat, size: 30, color: Color(0xFF313436)),
-        const Icon(Icons.public, size: 30, color: Color(0xFF313436)),
+        const Icon(Icons.home, size: 30, color: Color(0xFF0a0c10)),
+        const Icon(Icons.chat, size: 30, color: Color(0xFF0a0c10)),
+        const Icon(Icons.public, size: 30, color: Color(0xFF0a0c10)),
         ClipOval(
           child: SizedBox.fromSize(
             size: const Size.fromRadius(18), // Image radius
@@ -68,7 +71,7 @@ class _NavBarState extends State<NavBar> {
         ),
       ],
       color: Colors.white.withOpacity(0.2),
-      buttonBackgroundColor: const Color(0xFFF1C40F).withOpacity(0.9),
+      buttonBackgroundColor: mainColor,
       backgroundColor: Colors.white.withOpacity(0),
       animationCurve: Curves.easeInOut,
       animationDuration: const Duration(milliseconds: 600),

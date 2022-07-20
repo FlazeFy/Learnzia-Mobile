@@ -3,6 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
+import 'package:learnzia/SecondaryMenu/chatPage.dart';
+import 'package:learnzia/main.dart';
 
 class GetContact extends StatelessWidget {
 
@@ -44,7 +46,7 @@ class GetContact extends StatelessWidget {
             if((data['id_user_1'] == '0Xnz2jIQf3BLk7MZ9jiA')&&((data['id_user_2'] != '0Xnz2jIQf3BLk7MZ9jiA'))){
               return InkWell(
                 child: Card(
-                  color: const Color(0xFF5a5d5e),
+                  color: containerColor,
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 3),
                     child: Row(
@@ -80,7 +82,7 @@ class GetContact extends StatelessWidget {
                             margin: const EdgeInsets.only(right: 10.0),
                             child: const Text(
                               "Today at 16:40", 
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white,
                                 fontSize: 12,
@@ -93,13 +95,16 @@ class GetContact extends StatelessWidget {
                   )
                 ),
                 onTap: () { 
-                  // 
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChatPage(passIdContact: document.id)),
+                  );
                 },                   
               );
             } else if((data['id_user_2'] == '0Xnz2jIQf3BLk7MZ9jiA')&&((data['id_user_1'] != '0Xnz2jIQf3BLk7MZ9jiA'))){
               return InkWell(
                 child: Card(
-                  color: const Color(0xFF5a5d5e),
+                  color: containerColor,
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 3),
                     child: Row(
@@ -135,7 +140,7 @@ class GetContact extends StatelessWidget {
                             margin: const EdgeInsets.only(right: 10.0),
                             child: const Text(
                               "Today at 16:40", 
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white,
                                 fontSize: 12,
@@ -148,7 +153,10 @@ class GetContact extends StatelessWidget {
                   )
                 ),
                 onTap: () { 
-                  // 
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChatPage(passIdContact: document.id)),
+                  );
                 },                   
               );
             }

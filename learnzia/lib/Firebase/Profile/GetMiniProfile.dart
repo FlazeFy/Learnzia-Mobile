@@ -93,15 +93,15 @@ class GetMiniProfile extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   width: fullWidth,
                   child: ExpansionTile(
                     initiallyExpanded: false,
                     textColor: Colors.white,
-                    leading: Icon(Icons.edit,size: 22),
-                    title: Text('Edit Profile'),
+                    leading: const Icon(Icons.edit,size: 22),
+                    title: const Text('Edit Profile'),
                     children: [
-                      Align(
+                      const Align(
                         alignment: Alignment.centerLeft,
                         child: Text("Fullname", style: TextStyle(color: Colors.white, fontSize: 16)),
                       ),
@@ -111,15 +111,15 @@ class GetMiniProfile extends StatelessWidget {
                         child: TextField(
                           controller: _fullnameCtrl,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             hintText: data['fullname'],
-                            fillColor: Color(0xFF5A5d5e),
-                            hintStyle: TextStyle(color: Colors.white),
+                            fillColor: const Color(0xFF5A5d5e),
+                            hintStyle: const TextStyle(color: Colors.white),
                             filled: true,
                           ),
                         ),
                       ),
-                      Align(
+                      const Align(
                         alignment: Alignment.centerLeft,
                         child: Text("Description", style: TextStyle(color: Colors.white, fontSize: 16)),
                       ),
@@ -129,15 +129,15 @@ class GetMiniProfile extends StatelessWidget {
                         child: TextField(
                           controller: _descCtrl,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             hintText: data['description'],
-                            fillColor: Color(0xFF5A5d5e),
-                            hintStyle: TextStyle(color: Colors.white),
+                            fillColor: const Color(0xFF5A5d5e),
+                            hintStyle: const TextStyle(color: Colors.white),
                             filled: true,
                           ),
                         ),
                       ),
-                      Align(
+                      const Align(
                         alignment: Alignment.centerLeft,
                         child: Text("Password", style: TextStyle(color: Colors.white, fontSize: 16)),
                       ),
@@ -148,10 +148,10 @@ class GetMiniProfile extends StatelessWidget {
                           controller: _passwordCtrl,
                           obscureText: true,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             hintText: data['password'],
-                            fillColor: Color(0xFF5A5d5e),
-                            hintStyle: TextStyle(color: Colors.white),
+                            fillColor: const Color(0xFF5A5d5e),
+                            hintStyle: const TextStyle(color: Colors.white),
                             filled: true,
                           ),
                         ),
@@ -180,7 +180,7 @@ class GetMiniProfile extends StatelessWidget {
                                 updateProfile();
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => NavBar()),
+                                  MaterialPageRoute(builder: (context) => const NavBar()),
                                 );
                               },
                               style: ElevatedButton.styleFrom(

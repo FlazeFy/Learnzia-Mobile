@@ -18,11 +18,11 @@ class _GetUsernameState extends State<GetUsername> {
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went wrong');
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return const Text("Loading");
         }
 
         return Column(
@@ -34,7 +34,7 @@ class _GetUsernameState extends State<GetUsername> {
                 child: RichText(
                   text: TextSpan(                     
                     text: data['username'],
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Color(0xFFF1c40f),
                       fontSize: 16,
@@ -43,7 +43,7 @@ class _GetUsernameState extends State<GetUsername> {
                 ),
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           }).toList(),
         );

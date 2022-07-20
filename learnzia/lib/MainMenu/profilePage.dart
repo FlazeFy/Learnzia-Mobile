@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Profile/GetMiniProfile.dart';
+import 'package:learnzia/main.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key key}) : super(key: key);
@@ -64,8 +65,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ],
                           ),
-                          decoration: const BoxDecoration(
-                            color: Color(0xFF5a5d5e),
+                          decoration: BoxDecoration(
+                            color: containerColor,
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           )
                         ),
