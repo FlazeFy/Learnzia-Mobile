@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class GetUsername extends StatefulWidget {
   @override
-  const GetUsername({Key key, this.passDocumentId}) : super(key: key);
+  GetUsername({Key key, this.passDocumentId, this.textColor}) : super(key: key);
   final String passDocumentId;
+  var textColor;
 
   _GetUsernameState createState() => _GetUsernameState();
 }
@@ -34,9 +35,9 @@ class _GetUsernameState extends State<GetUsername> {
                 child: RichText(
                   text: TextSpan(                     
                     text: data['username'],
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFFF1c40f),
+                      color: widget.textColor,
                       fontSize: 16,
                     )
                   ),                              

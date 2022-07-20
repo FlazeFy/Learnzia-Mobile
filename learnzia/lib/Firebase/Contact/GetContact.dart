@@ -63,7 +63,7 @@ class GetContact extends StatelessWidget {
                           child: Column (
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GetUsername(passDocumentId: data['id_user_2']),
+                              GetUsername(passDocumentId: data['id_user_2'], textColor: Color(0xFFF1c40f)),
                               RichText(
                                 text: const TextSpan(                     
                                   text: 'lorem ipsum',
@@ -97,7 +97,7 @@ class GetContact extends StatelessWidget {
                 onTap: () { 
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ChatPage(passIdContact: document.id)),
+                    MaterialPageRoute(builder: (context) => ChatPage(passIdContact: document.id, passContactName: data['id_user_2'])),
                   );
                 },                   
               );
@@ -121,7 +121,7 @@ class GetContact extends StatelessWidget {
                           child: Column (
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GetUsername(passDocumentId: data['id_user_1']),
+                              GetUsername(passDocumentId: data['id_user_1'], textColor: Color(0xFFF1c40f)),
                               RichText(
                                 text: const TextSpan(                     
                                   text: 'lorem ipsum',
@@ -155,7 +155,7 @@ class GetContact extends StatelessWidget {
                 onTap: () { 
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ChatPage(passIdContact: document.id)),
+                    MaterialPageRoute(builder: (context) => ChatPage(passIdContact: document.id, passContactName: data['id_user_1'])),
                   );
                 },                   
               );

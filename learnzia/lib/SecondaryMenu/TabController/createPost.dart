@@ -22,6 +22,7 @@ class _CreatePostState extends State<CreatePost> {
         'subject': subjectCtrl.text, 
         'question': questionCtrl.text, 
         'category': categoryCtrl, 
+        'id_user': '0Xnz2jIQf3BLk7MZ9jiA', //For now.. 
         'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
         'image': 'null', // for now. 
       })

@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/main.dart';
 
 class GetQuestion extends StatelessWidget {
@@ -88,7 +89,7 @@ class GetQuestion extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("flazefy", style: TextStyle(color: Colors.white, fontSize: 16)),
+                            GetUsername(passDocumentId: data['id_user'], textColor: Color(0xFFF1c40f)),
                             Text(data['category'], style: const TextStyle(color: Colors.grey, fontSize: 14)),
                           ],
                         ),

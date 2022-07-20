@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
+import 'package:learnzia/Firebase/Contact/GetChat.dart';
+import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/main.dart';
 
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({key, this.passIdContact}) : super(key: key);
+  const ChatPage({key, this.passIdContact, this.passContactName}) : super(key: key);
   final String passIdContact;
+  final String passContactName;
 
   @override
 
@@ -49,14 +52,8 @@ class _ChatPage extends State<ChatPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children:const [
-                        Text("username", 
-                          style: TextStyle(
-                            color: Color(0xFF313436),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
+                      children: [
+                        GetUsername(passDocumentId: widget.passContactName, textColor: Color(0xFF010C10)),
                         Text("online", 
                           style: TextStyle(
                             color: Colors.green,
@@ -80,54 +77,7 @@ class _ChatPage extends State<ChatPage> {
         child: Column(
           children: [
             Flexible(
-              child: ListView(
-                padding: const EdgeInsets.only(top: 10),
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 5),
-                    alignment: Alignment.center,
-                    child: Text("7 Jul 2022", style: TextStyle(color: mainColor, fontStyle: FontStyle.italic, fontSize: 12))
-                  ),
-                  Column(
-                    children: [
-                      BubbleSpecialThree(
-                        text: 'Lorem ipsum',
-                        color: containerColor,
-                        tail: true,
-                        isSender: true,
-                        textStyle: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 5, right: 30),
-                        alignment: Alignment.centerRight,
-                        child: const Text("19:20", style: TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 11))
-                      )
-                    ]
-                  ),
-                  Column(
-                    children: [
-                      BubbleSpecialThree(
-                        text: 'Lorem ipsum',
-                        color: containerColor,
-                        tail: true,
-                        isSender: false,
-                        textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 5, left: 30),
-                        alignment: Alignment.centerLeft,
-                        child: const Text("19:20", style: TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 11))
-                      )
-                    ]
-                  ),
-                ],    
-              )
+              child: GetChat(contactId: widget.passIdContact)
             ),
             Align(
               alignment: Alignment.bottomLeft,
