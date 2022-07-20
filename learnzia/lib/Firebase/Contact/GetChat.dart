@@ -44,7 +44,7 @@ class _GetChatState extends State<GetChat> {
                 )
               );
             }
-            if(data['id_user_sender'] == '0Xnz2jIQf3BLk7MZ9jiA'){
+            if((data['id_user_sender'] == passIdUser)&&(data['id_contact'] == widget.contactId)){
               return Column(
                 children: [
                   GestureDetector(
@@ -121,7 +121,7 @@ class _GetChatState extends State<GetChat> {
                   )
                 ]
               );
-            } else {
+            } else if((data['id_user_sender'] != passIdUser)&&(data['id_contact'] == widget.contactId)){
               return Column(
                 children: [
                   BubbleSpecialThree(

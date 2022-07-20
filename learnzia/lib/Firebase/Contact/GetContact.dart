@@ -43,7 +43,7 @@ class GetContact extends StatelessWidget {
                 )
               );
             }
-            if((data['id_user_1'] == '0Xnz2jIQf3BLk7MZ9jiA')&&((data['id_user_2'] != '0Xnz2jIQf3BLk7MZ9jiA'))){
+            if((data['id_user_1'] == passIdUser)&&((data['id_user_2'] != passIdUser))){
               return InkWell(
                 child: Card(
                   color: containerColor,
@@ -101,7 +101,7 @@ class GetContact extends StatelessWidget {
                   );
                 },                   
               );
-            } else if((data['id_user_2'] == '0Xnz2jIQf3BLk7MZ9jiA')&&((data['id_user_1'] != '0Xnz2jIQf3BLk7MZ9jiA'))){
+            } else if((data['id_user_2'] == passIdUser)&&((data['id_user_1'] != passIdUser))){
               return InkWell(
                 child: Card(
                   color: containerColor,

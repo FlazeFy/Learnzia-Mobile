@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/main.dart';
 
@@ -9,8 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _usernameCtrl = TextEditingController();
-  final _passwordCtrl = TextEditingController();
+  final usernameCtrl = TextEditingController();
+  final passwordCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.only(bottom: 10),
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: TextField(
-                      controller: _usernameCtrl,
+                      controller: usernameCtrl,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         fillColor: Color(0xFF5A5d5e),
@@ -65,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.only(bottom: 10),
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: TextField(
-                      controller: _passwordCtrl,
+                      controller: passwordCtrl,
                       obscureText: true,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -87,8 +88,55 @@ class _LoginPageState extends State<LoginPage> {
               height: 50,
               margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
               child: ElevatedButton(
-                onPressed: () {
-                  
+                onPressed: () async {
+                  int i = 0;
+                  FirebaseFirestore.instance
+                  .collection('user')
+                  .get()
+                  .then((QuerySnapshot querySnapshot) {
+                      querySnapshot.docs.forEach((doc) {
+                        if((doc["username"] == usernameCtrl.text)&&(doc["password"] == passwordCtrl.text)){
+                          i++;
+                          passIdUser = doc.id;
+                          passUsername = doc['username'];
+                        }
+                      });
+                      if(i > 0){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const NavBar()),
+                        );
+                      } else {
+                        return showDialog<void>(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Error', style: TextStyle(fontWeight: FontWeight.bold)),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: <Widget>[
+                                    ClipRRect(
+                                      child: Image.asset(
+                                        'assets/icons/Wrong.png', width: 20),
+                                    ),
+                                    const Text('Wrong username or password'),
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text('Try Again'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                        );
+                      }
+                  });
                 },
                 child: const Text('Log In'),
                 style: ButtonStyle(

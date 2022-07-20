@@ -26,7 +26,7 @@ class _ChatPage extends State<ChatPage> {
       .add({
         'body': _messageTextCtrl.text, 
         'id_contact': widget.passIdContact, 
-        'id_user_sender': '0Xnz2jIQf3BLk7MZ9jiA', 
+        'id_user_sender': passIdUser, 
         'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
         'type': 'text', // for now. 
       })

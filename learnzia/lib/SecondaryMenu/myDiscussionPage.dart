@@ -64,7 +64,7 @@ class _MyDiscussionPageState extends State<MyDiscussionPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text("flazefy", style: TextStyle(color: Colors.white, fontSize: 16)),
+                              Text(passUsername, style: TextStyle(color: Colors.white, fontSize: 16)),
                               Text(categoryCtrl, style: const TextStyle(color: Colors.grey, fontSize: 14)),
                             ],
                           ),

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/SecondaryMenu/myDiscussionPage.dart';
 import 'package:learnzia/Widgets/dropdown.dart';
+import 'package:learnzia/main.dart';
 
 String categoryCtrl = "";
 
@@ -22,11 +23,11 @@ class _CreatePostState extends State<CreatePost> {
         'subject': subjectCtrl.text, 
         'question': questionCtrl.text, 
         'category': categoryCtrl, 
-        'id_user': '0Xnz2jIQf3BLk7MZ9jiA', //For now.. 
+        'id_user': passIdUser, 
         'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
         'image': 'null', // for now. 
       })
-      .then((value) => print("Akun berhasil didaftar"))
+      .then((value) => print("Discussion has been posted"))
       .catchError((error) => print("Failed to add user: $error"));
   }
   

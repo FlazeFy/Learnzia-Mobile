@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Profile/GetMiniProfile.dart';
+import 'package:learnzia/MainMenu/loginPage.dart';
 import 'package:learnzia/main.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -23,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: ListView(
             padding: const EdgeInsets.only(top: 0),
             children: [
-              const GetMiniProfile("0Xnz2jIQf3BLk7MZ9jiA"),
+              GetMiniProfile(passIdUser),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +39,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           margin: const EdgeInsets.only(bottom: 5, left:10),
                           child: TextButton.icon(
                             onPressed: () {
-                                // Respond to button press
+                              String passIdUser = "";
+                              String passUsername = "";
+                              String subjectPrev = "-";
+                              String questionPrev = "-";
+                              String categoryCtrl = "-";
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const LoginPage()),
+                              );
                             },
                             icon: const Icon(Icons.logout, size: 22, color: Colors.white,),
                             label: const Text("Sign Out", style: TextStyle(color: Colors.white, fontSize: 16),),

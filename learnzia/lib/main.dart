@@ -10,6 +10,10 @@ import 'package:learnzia/MainMenu/profilePage.dart';
 
 bool shouldUseFirestoreEmulator = false;
 
+//Login data.
+String passIdUser = "";
+String passUsername = "";
+
 var containerColor = const Color(0xFF202020);
 var mainColor = const Color(0xFFF1C40F);
 
