@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learnzia/MainMenu/profilePage.dart';
 import 'package:learnzia/main.dart';
 
 class GetMiniProfile extends StatelessWidget {
@@ -51,10 +50,13 @@ class GetMiniProfile extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(80),
-                      child: Image.asset(
-                      'assets/images/User.jpg', width: 140),
+                    SizedBox(
+                      width: fullWidth*0.3,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(80),
+                        child: Image.asset(
+                        'assets/images/User.jpg'),
+                      ),
                     ),
                     const Spacer(),
                     SizedBox(

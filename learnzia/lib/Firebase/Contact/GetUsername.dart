@@ -7,6 +7,7 @@ class GetUsername extends StatefulWidget {
   final String passDocumentId;
   var textColor;
 
+  @override
   _GetUsernameState createState() => _GetUsernameState();
 }
 

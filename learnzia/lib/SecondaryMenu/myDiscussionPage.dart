@@ -21,6 +21,14 @@ class _MyDiscussionPageState extends State<MyDiscussionPage> {
     double fullHeight = MediaQuery.of(context).size.height;
     double fullWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: AppBar(
+        iconTheme:  
+          const IconThemeData(
+          color: Color(0xFF313436),
+          size: 35.0,
+        ),
+        backgroundColor: mainColor,
+      ),
       body: CustomPaint(
         painter : CurvedPainter2(),
         child : Container(
@@ -28,7 +36,7 @@ class _MyDiscussionPageState extends State<MyDiscussionPage> {
           child: Column(
             children:[
               Container(
-                margin: EdgeInsets.only(top: fullHeight*0.1, bottom: 10),
+                margin: EdgeInsets.symmetric(vertical: 10),
                 child: const Align(
                   alignment: Alignment.centerLeft,
                   child: Text("Preview Post", style: TextStyle(color: Color(0xFF313436), fontWeight:FontWeight.bold, fontSize: 18)),

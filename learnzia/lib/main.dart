@@ -5,12 +5,13 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:learnzia/MainMenu/contactPage.dart';
 import 'package:learnzia/MainMenu/globalPage.dart';
 import 'package:learnzia/MainMenu/homePage.dart';
+import 'package:learnzia/MainMenu/landingPage.dart';
 import 'package:learnzia/MainMenu/profilePage.dart';
 
 bool shouldUseFirestoreEmulator = false;
 
-var containerColor = Color(0xFF202020);
-var mainColor = Color(0xFFF1C40F);
+var containerColor = const Color(0xFF202020);
+var mainColor = const Color(0xFFF1C40F);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF0A0C10)),
-      home: const NavBar(),
+      home: const LandingPage(),
     );
     }
 }

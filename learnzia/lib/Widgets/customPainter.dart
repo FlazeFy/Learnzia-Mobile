@@ -77,10 +77,10 @@ class CurvedPainter2 extends CustomPainter {
     paint.color = mainColor;
     canvas.drawPath(mainBackground, paint);
 
-    path.quadraticBezierTo(0, size.height * 0.38, 0, size.height * 0.3);
-    path.quadraticBezierTo(size.width * 0.01, size.height * 0.38, size.width * 0.1, size.height * 0.38);
-    path.quadraticBezierTo(size.width * 0.01, size.height * 0.38, size.width * 0.8, size.height * 0.38);
-    path.quadraticBezierTo(size.width * 1, size.height * 0.38, size.width * 1, size.height * 0.5);
+    path.quadraticBezierTo(0, size.height * 0.32, 0, size.height * 0.22);
+    path.quadraticBezierTo(size.width * 0.01, size.height * 0.32, size.width * 0.1, size.height * 0.32);
+    path.quadraticBezierTo(size.width * 0.01, size.height * 0.32, size.width * 0.8, size.height * 0.32);
+    path.quadraticBezierTo(size.width * 1, size.height * 0.32, size.width * 1, size.height * 0.42);
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
     paint.color = const Color(0xFF0a0c10);

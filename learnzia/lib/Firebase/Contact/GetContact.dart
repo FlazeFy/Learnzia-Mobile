@@ -63,7 +63,7 @@ class GetContact extends StatelessWidget {
                           child: Column (
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GetUsername(passDocumentId: data['id_user_2'], textColor: Color(0xFFF1c40f)),
+                              GetUsername(passDocumentId: data['id_user_2'], textColor: const Color(0xFFF1c40f)),
                               RichText(
                                 text: const TextSpan(                     
                                   text: 'lorem ipsum',
@@ -121,7 +121,7 @@ class GetContact extends StatelessWidget {
                           child: Column (
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GetUsername(passDocumentId: data['id_user_1'], textColor: Color(0xFFF1c40f)),
+                              GetUsername(passDocumentId: data['id_user_1'], textColor: const Color(0xFFF1c40f)),
                               RichText(
                                 text: const TextSpan(                     
                                   text: 'lorem ipsum',

@@ -18,12 +18,12 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
-        margin: EdgeInsets.only(top: fullHeight*0.1), 
+        margin: EdgeInsets.only(top: fullHeight*0.07), 
         child: Expanded(
           child: ListView(
             padding: const EdgeInsets.only(top: 0),
             children: [
-              GetMiniProfile("0Xnz2jIQf3BLk7MZ9jiA"),
+              const GetMiniProfile("0Xnz2jIQf3BLk7MZ9jiA"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           decoration: BoxDecoration(
                             color: containerColor,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
                           )
                         ),
                         
