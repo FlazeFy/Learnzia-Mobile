@@ -7,6 +7,7 @@ import 'package:learnzia/Firebase/Classroom/GetClassname.dart';
 import 'package:learnzia/Firebase/Classroom/GetType.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/SecondaryMenu/chatPage.dart';
+import 'package:learnzia/SecondaryMenu/classroomPage.dart';
 import 'package:learnzia/main.dart';
 
 class GetContact extends StatelessWidget {
@@ -289,7 +290,7 @@ class GetContact extends StatelessWidget {
                   onTap: () { 
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ChatPage(passIdContact: document.id, passContactName: data['id_user_2'])),
+                      MaterialPageRoute(builder: (context) => ClassroomPage(passIdClass: data['id_user_2'], passIdChannel: 'nlkrqS30hL8UADOYdjpx')),
                     );
                   },                   
                 );
