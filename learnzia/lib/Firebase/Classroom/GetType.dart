@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class GetType extends StatefulWidget {
   @override
-  GetType({Key key, this.passDocumentId}) : super(key: key);
+  const GetType({Key key, this.passDocumentId}) : super(key: key);
   final String passDocumentId;
 
   @override

@@ -88,7 +88,7 @@ class GetQuestion extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            GetUsername(passDocumentId: data['id_user'], textColor: Color(0xFFF1c40f)),
+                            GetUsername(passDocumentId: data['id_user'], textColor: const Color(0xFFF1c40f)),
                             Text(data['category'], style: const TextStyle(color: Colors.grey, fontSize: 14)),
                           ],
                         ),
@@ -310,7 +310,7 @@ class GetMyQuestion extends StatelessWidget {
                 )
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           }).toList(),
         );

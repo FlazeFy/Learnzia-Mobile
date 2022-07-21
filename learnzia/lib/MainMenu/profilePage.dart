@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Profile/GetMiniProfile.dart';
 import 'package:learnzia/MainMenu/loginPage.dart';
+import 'package:learnzia/SecondaryMenu/TabController/createPost.dart';
+import 'package:learnzia/SecondaryMenu/myDiscussionPage.dart';
 import 'package:learnzia/main.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -39,11 +41,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           margin: const EdgeInsets.only(bottom: 5, left:10),
                           child: TextButton.icon(
                             onPressed: () {
-                              String passIdUser = "";
-                              String passUsername = "";
-                              String subjectPrev = "-";
-                              String questionPrev = "-";
-                              String categoryCtrl = "-";
+                              passIdUser = "";
+                              passUsername = "";
+                              subjectPrev = "-";
+                              questionPrev = "-";
+                              categoryCtrl = "-";
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => const LoginPage()),

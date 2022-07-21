@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learnzia/Firebase/Classroom/GetChannel.dart';
 import 'package:learnzia/Firebase/Classroom/GetChannelname.dart';
 import 'package:learnzia/Firebase/Classroom/GetChatOnChannel.dart';
 import 'package:learnzia/Firebase/Classroom/GetClassname.dart';
-import 'package:learnzia/Firebase/Contact/GetChat.dart';
+import 'package:learnzia/MainMenu/contactPage.dart';
 import 'package:learnzia/main.dart';
 
 
 class ClassroomPage extends StatefulWidget {
-  const ClassroomPage({key, this.passIdClass, this.passIdChannel}) : super(key: key);
+  const ClassroomPage({key, this.passIdClass}) : super(key: key);
   final String passIdClass;
-  final String passIdChannel;
 
   @override
 
@@ -39,34 +39,58 @@ class _ClassroomPage extends State<ClassroomPage> {
             onTap: (){
               //
             },
-            child: 
-              Container(
-                width: fullWidth*0.85,
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                child: Row(
-                  children: [ 
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: Image.asset(
-                          'assets/images/User.jpg', width: 40),
-                      ),
+            child: Container(
+              width: fullWidth*0.75,
+              margin: const EdgeInsets.symmetric(vertical: 5),
+              child: Row(
+                children: [ 
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: Image.asset(
+                        'assets/images/User.jpg', width: 40),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GetClassname(passDocumentId: widget.passIdClass, textColor: const Color(0xFF010C10)),
-                        GetChannelName(passDocumentId: widget.passIdChannel, textColor: const Color(0xFF7289DA))
-                      ]
-                    )
-                  ]
-                )    
-              )
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GetClassname(passDocumentId: widget.passIdClass, textColor: const Color(0xFF010C10)),
+                      GetChannelName(passDocumentId: passIdChannel, textColor: const Color(0xFF7289DA))
+                    ]
+                  )
+                ]
+              )    
             )
-          ],  
+          ),
+          Ink(
+            decoration: const ShapeDecoration(
+              color: Colors.transparent,
+              shape: CircleBorder(),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.home),
+              color: containerColor,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NavBar()),
+                );
+              },
+            ),
+          ),
+        ],  
         backgroundColor: mainColor,
+      ),
+      drawer: Drawer(
+        backgroundColor: containerColor,
+        child: Flexible(
+          child: Container(
+            margin: EdgeInsets.only(top: fullHeight*0.1),
+            child: GetChannel(passDocumentId: widget.passIdClass, passIdClass: widget.passIdClass)
+          ),
+        ),
       ),
 
       //Body.
@@ -75,7 +99,7 @@ class _ClassroomPage extends State<ClassroomPage> {
         child: Column(
           children: [
             Flexible(
-              child: GetChatOnChannel(channelId: widget.passIdChannel, classId: widget.passIdClass)
+              child: GetChatOnChannel(classId: widget.passIdClass)
             ),
             Align(
               alignment: Alignment.bottomLeft,

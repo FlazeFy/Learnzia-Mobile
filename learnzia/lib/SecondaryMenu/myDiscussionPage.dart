@@ -36,7 +36,7 @@ class _MyDiscussionPageState extends State<MyDiscussionPage> {
           child: Column(
             children:[
               Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
+                margin: const EdgeInsets.symmetric(vertical: 10),
                 child: const Align(
                   alignment: Alignment.centerLeft,
                   child: Text("Preview Post", style: TextStyle(color: Color(0xFF313436), fontWeight:FontWeight.bold, fontSize: 18)),
@@ -64,7 +64,7 @@ class _MyDiscussionPageState extends State<MyDiscussionPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(passUsername, style: TextStyle(color: Colors.white, fontSize: 16)),
+                              Text(passUsername, style: const TextStyle(color: Colors.white, fontSize: 16)),
                               Text(categoryCtrl, style: const TextStyle(color: Colors.grey, fontSize: 14)),
                             ],
                           ),

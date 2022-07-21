@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:learnzia/main.dart';
 
 class GetChatOnChannel extends StatefulWidget {
-  const GetChatOnChannel({Key key, this.classId, this.channelId}) : super(key: key);
+  const GetChatOnChannel({Key key, this.classId}) : super(key: key);
   final String classId;
-  final String channelId;
 
   @override
     _GetChatOnChannelState createState() => _GetChatOnChannelState();
@@ -44,7 +43,7 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
                 )
               );
             }
-            if((data['id_user'] == passIdUser)&&(data['id_channel'] == widget.channelId)){
+            if((data['id_user'] == passIdUser)&&(data['id_channel'] == passIdChannel)){
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -79,7 +78,7 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
                 ]
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           }).toList(),
         );

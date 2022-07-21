@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Classroom/GetCategory.dart';
 import 'package:learnzia/Firebase/Classroom/GetClassname.dart';
+import 'package:learnzia/Firebase/Classroom/GetMainChannel.dart';
 import 'package:learnzia/Firebase/Classroom/GetType.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/SecondaryMenu/chatPage.dart';
@@ -233,12 +234,12 @@ class GetContact extends StatelessWidget {
                                       ),
                                       Container(
                                         transform: Matrix4.translationValues(150, 20, 0),
-                                        child: Text("+25 more...", style: TextStyle(color: Colors.white, fontSize:12))
+                                        child: const Text("+25 more...", style: TextStyle(color: Colors.white, fontSize:12))
                                       ),
                                     ]
                                   ),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 GetType(passDocumentId: data['id_user_2'])
                               ]
                             ),
@@ -252,7 +253,7 @@ class GetContact extends StatelessWidget {
                                     Row(
                                       children: [
                                         GetClassname(passDocumentId: data['id_user_2'], textColor: const Color(0xFFF1c40f)),
-                                        Spacer(),
+                                        const Spacer(),
                                         GetCategory(passDocumentId: data['id_user_2'], textColor: Colors.white),
                                       ]
                                     ),
@@ -260,7 +261,7 @@ class GetContact extends StatelessWidget {
                                       children: [
                                         RichText(
                                           text: const TextSpan(                     
-                                            text: 'data[onchannel] ~ ',
+                                            text: 'data[lastmessage-onchannel] ~ ',
                                             style: TextStyle(
                                               fontWeight: FontWeight.w400,
                                               fontSize: 14,
@@ -288,9 +289,10 @@ class GetContact extends StatelessWidget {
                     )
                   ),
                   onTap: () { 
+                    GetMainChannel(passDocumentId: data['id_user_2']);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ClassroomPage(passIdClass: data['id_user_2'], passIdChannel: 'nlkrqS30hL8UADOYdjpx')),
+                      MaterialPageRoute(builder: (context) => ClassroomPage(passIdClass: data['id_user_2'])),
                     );
                   },                   
                 );
