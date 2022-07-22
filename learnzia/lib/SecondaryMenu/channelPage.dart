@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learnzia/Firebase/Classroom/GetAllChannelManage.dart';
 import 'package:learnzia/Firebase/Classroom/GetClassname.dart';
 import 'package:learnzia/Widgets/sidebar.dart';
 import 'package:learnzia/main.dart';
@@ -192,8 +193,18 @@ class _ChannelPageState extends State<ChannelPage> {
                   )
                 )
               ],
-            )
-                
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              child: const Text("All Channel", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+            ),
+            Flexible(
+              child: Container(
+              height: 400,
+              margin: const EdgeInsets.only(top: 5),
+                child: GetAllChannelManage(passDocumentId: widget.passIdClass, passIdClass: widget.passIdClass)
+              ), 
+            ), 
           ], 
         ),
       )

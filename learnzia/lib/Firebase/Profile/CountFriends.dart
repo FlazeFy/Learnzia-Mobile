@@ -45,7 +45,7 @@ class _CountFriendsState extends State<CountFriends> {
                 alignment: Alignment.centerRight,
                 width: fullWidth*0.45,
                 child: Text(i.toString(), maxLines: 1, overflow: TextOverflow.ellipsis, 
-                  style: TextStyle(color: Color(0xFF212121), fontSize: 22, fontWeight: FontWeight.bold)
+                  style: const TextStyle(color: Color(0xFF212121), fontSize: 22, fontWeight: FontWeight.bold)
                 ),
               );
             }

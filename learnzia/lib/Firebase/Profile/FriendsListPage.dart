@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:learnzia/Firebase/Profile/GetMyClassroomList.dart';
 import 'package:learnzia/Firebase/Profile/GetMyFriendsList.dart';
 import 'package:learnzia/Widgets/customPainter.dart';
 import 'package:learnzia/main.dart';
@@ -32,7 +31,7 @@ class _FriendsListPageState extends State<FriendsListPage> {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 10, left: 10),
+                margin: const EdgeInsets.only(top: 10, left: 10),
                 child: const Align(
                   alignment: Alignment.centerLeft,
                   child: Text("My Friends", style: TextStyle(color: Color(0xFF313436), fontWeight:FontWeight.bold, fontSize: 18)),

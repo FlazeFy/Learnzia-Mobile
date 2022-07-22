@@ -31,7 +31,7 @@ class _ClassroomListPageState extends State<ClassroomListPage> {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 10, left: 10),
+                margin: const EdgeInsets.only(top: 10, left: 10),
                 child: const Align(
                   alignment: Alignment.centerLeft,
                   child: Text("My Classroom", style: TextStyle(color: Color(0xFF313436), fontWeight:FontWeight.bold, fontSize: 18)),

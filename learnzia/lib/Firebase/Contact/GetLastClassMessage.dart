@@ -38,7 +38,7 @@ class _GetLastClassMessageState extends State<GetLastClassMessage> {
                   RichText(
                     text: TextSpan(                     
                       text: " ~ ${data['body']}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
                       ),

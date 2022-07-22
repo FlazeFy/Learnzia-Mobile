@@ -55,9 +55,9 @@ class NavDrawer extends StatelessWidget{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Text("Manage Channel", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                  const Text("Create, edit, and delete channel", style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500)),
+                children: const [
+                  Text("Manage Channel", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                  Text("Create, edit, and delete channel", style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500)),
                 ]
               ),
               decoration: const BoxDecoration(

@@ -2,15 +2,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learnzia/Firebase/Classroom/GetCategory.dart';
-import 'package:learnzia/Firebase/Classroom/GetClassname.dart';
-import 'package:learnzia/Firebase/Classroom/GetMainChannel.dart';
-import 'package:learnzia/Firebase/Classroom/GetType.dart';
-import 'package:learnzia/Firebase/Contact/GetLastClassMessage.dart';
 import 'package:learnzia/Firebase/Contact/GetLastFriendMessage.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/SecondaryMenu/chatPage.dart';
-import 'package:learnzia/SecondaryMenu/classroomPage.dart';
 import 'package:learnzia/main.dart';
 
 class GetMyFriendsList extends StatelessWidget {

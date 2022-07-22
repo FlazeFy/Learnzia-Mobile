@@ -98,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           onTap: (){
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => FriendsListPage()),
+                              MaterialPageRoute(builder: (context) => const FriendsListPage()),
                             );
                           },
                           child: Container(
@@ -144,7 +144,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           onTap: (){
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => ClassroomListPage()),
+                              MaterialPageRoute(builder: (context) => const ClassroomListPage()),
                             );
                           },
                           child: Container(
