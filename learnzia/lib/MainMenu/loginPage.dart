@@ -10,6 +10,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  CollectionReference users= FirebaseFirestore.instance.collection('user');
+
+  Future<void> loginStatus(String id) {
+    return users
+      .doc(id)
+      .update({
+        'status': 'online', 
+      })
+      .then((value) => print("Login success"))
+      .catchError((error) => print("Failed to update status: $error"));
+  }
+
   final usernameCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
 
@@ -99,6 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                           i++;
                           passIdUser = doc.id;
                           passUsername = doc['username'];
+                          loginStatus(doc.id);
                         }
                       });
                       if(i > 0){

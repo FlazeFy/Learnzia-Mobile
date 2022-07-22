@@ -4,6 +4,7 @@ import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:learnzia/Firebase/Forum/GetSharedQuestion.dart';
 import 'package:learnzia/main.dart';
 
 class GetChat extends StatefulWidget {
@@ -19,6 +20,8 @@ class _GetChatState extends State<GetChat> {
   
   @override
   Widget build(BuildContext context) {
+    double fullWidth = MediaQuery.of(context).size.width;
+
     return StreamBuilder<QuerySnapshot>(
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -44,103 +47,117 @@ class _GetChatState extends State<GetChat> {
                 )
               );
             }
-            if((data['id_user_sender'] == passIdUser)&&(data['id_contact'] == widget.contactId)){
-              return Column(
-                children: [
-                  GestureDetector(
-                    child: BubbleSpecialThree(
+            if(data['type'] == 'text'){
+              if((data['id_user_sender'] == passIdUser)&&(data['id_contact'] == widget.contactId)){
+                return Column(
+                  children: [
+                    GestureDetector(
+                      child: BubbleSpecialThree(
+                        text: data['body'],
+                        color: containerColor,
+                        tail: true,
+                        isSender: true,
+                        textStyle: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16
+                        ),
+                      ),
+                      onLongPress: () {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            content: Container(
+                              height: 145,
+                              transform: Matrix4.translationValues(0.0, -20.0, 0.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children:[
+                                  Container(
+                                    transform: Matrix4.translationValues(20.0, 0.0, 0.0),
+                                    child: IconButton(
+                                      icon: Icon(Icons.close, color: mainColor),
+                                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: OutlinedButton.icon(
+                                      onPressed: () {
+                                        Clipboard.setData(ClipboardData(text: data['body']));
+                                      },
+                                      icon: const Icon(Icons.copy, size: 18, color: Colors.white),
+                                      label: const Text("Copy Message", style: TextStyle(color: Colors.white)),
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all<Color>(mainColor),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: OutlinedButton.icon(
+                                      onPressed: () async{
+                                        CollectionReference message = FirebaseFirestore.instance.collection('message');
+                                        
+                                        return message
+                                          .doc(document.id)
+                                          .delete()
+                                          .then((value) => Navigator.pop(context))
+                                          .catchError((error) => print("Failed to delete chat: $error"));
+                                      },
+                                      icon: const Icon(Icons.delete, size: 18, color: Colors.white),
+                                      label: const Text("Delete Message", style: TextStyle(color: Colors.white)),
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all<Color>(mainColor),
+                                      ),
+                                    )
+                                  )
+                                ]
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 5, right: 30),
+                      alignment: Alignment.centerRight,
+                      child: getDate(),
+                    )
+                  ]
+                );
+              } else if((data['id_user_sender'] != passIdUser)&&(data['id_contact'] == widget.contactId)){
+                return Column(
+                  children: [
+                    BubbleSpecialThree(
                       text: data['body'],
                       color: containerColor,
                       tail: true,
-                      isSender: true,
+                      isSender: false,
                       textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16
+                        color: Colors.white,
+                        fontSize: 16
                       ),
                     ),
-                    onLongPress: () {
-                      showDialog<String>(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          content: Container(
-                            height: 145,
-                            transform: Matrix4.translationValues(0.0, -20.0, 0.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children:[
-                                Container(
-                                  transform: Matrix4.translationValues(20.0, 0.0, 0.0),
-                                  child: IconButton(
-                                    icon: Icon(Icons.close, color: mainColor),
-                                    onPressed: () => Navigator.pop(context, 'Cancel'),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: OutlinedButton.icon(
-                                    onPressed: () {
-                                      Clipboard.setData(ClipboardData(text: data['body']));
-                                    },
-                                    icon: const Icon(Icons.copy, size: 18, color: Colors.white),
-                                    label: const Text("Copy Message", style: TextStyle(color: Colors.white)),
-                                    style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all<Color>(mainColor),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: OutlinedButton.icon(
-                                    onPressed: () async{
-                                      CollectionReference message = FirebaseFirestore.instance.collection('message');
-                                      
-                                      return message
-                                        .doc(document.id)
-                                        .delete()
-                                        .then((value) => Navigator.pop(context))
-                                        .catchError((error) => print("Failed to delete chat: $error"));
-                                    },
-                                    icon: const Icon(Icons.delete, size: 18, color: Colors.white),
-                                    label: const Text("Delete Message", style: TextStyle(color: Colors.white)),
-                                    style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all<Color>(mainColor),
-                                    ),
-                                  )
-                                )
-                              ]
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 5, right: 30),
-                    alignment: Alignment.centerRight,
-                    child: getDate(),
-                  )
-                ]
-              );
-            } else if((data['id_user_sender'] != passIdUser)&&(data['id_contact'] == widget.contactId)){
-              return Column(
-                children: [
-                  BubbleSpecialThree(
-                    text: data['body'],
-                    color: containerColor,
-                    tail: true,
-                    isSender: false,
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 5, left: 30),
-                    alignment: Alignment.centerLeft,
-                    child: getDate(),
-                  )
-                ]
-              );
+                    Container(
+                      margin: const EdgeInsets.only(top: 5, left: 30),
+                      alignment: Alignment.centerLeft,
+                      child: getDate(),
+                    )
+                  ]
+                );
+              }
+            } else if(data['type'] == 'question') {
+              if((data['id_user_sender'] == passIdUser)&&(data['id_contact'] == widget.contactId)){
+                return Container(
+                  transform: Matrix4.translationValues(fullWidth*0.1, 0.0, 0.0),
+                  child: GetSharedQuestion(passIdQuestion: data['body'], topLeft: Radius.circular(55),topRight: Radius.circular(10))
+                );
+              } else if((data['id_user_sender'] != passIdUser)&&(data['id_contact'] == widget.contactId)){
+                return Container(
+                  transform: Matrix4.translationValues(fullWidth*-0.1, 0.0, 0.0),
+                  child: GetSharedQuestion(passIdQuestion: data['body'], topLeft: Radius.circular(10),topRight: Radius.circular(55))
+                );
+              }
             }
           }).toList(),
         );

@@ -1,19 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learnzia/Firebase/Contact/GetLastQuestionMessage.dart';
 
-class GetLastFriendMessage extends StatefulWidget {
+class GetStatus extends StatefulWidget {
   @override
-  GetLastFriendMessage({Key key, this.passDocumentId, this.textColor}) : super(key: key);
+  GetStatus({Key key, this.passDocumentId}) : super(key: key);
   final String passDocumentId;
-  var textColor;
 
   @override
-  _GetLastFriendMessageState createState() => _GetLastFriendMessageState();
+  _GetStatusState createState() => _GetStatusState();
 }
 
-class _GetLastFriendMessageState extends State<GetLastFriendMessage> {
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('message').orderBy('datetime', descending: true).limit(1).snapshots();
+class _GetStatusState extends State<GetStatus> {
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('user').snapshots();
+  var textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +30,25 @@ class _GetLastFriendMessageState extends State<GetLastFriendMessage> {
         return Column(
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            if((data['id_contact'] == widget.passDocumentId)&&(data['type'] == 'text')){
+            if(document.id == widget.passDocumentId){
+              if(data['status'] == "offline"){
+                textColor = Colors.red;
+              } else {
+                textColor = Colors.green;
+              }
               return Align(
                 alignment: Alignment.centerLeft,
                 child: RichText(
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
                   text: TextSpan(                     
-                    text: data['body'],
+                    text: data['status'],
                     style: TextStyle(
-                      color: widget.textColor,
-                      fontSize: 14,
+                      color: textColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
                     )
                   ),                              
                 ),
               );
-            } else if((data['id_contact'] == widget.passDocumentId)&&(data['type'] == 'question')){
-              return GetLastQuestionMessage(passIdQuestion: data['body'], textColor: Colors.white);
             } else {
               return const SizedBox();
             }

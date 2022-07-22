@@ -1,23 +1,34 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Classroom/GetCategory.dart';
 import 'package:learnzia/Firebase/Classroom/GetClassname.dart';
-import 'package:learnzia/Firebase/Classroom/GetMainChannel.dart';
-import 'package:learnzia/Firebase/Classroom/GetType.dart';
 import 'package:learnzia/Firebase/Contact/GetLastClassMessage.dart';
 import 'package:learnzia/Firebase/Contact/GetLastFriendMessage.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
-import 'package:learnzia/SecondaryMenu/chatPage.dart';
-import 'package:learnzia/SecondaryMenu/classroomPage.dart';
 import 'package:learnzia/main.dart';
 
-class GetContact extends StatelessWidget {
+class GetContactToShare extends StatelessWidget {
 
   final Stream<QuerySnapshot> _diskusi = FirebaseFirestore.instance.collection('contact').snapshots();
 
-  GetContact({Key key}) : super(key: key);
+  CollectionReference message= FirebaseFirestore.instance.collection('message');
+
+  //Create account.
+  Future<void> sendChat(String idQuestion, String idContact) {
+    return message
+      .add({
+        'body': idQuestion, 
+        'id_contact': idContact, 
+        'id_user_sender': passIdUser, 
+        'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
+        'type': 'question', // for now. 
+      })
+      .then((value) => print("Question has been forwaded"))
+      .catchError((error) => print("Failed to forward question: $error"));
+  }
+
+  GetContactToShare({Key key, this.passIdQuestion}) : super(key: key);
+  final String passIdQuestion;
 
   @override
   Widget build(BuildContext context) {
@@ -80,25 +91,25 @@ class GetContact extends StatelessWidget {
                             alignment: Alignment.topRight,
                             child: Container(
                               margin: const EdgeInsets.only(right: 10.0),
-                              child: const Text(
-                                "Today at 16:40", 
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
+                              child: IconButton(
+                                icon: const Icon(Icons.send),
+                                color: Colors.white, 
+                                onPressed: () async {  
+                                  sendChat(passIdQuestion, document.id);
+                                },
                               ),
-                            )
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                color: mainColor,
+                              ) 
+                            ),
                           ), 
                         ]
-                      )    
+                      ),    
                     )
                   ),
                   onTap: () { 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ChatPage(passIdContact: document.id, passContactName: data['id_user_2'])),
-                    );
+                    //
                   },                   
                 );
               } else if((data['id_user_2'] == passIdUser)&&((data['id_user_1'] != passIdUser))){
@@ -138,25 +149,24 @@ class GetContact extends StatelessWidget {
                             alignment: Alignment.topRight,
                             child: Container(
                               margin: const EdgeInsets.only(right: 10.0),
-                              child: const Text(
-                                "Today at 16:40", 
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
+                              child: IconButton(
+                                icon: const Icon(Icons.send),
+                                color: Colors.white, onPressed: () async {  
+                                  sendChat(passIdQuestion, document.id);
+                                },
                               ),
-                            )
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                color: mainColor,
+                              ) 
+                            ),
                           ), 
                         ]
                       )    
                     )
                   ),
                   onTap: () { 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ChatPage(passIdContact: document.id, passContactName: data['id_user_1'])),
-                    );
+                    //
                   },                   
                 );
               }
@@ -203,38 +213,29 @@ class GetContact extends StatelessWidget {
                                         ),
                                       ),
                                       Container(
-                                        transform: Matrix4.translationValues(50, 0, 0),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(25),
-                                          child: Image.asset(
-                                            'assets/images/User.jpg', width: 40),
-                                        ),
-                                      ),
-                                      Container(
-                                        transform: Matrix4.translationValues(75, 0, 0),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(25),
-                                          child: Image.asset(
-                                            'assets/images/User.jpg', width: 40),
-                                        ),
-                                      ),
-                                      Container(
-                                        transform: Matrix4.translationValues(100, 0, 0),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(25),
-                                          child: Image.asset(
-                                            'assets/images/User.jpg', width: 40),
-                                        ),
-                                      ),
-                                      Container(
-                                        transform: Matrix4.translationValues(150, 20, 0),
+                                        transform: Matrix4.translationValues(75, 20, 0),
                                         child: const Text("+25 more...", style: TextStyle(color: Colors.white, fontSize:12))
                                       ),
                                     ]
                                   ),
                                 ),
                                 const Spacer(),
-                                GetType(passDocumentId: data['id_user_2'])
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: Container(
+                                    child: IconButton(
+                                      icon: const Icon(Icons.send),
+                                      color: Colors.white, 
+                                      onPressed: () async {  
+                                        sendChat(passIdQuestion, document.id);
+                                      },
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: mainColor,
+                                    ) 
+                                  ),
+                                ), 
                               ]
                             ),
                           ),
@@ -262,15 +263,9 @@ class GetContact extends StatelessWidget {
                     )
                   ),
                   onTap: () { 
-                    GetMainChannel(passDocumentId: data['id_user_2']);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ClassroomPage(passIdClass: data['id_user_2'])),
-                    );
+                    //
                   },                   
                 );
-              } else {
-                return SizedBox();
               }
             }
             

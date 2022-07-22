@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
+import 'package:learnzia/Firebase/Forum/GetContactToShare.dart';
 import 'package:learnzia/main.dart';
 
 class GetQuestion extends StatelessWidget {
@@ -14,6 +15,7 @@ class GetQuestion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double fullWidth = MediaQuery.of(context).size.width;
+    double fullHeight = MediaQuery.of(context).size.height;
 
     return StreamBuilder<QuerySnapshot>(
       stream: _diskusi,
@@ -97,7 +99,9 @@ class GetQuestion extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.more_vert),
                         color: Colors.white,
-                        onPressed: () {},
+                        onPressed: () async {
+
+                        },
                       ),
                     ]
                   ),
@@ -140,7 +144,36 @@ class GetQuestion extends StatelessWidget {
                         child: IconButton(
                           icon: const Icon(Icons.send, size: 20),
                           color: Colors.white,
-                          onPressed: () {},
+                          onPressed: () async {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                contentPadding: EdgeInsets.all(0),
+                                content: Container(
+                                  height: fullHeight*0.7,
+                                  width: fullWidth*0.8,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children:[
+                                      Container(
+                                        transform: Matrix4.translationValues(20.0, 0.0, 0.0),
+                                        child: IconButton(
+                                          icon: Icon(Icons.close, color: mainColor),
+                                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                                        ),
+                                      ),
+                                      Container(
+                                        height: fullHeight*0.6,
+                                        width: fullWidth*0.8,
+                                        child: GetContactToShare(passIdQuestion: document.id)
+                                      ),
+                                    ]
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ), 
                     ]

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Profile/ClassroomListPage.dart';
 import 'package:learnzia/Firebase/Profile/CountClassroom.dart';
@@ -17,6 +18,18 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  CollectionReference users= FirebaseFirestore.instance.collection('user');
+
+  Future<void> loginStatus(String id) {
+    return users
+      .doc(id)
+      .update({
+        'status': 'offline', 
+      })
+      .then((value) => print("Login success"))
+      .catchError((error) => print("Failed to update status: $error"));
+  }
+
   @override
   Widget build(BuildContext context) {
     double fullHeight = MediaQuery.of(context).size.height;
@@ -44,12 +57,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: fullWidth*0.44,
                           margin: const EdgeInsets.only(bottom: 5, left:10),
                           child: TextButton.icon(
-                            onPressed: () {
+                            onPressed: () async {
+                              loginStatus(passIdUser); 
+                              
                               passIdUser = "";
                               passUsername = "";
                               subjectPrev = "-";
                               questionPrev = "-";
                               categoryCtrl = "-";
+                         
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => const LoginPage()),

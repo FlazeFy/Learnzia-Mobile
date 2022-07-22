@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Contact/GetChat.dart';
+import 'package:learnzia/Firebase/Contact/GetStatus.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/main.dart';
 
@@ -70,13 +71,7 @@ class _ChatPage extends State<ChatPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GetUsername(passDocumentId: widget.passContactName, textColor: const Color(0xFF010C10)),
-                        const Text("online", 
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        )
+                        GetStatus(passDocumentId: widget.passContactName)
                       ]
                     )
                   ]
