@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:learnzia/Firebase/Profile/ClassroomListPage.dart';
+import 'package:learnzia/Firebase/Profile/CountClassroom.dart';
+import 'package:learnzia/Firebase/Profile/CountFriends.dart';
+import 'package:learnzia/Firebase/Profile/FriendsListPage.dart';
 import 'package:learnzia/Firebase/Profile/GetMiniProfile.dart';
 import 'package:learnzia/MainMenu/loginPage.dart';
 import 'package:learnzia/SecondaryMenu/TabController/createPost.dart';
@@ -90,93 +94,97 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: fullWidth*0.53,
                     child: Column(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          margin: const EdgeInsets.only(bottom: 5, right:10),
-                          child: Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(60),
-                                child: Image.asset(
-                                'assets/icons/Friends.png', width: fullWidth*0.17),
-                              ),
-                              const Spacer(),
-                              SizedBox(
-                                width: fullWidth*0.2,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      margin:const EdgeInsets.only(bottom: 15), 
-                                      child: const Text("Friends", style: TextStyle(color: Color(0xFF212121), fontSize: 16))
-                                    ),
-                                    Container(
-                                      alignment: Alignment.centerRight,
-                                      width: fullWidth*0.45,
-                                      child: const Text("20", maxLines: 1, overflow: TextOverflow.ellipsis, 
-                                        style: TextStyle(color: Color(0xFF212121), fontSize: 22, fontWeight: FontWeight.bold)
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => FriendsListPage()),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(20),
+                            margin: const EdgeInsets.only(bottom: 5, right:10),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(60),
+                                  child: Image.asset(
+                                  'assets/icons/Friends.png', width: fullWidth*0.17),
+                                ),
+                                const Spacer(),
+                                SizedBox(
+                                  width: fullWidth*0.2,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        margin:const EdgeInsets.only(bottom: 15), 
+                                        child: const Text("Friends", style: TextStyle(color: Color(0xFF212121), fontSize: 14, fontWeight: FontWeight.w500))
                                       ),
-                                    ),
-                                  ],
-                                )
-                              ),
-                            ],
-                          ),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                const Color(0xFFF1C40F).withOpacity(0.9),
-                                const Color.fromARGB(255, 244, 140, 13).withOpacity(0.9),
+                                      CountFriends(passDocumentId: passIdUser)
+                                    ],
+                                  )
+                                ),
                               ],
                             ),
-                            borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          )
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  const Color(0xFFF1C40F).withOpacity(0.9),
+                                  const Color.fromARGB(255, 244, 140, 13).withOpacity(0.9),
+                                ],
+                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            )
+                          ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          margin: const EdgeInsets.only(bottom: 5, right:10),
-                          child: Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(60),
-                                child: Image.asset(
-                                'assets/icons/Classroom.png', width: fullWidth*0.17),
-                              ),
-                              const Spacer(),
-                              SizedBox(
-                                width: fullWidth*0.2,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      margin:const EdgeInsets.only(bottom: 15), 
-                                      child: const Text("Classroom", style: TextStyle(color: Color(0xFF212121), fontSize: 16))
-                                    ),
-                                    Container(
-                                      alignment: Alignment.centerRight,
-                                      width: fullWidth*0.45,
-                                      child: const Text("3", maxLines: 1, overflow: TextOverflow.ellipsis, 
-                                        style: TextStyle(color: Color(0xFF212121), fontSize: 22, fontWeight: FontWeight.bold)
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ClassroomListPage()),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(20),
+                            margin: const EdgeInsets.only(bottom: 5, right:10),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(60),
+                                  child: Image.asset(
+                                  'assets/icons/Classroom.png', width: fullWidth*0.17),
+                                ),
+                                const Spacer(),
+                                SizedBox(
+                                  width: fullWidth*0.2,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        margin:const EdgeInsets.only(bottom: 15), 
+                                        child: const Text("Classroom", style: TextStyle(color: Color(0xFF212121), fontSize: 14, fontWeight: FontWeight.w500))
                                       ),
-                                    ),
-                                  ],
-                                )
-                              ),
-                            ],
-                          ),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                const Color(0xFFF1C40F).withOpacity(0.9),
-                                const Color.fromARGB(255, 244, 140, 13).withOpacity(0.9),
+                                      CountClassroom(passDocumentId: passIdUser)
+                                    ],
+                                  )
+                                ),
                               ],
                             ),
-                            borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          )
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  const Color(0xFFF1C40F).withOpacity(0.9),
+                                  const Color.fromARGB(255, 244, 140, 13).withOpacity(0.9),
+                                ],
+                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            )
+                          ),
                         ),
                         Container(
                           padding: const EdgeInsets.all(20),
@@ -196,7 +204,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   children: [
                                     Container(
                                       margin:const EdgeInsets.only(bottom: 15), 
-                                      child: const Text("Statistics", style: TextStyle(color: Color(0xFF212121), fontSize: 16))
+                                      child: const Text("Statistics", style: TextStyle(color: Color(0xFF212121), fontSize: 14, fontWeight: FontWeight.w500))
                                     ),
                                     Container(
                                       alignment: Alignment.centerRight,
