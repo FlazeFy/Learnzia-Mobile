@@ -21,6 +21,21 @@ class _ClassroomPage extends State<ClassroomPage> {
 
   CollectionReference message= FirebaseFirestore.instance.collection('classroom-message');
 
+  //Create account.
+  Future<void> sendChat() {
+    return message
+      .add({
+        'body': _messageTextCtrl.text, 
+        'id_channel': passIdChannel, 
+        'id_classroom': widget.passIdClass, 
+        'id_user': passIdUser, 
+        'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
+        'type': 'text', // for now. 
+      })
+      .then((value) => print("Chat has been sended"))
+      .catchError((error) => print("Failed to send chat: $error"));
+  }
+
   @override
   Widget build(BuildContext context) {
     double fullHeight = MediaQuery.of(context).size.height;
@@ -129,6 +144,7 @@ class _ClassroomPage extends State<ClassroomPage> {
                     const SizedBox(width: 15,),
                     FloatingActionButton(
                       onPressed: () async{
+                        sendChat();
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ClassroomPage(passIdClass: widget.passIdClass)),

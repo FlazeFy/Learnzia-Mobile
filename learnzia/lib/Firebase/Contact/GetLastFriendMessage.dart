@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class GetChannelName extends StatefulWidget {
+class GetLastFriendMessage extends StatefulWidget {
   @override
-  GetChannelName({Key key, this.passDocumentId, this.textColor}) : super(key: key);
+  GetLastFriendMessage({Key key, this.passDocumentId, this.textColor}) : super(key: key);
   final String passDocumentId;
   var textColor;
 
   @override
-  _GetChannelNameState createState() => _GetChannelNameState();
+  _GetLastFriendMessageState createState() => _GetLastFriendMessageState();
 }
 
-class _GetChannelNameState extends State<GetChannelName> {
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('channel').snapshots();
+class _GetLastFriendMessageState extends State<GetLastFriendMessage> {
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('message').orderBy('datetime', descending: true).limit(1).snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +30,15 @@ class _GetChannelNameState extends State<GetChannelName> {
         return Column(
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            if(document.id == widget.passDocumentId){
+            if(data['id_contact'] == widget.passDocumentId){
               return Align(
                 alignment: Alignment.centerLeft,
                 child: RichText(
                   text: TextSpan(                     
-                    text: "#${data['channel_name']}",
+                    text: data['body'],
                     style: TextStyle(
-                      fontWeight: FontWeight.w500,
                       color: widget.textColor,
-                      fontSize: 15,
+                      fontSize: 14,
                     )
                   ),                              
                 ),

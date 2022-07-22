@@ -6,6 +6,8 @@ import 'package:learnzia/Firebase/Classroom/GetCategory.dart';
 import 'package:learnzia/Firebase/Classroom/GetClassname.dart';
 import 'package:learnzia/Firebase/Classroom/GetMainChannel.dart';
 import 'package:learnzia/Firebase/Classroom/GetType.dart';
+import 'package:learnzia/Firebase/Contact/GetLastClassMessage.dart';
+import 'package:learnzia/Firebase/Contact/GetLastFriendMessage.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/SecondaryMenu/chatPage.dart';
 import 'package:learnzia/SecondaryMenu/classroomPage.dart';
@@ -70,15 +72,7 @@ class GetContact extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 GetUsername(passDocumentId: data['id_user_2'], textColor: const Color(0xFFF1c40f)),
-                                RichText(
-                                  text: const TextSpan(                     
-                                    text: 'lorem ipsum',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                    )
-                                  ),                              
-                                )
+                                GetLastFriendMessage(passDocumentId: document.id)
                               ]
                             )
                           ),
@@ -257,28 +251,7 @@ class GetContact extends StatelessWidget {
                                         GetCategory(passDocumentId: data['id_user_2'], textColor: Colors.white),
                                       ]
                                     ),
-                                    Row(
-                                      children: [
-                                        RichText(
-                                          text: const TextSpan(                     
-                                            text: 'data[lastmessage-onchannel] ~ ',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14,
-                                            ),
-                                          ),                              
-                                        ),
-                                        RichText(
-                                          text: const TextSpan(                     
-                                            text: 'data[lastmessage]',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14,
-                                            ),
-                                          ),                              
-                                        )
-                                      ]
-                                    )
+                                    GetLastClassMessage(passDocumentId: data['id_user_2'])
                                   ]
                                 )
                               ),

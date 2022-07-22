@@ -173,7 +173,7 @@ class _ChannelPageState extends State<ChannelPage> {
                               ),
                               actions: <Widget>[
                                 TextButton(
-                                  child: const Text('Oke'),
+                                  child: const Text('Ok'),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
