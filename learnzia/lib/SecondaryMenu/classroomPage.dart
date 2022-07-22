@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learnzia/Firebase/Classroom/GetChannel.dart';
 import 'package:learnzia/Firebase/Classroom/GetChannelname.dart';
 import 'package:learnzia/Firebase/Classroom/GetChatOnChannel.dart';
 import 'package:learnzia/Firebase/Classroom/GetClassname.dart';
-import 'package:learnzia/MainMenu/contactPage.dart';
+import 'package:learnzia/Widgets/sidebar.dart';
 import 'package:learnzia/main.dart';
 
 
@@ -83,17 +82,8 @@ class _ClassroomPage extends State<ClassroomPage> {
         ],  
         backgroundColor: mainColor,
       ),
-      drawer: Drawer(
-        backgroundColor: containerColor,
-        child: Flexible(
-          child: Container(
-            margin: EdgeInsets.only(top: fullHeight*0.1),
-            child: GetChannel(passDocumentId: widget.passIdClass, passIdClass: widget.passIdClass)
-          ),
-        ),
-      ),
+      drawer: NavDrawer(passIdClass: widget.passIdClass),
 
-      //Body.
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Column(

@@ -16,7 +16,7 @@ class CreatePost extends StatefulWidget {
 class _CreatePostState extends State<CreatePost> {
   CollectionReference disc = FirebaseFirestore.instance.collection('discussion');
 
-  //Create account.
+  //Create post.
   Future<void> createDiscussion() {
     return disc
       .add({
