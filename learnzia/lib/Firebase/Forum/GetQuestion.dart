@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/Firebase/Forum/GetContactToShare.dart';
+import 'package:learnzia/SecondaryMenu/replyPage.dart';
 import 'package:learnzia/main.dart';
 
 class GetQuestion extends StatelessWidget {
@@ -124,7 +125,10 @@ class GetQuestion extends StatelessWidget {
                             )
                           ),
                           onPressed: () {
-                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ReplyPage(passIdDisc: document.id)),
+                            );
                           },
                         ),
                       ),
@@ -139,8 +143,8 @@ class GetQuestion extends StatelessWidget {
                           label: const Text("8", style: TextStyle(color: Colors.white)),
                         )
                       ),
+                      Spacer(),
                       Container(
-                        margin: EdgeInsets.only(left: fullWidth*0.2),
                         child: IconButton(
                           icon: const Icon(Icons.send, size: 20),
                           color: Colors.white,
@@ -166,7 +170,7 @@ class GetQuestion extends StatelessWidget {
                                       Container(
                                         height: fullHeight*0.6,
                                         width: fullWidth*0.8,
-                                        child: GetContactToShare(passIdQuestion: document.id)
+                                        child: GetContactToShare(passIdQuestion: document.id, passTypeSend: "question")
                                       ),
                                     ]
                                   ),

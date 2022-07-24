@@ -21,14 +21,15 @@ class GetContactToShare extends StatelessWidget {
         'id_contact': idContact, 
         'id_user_sender': passIdUser, 
         'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
-        'type': 'question', // for now. 
+        'type': passTypeSend,
       })
       .then((value) => print("Question has been forwaded"))
       .catchError((error) => print("Failed to forward question: $error"));
   }
 
-  GetContactToShare({Key key, this.passIdQuestion}) : super(key: key);
+  GetContactToShare({Key key, this.passIdQuestion, this.passTypeSend}) : super(key: key);
   final String passIdQuestion;
+  final String passTypeSend;
 
   @override
   Widget build(BuildContext context) {
