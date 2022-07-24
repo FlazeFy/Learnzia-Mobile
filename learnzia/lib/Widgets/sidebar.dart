@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Classroom/GetChannel.dart';
 import 'package:learnzia/SecondaryMenu/channelPage.dart';
+import 'package:learnzia/SecondaryMenu/manageClass.dart';
 import 'package:learnzia/main.dart';
 
 class NavDrawer extends StatelessWidget{
@@ -21,7 +22,10 @@ class NavDrawer extends StatelessWidget{
         children: [
           GestureDetector(
             onTap: (){
-              //
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ManageClassPage(passIdClass: passIdClass)),
+              );
             },
             child: Container(
               margin: EdgeInsets.only(top: fullHeight*0.1, left: 15),
