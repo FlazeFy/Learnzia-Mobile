@@ -145,6 +145,8 @@ class _GetChatState extends State<GetChat> {
                     )
                   ]
                 );
+              } else {
+                return SizedBox();
               }
             } else if(data['type'] == 'question') {
               if((data['id_user_sender'] == passIdUser)&&(data['id_contact'] == widget.contactId)){
@@ -157,7 +159,11 @@ class _GetChatState extends State<GetChat> {
                   transform: Matrix4.translationValues(fullWidth*-0.1, 0.0, 0.0),
                   child: GetSharedQuestion(passIdQuestion: data['body'], topLeft: Radius.circular(10),topRight: Radius.circular(55))
                 );
+              } else {
+                return SizedBox();
               }
+            } else {
+              return SizedBox();
             }
           }).toList(),
         );

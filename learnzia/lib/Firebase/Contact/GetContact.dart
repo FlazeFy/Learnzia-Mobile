@@ -122,15 +122,7 @@ class GetContact extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 GetUsername(passDocumentId: data['id_user_1'], textColor: const Color(0xFFF1c40f)),
-                                RichText(
-                                  text: const TextSpan(                     
-                                    text: 'lorem ipsum',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                    )
-                                  ),                              
-                                )
+                                GetLastFriendMessage(passDocumentId: document.id)
                               ]
                             )
                           ),

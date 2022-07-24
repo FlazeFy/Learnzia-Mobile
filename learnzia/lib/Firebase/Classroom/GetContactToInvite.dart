@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learnzia/Firebase/Classroom/GetButtonInvitation.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
+import 'package:learnzia/SecondaryMenu/classroomPage.dart';
 import 'package:learnzia/main.dart';
 
 class GetContactToInvite extends StatefulWidget {
@@ -55,12 +57,13 @@ class CheckMember extends StatefulWidget {
 }
 
 class _CheckMemberState extends State<CheckMember> {
+  final Stream<QuerySnapshot> _relation = FirebaseFirestore.instance.collection('classroom-relation').snapshots();
+
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _contact = FirebaseFirestore.instance.collection('classroom-relation').where('id_user', isNotEqualTo: passIdUser).snapshots();
 
     return StreamBuilder<QuerySnapshot>(
-      stream: _contact,
+      stream: _relation,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return Text('Something went wrong');
@@ -84,8 +87,7 @@ class _CheckMemberState extends State<CheckMember> {
             }
         
             if(i == max){
-              print(count.toString());
-              if(count != 0){
+              if(count == 0){
                 return InkWell(
                   child: Card(
                     color: containerColor,
@@ -105,12 +107,13 @@ class _CheckMemberState extends State<CheckMember> {
                             child: Column (
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                GetUsername(passDocumentId: data['id_user'], textColor: const Color(0xFFF1c40f)),
+                                GetUsername(passDocumentId: widget.passIdFriend, textColor: const Color(0xFFF1c40f)),
                                 Text("This will show same classroom with you", style: TextStyle(color: Colors.white)) //Not finished
                               ]
                             )
                           ),
                           Spacer(),
+                          GetButtonInvitation(passIdClass: widget.passIdClass, passIdFriend: widget.passIdFriend)
                         ]
                       )    
                     )

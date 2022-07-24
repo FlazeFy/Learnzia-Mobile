@@ -48,6 +48,8 @@ class _CountFriendsState extends State<CountFriends> {
                   style: const TextStyle(color: Color(0xFF212121), fontSize: 22, fontWeight: FontWeight.bold)
                 ),
               );
+            } else {
+              return SizedBox();
             }
           }).toList(),
         );
