@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Classroom/EditClass.dart';
 import 'package:learnzia/Firebase/Classroom/GetClassname.dart';
+import 'package:learnzia/Firebase/Classroom/GetContactToInvite.dart';
+import 'package:learnzia/Firebase/Classroom/GetMember.dart';
 import 'package:learnzia/Widgets/sidebar.dart';
 import 'package:learnzia/main.dart';
 
@@ -12,7 +14,15 @@ class ManageClassPage extends StatefulWidget {
   _ManageClassPageState createState() => _ManageClassPageState();
 }
 
-class _ManageClassPageState extends State<ManageClassPage> {
+class _ManageClassPageState extends State<ManageClassPage> with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     double fullHeight = MediaQuery.of(context).size.height;
@@ -73,41 +83,82 @@ class _ManageClassPageState extends State<ManageClassPage> {
           ),
         ],  
         backgroundColor: mainColor,
+        bottom: TabBar(
+          indicatorColor: const Color(0xFF7289DA),
+          controller: _tabController,
+          tabs: <Widget>[
+            Tab(
+              icon: Icon(Icons.edit, color: containerColor),
+            ),
+            Tab(
+              icon: Icon(Icons.person, color: containerColor),
+            ),
+            Tab(
+              icon: Icon(Icons.settings, color: containerColor),
+            ),
+          ],
+        ),
       ),
       drawer: NavDrawer(passIdClass: widget.passIdClass),
 
-      body: Container(
-        padding: const EdgeInsets.only(top: 10),
-        child: ListView(
-          padding: const EdgeInsets.only(top: 0, left: 10),
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: const Text("Edit Classroom", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+      body: TabBarView(
+        controller: _tabController,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.only(top: 10),
+            child: ListView(
+              padding: const EdgeInsets.only(top: 0, left: 10),
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: Text("Edit Classroom", style: TextStyle(color: mainColor, fontWeight: FontWeight.bold, fontSize: 16)),
+                ),
+                EditClass(passIdClass: widget.passIdClass),
+              ], 
             ),
-            EditClass(passIdClass: widget.passIdClass),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: const Text("All Member", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
-            ),
+          ),
 
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: const Text("Send Invite", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+          Container(
+            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+            height: fullHeight,
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: Text("Member", style: TextStyle(color: mainColor, fontWeight: FontWeight.bold, fontSize: 16)),
+                ),
+                Flexible(
+                  child: GetMember(passIdClass: widget.passIdClass)
+                )
+              ], 
             ),
+          ),
 
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: const Text("Leave Classroom", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+          Container(
+            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+            height: fullHeight,
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: Text("Send Invite", style: TextStyle(color: mainColor, fontWeight: FontWeight.bold, fontSize: 16)),
+                ),
+                Flexible(
+                  child: GetContactToInvite(passIdClass: widget.passIdClass)
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: Text("Leave Classroom", style: TextStyle(color: mainColor, fontWeight: FontWeight.bold, fontSize: 16)),
+                ),
+                
+              ], 
             ),
-            
-          ], 
-        ),
+          )
+
+        ]
       )
           
-        
     );
-         
     
   }
 }

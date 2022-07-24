@@ -59,9 +59,9 @@ class _EditClassState extends State<EditClass> {
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
             return Container(
+              padding: const EdgeInsets.only(right: 10),
               child: Column(
                 children: [
-              
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Row(
