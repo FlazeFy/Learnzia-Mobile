@@ -143,42 +143,40 @@ class GetQuestion extends StatelessWidget {
                           label: const Text("8", style: TextStyle(color: Colors.white)),
                         )
                       ),
-                      Spacer(),
-                      Container(
-                        child: IconButton(
-                          icon: const Icon(Icons.send, size: 20),
-                          color: Colors.white,
-                          onPressed: () async {
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                contentPadding: EdgeInsets.all(0),
-                                content: Container(
-                                  height: fullHeight*0.7,
-                                  width: fullWidth*0.8,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children:[
-                                      Container(
-                                        transform: Matrix4.translationValues(20.0, 0.0, 0.0),
-                                        child: IconButton(
-                                          icon: Icon(Icons.close, color: mainColor),
-                                          onPressed: () => Navigator.pop(context, 'Cancel'),
-                                        ),
+                      const Spacer(),
+                      IconButton(
+                        icon: const Icon(Icons.send, size: 20),
+                        color: Colors.white,
+                        onPressed: () async {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              contentPadding: const EdgeInsets.all(0),
+                              content: SizedBox(
+                                height: fullHeight*0.7,
+                                width: fullWidth*0.8,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children:[
+                                    Container(
+                                      transform: Matrix4.translationValues(20.0, 0.0, 0.0),
+                                      child: IconButton(
+                                        icon: Icon(Icons.close, color: mainColor),
+                                        onPressed: () => Navigator.pop(context, 'Cancel'),
                                       ),
-                                      Container(
-                                        height: fullHeight*0.6,
-                                        width: fullWidth*0.8,
-                                        child: GetContactToShare(passIdQuestion: document.id, passTypeSend: "question")
-                                      ),
-                                    ]
-                                  ),
+                                    ),
+                                    SizedBox(
+                                      height: fullHeight*0.6,
+                                      width: fullWidth*0.8,
+                                      child: GetContactToShare(passIdQuestion: document.id, passTypeSend: "question")
+                                    ),
+                                  ]
                                 ),
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       ), 
                     ]
                   ),

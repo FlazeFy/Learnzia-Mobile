@@ -15,7 +15,6 @@ class GetMyFriendsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double fullWidth = MediaQuery.of(context).size.width;
 
     return StreamBuilder<QuerySnapshot>(
       stream: _diskusi,
@@ -34,16 +33,6 @@ class GetMyFriendsList extends StatelessWidget {
           padding: const EdgeInsets.only(top: 0, left: 10, right: 10),
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            Widget getDate(){
-              var dt = DateTime.fromMicrosecondsSinceEpoch(data['datetime'].microsecondsSinceEpoch).toString();
-              var date = DateTime.parse(dt);
-              var formattedDate = "${date.day}-${date.month}-${date.year}";
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                  child: Text(formattedDate, style: const TextStyle(fontSize: 12, color: Colors.grey, fontStyle: FontStyle.italic)
-                )
-              );
-            }
             if((data['id_user_1'] == passIdUser)&&((data['id_user_2'] != passIdUser))){
               return InkWell(
                 child: Card(

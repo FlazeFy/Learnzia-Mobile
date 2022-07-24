@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learnzia/Firebase/Contact/GetUsername.dart';
-import 'package:learnzia/main.dart';
 
 class GetLastQuestionMessage extends StatelessWidget {
   GetLastQuestionMessage({Key key, this.passIdQuestion, this.textColor}) : super(key: key);
@@ -44,7 +42,7 @@ class GetLastQuestionMessage extends StatelessWidget {
                 ),
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
             
 

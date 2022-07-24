@@ -5,7 +5,7 @@ class CountFriends extends StatefulWidget {
   @override
   CountFriends({Key key, this.passDocumentId, this.textColor}) : super(key: key);
   final String passDocumentId;
-  var textColor;
+  var textColor ="";
 
   @override
   _CountFriendsState createState() => _CountFriendsState();
@@ -49,7 +49,7 @@ class _CountFriendsState extends State<CountFriends> {
                 ),
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           }).toList(),
         );

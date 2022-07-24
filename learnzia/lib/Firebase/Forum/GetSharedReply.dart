@@ -1,18 +1,16 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/Firebase/Forum/GetContactToShare.dart';
-import 'package:learnzia/SecondaryMenu/replyPage.dart';
 import 'package:learnzia/main.dart';
 
-class GetQuestionOnReply extends StatelessWidget {
+class GetSharedReply extends StatelessWidget {
+  GetSharedReply({Key key, this.passIdReply, this.topLeft, this.topRight}) : super(key: key);
+  final String passIdReply;
+  var topLeft;
+  var topRight;
 
-  final Stream<QuerySnapshot> _diskusi = FirebaseFirestore.instance.collection('discussion').snapshots();
-
-  GetQuestionOnReply({Key key, this.passIdDisc}) : super(key: key);
-  final String passIdDisc;
+  final Stream<QuerySnapshot> _reply = FirebaseFirestore.instance.collection('reply').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,7 @@ class GetQuestionOnReply extends StatelessWidget {
     double fullHeight = MediaQuery.of(context).size.height;
 
     return StreamBuilder<QuerySnapshot>(
-      stream: _diskusi,
+      stream: _reply,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return const Text('Something went wrong');
@@ -35,45 +33,46 @@ class GetQuestionOnReply extends StatelessWidget {
         return Column(
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            Widget getImage(){
-              if(data['image'] == "null"){
+            if(document.id == passIdReply){
+              Widget getImage(){
+                if(data['image'] == "null"){
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+                    child: Text("${data['body']}", style: const TextStyle(color: Colors.white))
+                  );
+                } else {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+                    child: Column(
+                      children:[
+                        ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          'assets/images/${data['image']}'),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 5),
+                          child: Text("${data['body']}", style: const TextStyle(color: Colors.white))
+                        )
+                      ]
+                    )
+                  );
+                }
+              }
+              Widget getDate(){
+                var dt = DateTime.fromMicrosecondsSinceEpoch(data['datetime'].microsecondsSinceEpoch).toString();
+                var date = DateTime.parse(dt);
+                var formattedDate = "${date.day}-${date.month}-${date.year}";
                 return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                  child: Text("${data['subject']} - ${data['question']}", style: const TextStyle(color: Colors.white))
-                );
-              } else {
-                return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                  child: Column(
-                    children:[
-                      ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        'assets/images/${data['image']}'),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 5),
-                        child: Text("${data['subject']} - ${data['question']}", style: const TextStyle(color: Colors.white))
-                      )
-                    ]
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                    child: Text(formattedDate, style: const TextStyle(fontSize: 12, color: Colors.grey, fontStyle: FontStyle.italic)
                   )
                 );
               }
-            }
-            Widget getDate(){
-              var dt = DateTime.fromMicrosecondsSinceEpoch(data['datetime'].microsecondsSinceEpoch).toString();
-              var date = DateTime.parse(dt);
-              var formattedDate = "${date.day}-${date.month}-${date.year}";
               return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                  child: Text(formattedDate, style: const TextStyle(fontSize: 12, color: Colors.grey, fontStyle: FontStyle.italic)
-                )
-              );
-            }
-            if(document.id == passIdDisc){
-              return Container(
-                margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
+                margin: const EdgeInsets.all(10),
                 padding: const EdgeInsets.all(10),
+                width: fullWidth*0.7,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +92,7 @@ class GetQuestionOnReply extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               GetUsername(passDocumentId: data['id_user'], textColor: const Color(0xFFF1c40f)),
-                              Text(data['category'], style: const TextStyle(color: Colors.grey, fontSize: 14)),
+                              getDate(),
                             ],
                           ),
                         ),
@@ -108,7 +107,6 @@ class GetQuestionOnReply extends StatelessWidget {
                       ]
                     ),
                     getImage(),
-                    getDate(),
                     Row(
                       children: [
                         Container(
@@ -126,23 +124,9 @@ class GetQuestionOnReply extends StatelessWidget {
                               )
                             ),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => ReplyPage(passIdDisc: document.id)),
-                              );
+                              
                             },
                           ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(right: 5),
-                          width: fullWidth*0.2,
-                          child: TextButton.icon(
-                            onPressed: () {
-                                // Respond to button press
-                            },
-                            icon: const Icon(Icons.comment, size: 20, color: Colors.white),
-                            label: const Text("8", style: TextStyle(color: Colors.white)),
-                          )
                         ),
                         const Spacer(),
                         IconButton(
@@ -170,7 +154,7 @@ class GetQuestionOnReply extends StatelessWidget {
                                       SizedBox(
                                         height: fullHeight*0.6,
                                         width: fullWidth*0.8,
-                                        child: GetContactToShare(passIdQuestion: document.id, passTypeSend: "question")
+                                        child: GetContactToShare(passIdQuestion: document.id, passTypeSend: "reply")
                                       ),
                                     ]
                                   ),
@@ -185,13 +169,13 @@ class GetQuestionOnReply extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: containerColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  borderRadius: BorderRadius.only(topRight: topRight, bottomRight: const Radius.circular(10), bottomLeft: const Radius.circular(10), topLeft: topLeft),
                 )
               );
             } else {
               return const SizedBox();
             }
-
+            
           }).toList(),
         );
       },

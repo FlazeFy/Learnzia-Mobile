@@ -1,50 +1,42 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class GetStatus extends StatefulWidget {
-  @override
-  const GetStatus({Key key, this.passDocumentId}) : super(key: key);
-  final String passDocumentId;
-
-  @override
-  _GetStatusState createState() => _GetStatusState();
-}
-
-class _GetStatusState extends State<GetStatus> {
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('user').snapshots();
+class GetLastReplyMessage extends StatelessWidget {
+  GetLastReplyMessage({Key key, this.passIdReply, this.textColor}) : super(key: key);
+  final String passIdReply;
   var textColor;
+
+  final Stream<QuerySnapshot> _diskusi = FirebaseFirestore.instance.collection('reply').snapshots();
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _usersStream,
+      stream: _diskusi,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text("Loading");
+          return const Center( 
+            child: CircularProgressIndicator()
+          );
         }
 
         return Column(
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            if(document.id == widget.passDocumentId){
-              if(data['status'] == "offline"){
-                textColor = Colors.red;
-              } else {
-                textColor = Colors.green;
-              }
+            if(document.id == passIdReply){
               return Align(
                 alignment: Alignment.centerLeft,
                 child: RichText(
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   text: TextSpan(                     
-                    text: data['status'],
+                    text: data['body'],
                     style: TextStyle(
                       color: textColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
+                      fontSize: 14,
                     )
                   ),                              
                 ),
@@ -52,6 +44,8 @@ class _GetStatusState extends State<GetStatus> {
             } else {
               return const SizedBox();
             }
+            
+
           }).toList(),
         );
       },

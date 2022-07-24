@@ -81,7 +81,7 @@ class _MyDiscussionPageState extends State<MyDiscussionPage> {
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                      child: Text("${subjectPrev} ~ ${questionPrev}", style: const TextStyle(color: Colors.white))
+                      child: Text("$subjectPrev ~ $questionPrev", style: const TextStyle(color: Colors.white))
                     ),
                     Row(
                       children: [

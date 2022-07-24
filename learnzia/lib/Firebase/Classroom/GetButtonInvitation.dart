@@ -4,7 +4,7 @@ import 'package:learnzia/main.dart';
 
 class GetButtonInvitation extends StatefulWidget {
   @override
-  GetButtonInvitation({Key key, this.passIdClass, this.passIdFriend}) : super(key: key);
+  const GetButtonInvitation({Key key, this.passIdClass, this.passIdFriend}) : super(key: key);
   final String passIdClass;
   final String passIdFriend;
 
@@ -15,10 +15,10 @@ class GetButtonInvitation extends StatefulWidget {
 class _GetButtonInvitationState extends State<GetButtonInvitation> {
   CollectionReference rel= FirebaseFirestore.instance.collection('invitation');
 
-  Future<void> sendInvitation(String id_friend) {
+  Future<void> sendInvitation(String idFriend) {
     return rel
       .add({
-        'id_user_receiver': id_friend,
+        'id_user_receiver': idFriend,
         'id_user_sender': passIdUser, 
         'id_context': widget.passIdClass, 
         'type': 'classroom', 
@@ -44,23 +44,23 @@ class _GetButtonInvitationState extends State<GetButtonInvitation> {
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went wrong');
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return const Text("Loading");
         }
 
         int i = 0;
         int count = 0;
         int total = snapshot.data.size;
-        String id_invitation;
+        String idInvitation;
 
         return Column(
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
             if((data['id_user_receiver'] == widget.passIdFriend)&&(data['id_context'] == widget.passIdClass)){
-              id_invitation = document.id;
+              idInvitation = document.id;
               count = 1;
               i++;
             } else {
@@ -81,9 +81,9 @@ class _GetButtonInvitationState extends State<GetButtonInvitation> {
                         actions: <Widget>[
                           Column(
                             children: [
-                              Align(
+                              const Align(
                                 alignment: Alignment.center,
-                                child: Text("Resend the invitation?", style: const TextStyle(color: Colors.black)),
+                                child: Text("Resend the invitation?", style: TextStyle(color: Colors.black)),
                               ),
                               Row(
                                 children: [
@@ -99,12 +99,12 @@ class _GetButtonInvitationState extends State<GetButtonInvitation> {
                                       child: const Text("Cancel"),
                                     )
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   Container(
                                     margin: const EdgeInsets.symmetric(horizontal: 10.0),
                                     child: ElevatedButton(
                                       onPressed: () async {
-                                        resendInvitation(id_invitation);
+                                        resendInvitation(idInvitation);
                                         return showDialog<void>(
                                           context: context,
                                           barrierDismissible: false,
@@ -118,7 +118,7 @@ class _GetButtonInvitationState extends State<GetButtonInvitation> {
                                                       child: Image.asset(
                                                         'assets/icons/Channel.png', width: 20),
                                                     ),
-                                                    Text('Invitation has resend'),
+                                                    const Text('Invitation has resend'),
                                                   ],
                                                 ),
                                               ),
@@ -161,13 +161,13 @@ class _GetButtonInvitationState extends State<GetButtonInvitation> {
                     onPressed: () => showDialog<String>(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                        title: Text('Attention'),
+                        title: const Text('Attention'),
                         actions: <Widget>[
                           Column(
                             children: [
-                              Align(
+                              const Align(
                                 alignment: Alignment.center,
-                                child: Text("Invite friend to classroom?", style: const TextStyle(color: Colors.black)),
+                                child: Text("Invite friend to classroom?", style: TextStyle(color: Colors.black)),
                               ),
                               Row(
                                 children: [
@@ -183,7 +183,7 @@ class _GetButtonInvitationState extends State<GetButtonInvitation> {
                                       child: const Text("Cancel"),
                                     )
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   Container(
                                     margin: const EdgeInsets.symmetric(horizontal: 10.0),
                                     child: ElevatedButton(
@@ -202,7 +202,7 @@ class _GetButtonInvitationState extends State<GetButtonInvitation> {
                                                       child: Image.asset(
                                                         'assets/icons/Channel.png', width: 20),
                                                     ),
-                                                    Text('Invitation sent successfully'),
+                                                    const Text('Invitation sent successfully'),
                                                   ],
                                                 ),
                                               ),
@@ -239,7 +239,7 @@ class _GetButtonInvitationState extends State<GetButtonInvitation> {
                 );
               }
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           }).toList(),
         );

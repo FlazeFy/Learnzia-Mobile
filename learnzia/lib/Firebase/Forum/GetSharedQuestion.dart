@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
-import 'package:learnzia/Firebase/Forum/GetContactToShare.dart';
 import 'package:learnzia/main.dart';
 
 class GetSharedQuestion extends StatelessWidget {
@@ -16,7 +15,6 @@ class GetSharedQuestion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double fullWidth = MediaQuery.of(context).size.width;
-    double fullHeight = MediaQuery.of(context).size.height;
 
     return StreamBuilder<QuerySnapshot>(
       stream: _diskusi,
@@ -147,11 +145,11 @@ class GetSharedQuestion extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: containerColor,
-                  borderRadius: BorderRadius.only(topRight: topRight, bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10), topLeft: topLeft),
+                  borderRadius: BorderRadius.only(topRight: topRight, bottomRight: const Radius.circular(10), bottomLeft: const Radius.circular(10), topLeft: topLeft),
                 )
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
             
 

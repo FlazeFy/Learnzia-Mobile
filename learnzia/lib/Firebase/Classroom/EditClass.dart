@@ -20,10 +20,10 @@ class _EditClassState extends State<EditClass> {
   final classroomNameCtrl = TextEditingController();
   final classroomDescCtrl = TextEditingController();
 
-  var classCategory;
-  var classType;
-  var className;
-  var classDesc;
+  var classCategory ="";
+  var classType ="";
+  var className ="";
+  var classDesc ="";
   
   CollectionReference classroom = FirebaseFirestore.instance.collection('classroom');
 
@@ -46,11 +46,11 @@ class _EditClassState extends State<EditClass> {
       stream: _classStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went wrong');
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return const Text("Loading");
         }
 
         return Column(
@@ -93,9 +93,9 @@ class _EditClassState extends State<EditClass> {
                       controller: classroomNameCtrl,
                       decoration: InputDecoration(
                         hintText: data['classname'],
-                        border: OutlineInputBorder(),
-                        fillColor: Color(0xFF5A5d5e),
-                        hintStyle: TextStyle(color: Colors.white),
+                        border: const OutlineInputBorder(),
+                        fillColor: const Color(0xFF5A5d5e),
+                        hintStyle: const TextStyle(color: Colors.white),
                         filled: true,
                       ),
                     ),
@@ -111,9 +111,9 @@ class _EditClassState extends State<EditClass> {
                       controller: classroomDescCtrl,
                       decoration: InputDecoration(
                         hintText: data['description'],
-                        border: OutlineInputBorder(),
-                        fillColor: Color(0xFF5A5d5e),
-                        hintStyle: TextStyle(color: Colors.white),
+                        border: const OutlineInputBorder(),
+                        fillColor: const Color(0xFF5A5d5e),
+                        hintStyle: const TextStyle(color: Colors.white),
                         filled: true,
                       ),
                     ),
@@ -124,6 +124,7 @@ class _EditClassState extends State<EditClass> {
                         margin: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: ElevatedButton.icon(
                           onPressed: () async {
+                            //Class category and type need to be fixed
                             if(classroomNameCtrl.text.isEmpty){
                               className = data['classname'];
                             } else {

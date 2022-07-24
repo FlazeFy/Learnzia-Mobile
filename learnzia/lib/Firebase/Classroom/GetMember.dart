@@ -5,7 +5,7 @@ import 'package:learnzia/main.dart';
 
 class GetMember extends StatefulWidget {
   @override
-  GetMember({Key key, this.passIdClass}) : super(key: key);
+  const GetMember({Key key, this.passIdClass}) : super(key: key);
   final String passIdClass;
 
   @override
@@ -21,20 +21,20 @@ class _GetMemberState extends State<GetMember> {
       stream: _classrel,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went wrong');
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return const Text("Loading");
         }
 
         return ListView(
-          padding: EdgeInsets.only(top: 0),
+          padding: const EdgeInsets.only(top: 0),
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
             Widget getClassControl(){
               if(data['id_user'] == passIdUser){
-                return SizedBox();
+                return const SizedBox();
               } 
               //NOT FINISHED
             }
@@ -58,11 +58,11 @@ class _GetMemberState extends State<GetMember> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             GetUsername(passDocumentId: data['id_user'], textColor: const Color(0xFFF1c40f)),
-                            Text(data['role'], style: TextStyle(color: Colors.white))
+                            Text(data['role'], style: const TextStyle(color: Colors.white))
                           ]
                         )
                       ),
-                      Spacer(),
+                      const Spacer(),
                       getClassControl()
                     ]
                   )    

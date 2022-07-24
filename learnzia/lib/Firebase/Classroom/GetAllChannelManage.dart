@@ -18,8 +18,8 @@ class _GetAllChannelManageState extends State<GetAllChannelManage> {
   String channelDesc;
 
   CollectionReference channel= FirebaseFirestore.instance.collection('channel');
-  final edit_channelnameCtrl = TextEditingController();
-  final edit_channeldescCtrl = TextEditingController();
+  final editchannelnameCtrl = TextEditingController();
+  final editchanneldescCtrl = TextEditingController();
   final validation = TextEditingController();
 
   Future<void> editChannel(String id) {
@@ -90,7 +90,7 @@ class _GetAllChannelManageState extends State<GetAllChannelManage> {
                                 padding: const EdgeInsets.only(bottom: 10),
                                 margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                                 child: TextField(
-                                  controller: edit_channelnameCtrl,
+                                  controller: editchannelnameCtrl,
                                   decoration: InputDecoration(
                                     hintText: "#${data['channel_name']}",
                                     border: const OutlineInputBorder(),
@@ -108,7 +108,7 @@ class _GetAllChannelManageState extends State<GetAllChannelManage> {
                                 padding: const EdgeInsets.only(bottom: 10),
                                 margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                                 child: TextField(
-                                  controller: edit_channeldescCtrl,
+                                  controller: editchanneldescCtrl,
                                   decoration: InputDecoration(
                                     hintText: data['channel_description'],
                                     border: const OutlineInputBorder(),
@@ -122,15 +122,15 @@ class _GetAllChannelManageState extends State<GetAllChannelManage> {
                                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
                                 child: ElevatedButton.icon(
                                   onPressed: () async {
-                                    if(edit_channelnameCtrl.text.isEmpty){
+                                    if(editchannelnameCtrl.text.isEmpty){
                                       channelName = data['channel_name'];
                                     } else {
-                                      channelName = edit_channelnameCtrl.text;
+                                      channelName = editchannelnameCtrl.text;
                                     }
-                                    if(edit_channeldescCtrl.text.isEmpty){
+                                    if(editchanneldescCtrl.text.isEmpty){
                                       channelDesc = data['channel_description'];
                                     } else {
-                                      channelDesc = edit_channeldescCtrl.text;
+                                      channelDesc = editchanneldescCtrl.text;
                                     }
                                     editChannel(document.id);
                                     return showDialog<void>(

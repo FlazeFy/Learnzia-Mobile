@@ -2,12 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Classroom/GetButtonInvitation.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
-import 'package:learnzia/SecondaryMenu/classroomPage.dart';
 import 'package:learnzia/main.dart';
 
 class GetContactToInvite extends StatefulWidget {
   @override
-  GetContactToInvite({Key key, this.passIdClass}) : super(key: key);
+  const GetContactToInvite({Key key, this.passIdClass}) : super(key: key);
   final String passIdClass;
 
   @override
@@ -23,11 +22,11 @@ class _GetContactToInviteState extends State<GetContactToInvite> {
       stream: _contact,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went wrong');
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return const Text("Loading");
         }
 
         return ListView(
@@ -38,7 +37,7 @@ class _GetContactToInviteState extends State<GetContactToInvite> {
             } else if((data['id_user_2'] != passIdUser)&&(data['id_user_1'] == passIdUser)){
               return CheckMember(passIdFriend : data['id_user_2'], passIdClass: widget.passIdClass);
             }
-            return SizedBox();
+            return const SizedBox();
           }).toList(),
         );
       },
@@ -48,7 +47,7 @@ class _GetContactToInviteState extends State<GetContactToInvite> {
 
 class CheckMember extends StatefulWidget {
   @override
-  CheckMember({Key key, this.passIdFriend, this.passIdClass}) : super(key: key);
+  const CheckMember({Key key, this.passIdFriend, this.passIdClass}) : super(key: key);
   final String passIdFriend;
   final String passIdClass;
 
@@ -66,11 +65,11 @@ class _CheckMemberState extends State<CheckMember> {
       stream: _relation,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went wrong');
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return const Text("Loading");
         }
 
         int i = 0;
@@ -108,11 +107,11 @@ class _CheckMemberState extends State<CheckMember> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 GetUsername(passDocumentId: widget.passIdFriend, textColor: const Color(0xFFF1c40f)),
-                                Text("This will show same classroom with you", style: TextStyle(color: Colors.white)) //Not finished
+                                const Text("This will show same classroom with you", style: TextStyle(color: Colors.white)) //Not finished
                               ]
                             )
                           ),
-                          Spacer(),
+                          const Spacer(),
                           GetButtonInvitation(passIdClass: widget.passIdClass, passIdFriend: widget.passIdFriend)
                         ]
                       )    
@@ -123,10 +122,10 @@ class _CheckMemberState extends State<CheckMember> {
                   },                   
                 );
               } else {
-                return SizedBox();
+                return const SizedBox();
               }
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
             
           }).toList(),

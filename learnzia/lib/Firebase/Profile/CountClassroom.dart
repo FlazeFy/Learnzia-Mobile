@@ -52,8 +52,8 @@ class _CountClassroomState extends State<CountClassroom> {
               return Container(
                 alignment: Alignment.centerRight,
                 width: fullWidth*0.45,
-                child: Text("0", maxLines: 1, overflow: TextOverflow.ellipsis, 
-                  style: const TextStyle(color: Color(0xFF212121), fontSize: 22, fontWeight: FontWeight.bold)
+                child: const Text("0", maxLines: 1, overflow: TextOverflow.ellipsis, 
+                  style: TextStyle(color: Color(0xFF212121), fontSize: 22, fontWeight: FontWeight.bold)
                 ),
               );
             }

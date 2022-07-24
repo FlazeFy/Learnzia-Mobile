@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learnzia/Firebase/Forum/GetSharedQuestion.dart';
+import 'package:learnzia/Firebase/Forum/GetSharedReply.dart';
 import 'package:learnzia/main.dart';
 
 class GetChat extends StatefulWidget {
@@ -146,24 +147,38 @@ class _GetChatState extends State<GetChat> {
                   ]
                 );
               } else {
-                return SizedBox();
+                return const SizedBox();
               }
             } else if(data['type'] == 'question') {
               if((data['id_user_sender'] == passIdUser)&&(data['id_contact'] == widget.contactId)){
                 return Container(
                   transform: Matrix4.translationValues(fullWidth*0.1, 0.0, 0.0),
-                  child: GetSharedQuestion(passIdQuestion: data['body'], topLeft: Radius.circular(55),topRight: Radius.circular(10))
+                  child: GetSharedQuestion(passIdQuestion: data['body'], topLeft: const Radius.circular(55),topRight: const Radius.circular(10))
                 );
               } else if((data['id_user_sender'] != passIdUser)&&(data['id_contact'] == widget.contactId)){
                 return Container(
                   transform: Matrix4.translationValues(fullWidth*-0.1, 0.0, 0.0),
-                  child: GetSharedQuestion(passIdQuestion: data['body'], topLeft: Radius.circular(10),topRight: Radius.circular(55))
+                  child: GetSharedQuestion(passIdQuestion: data['body'], topLeft: const Radius.circular(10),topRight: const Radius.circular(55))
                 );
               } else {
-                return SizedBox();
+                return const SizedBox();
+              }
+            } else if(data['type'] == 'reply') {
+              if((data['id_user_sender'] == passIdUser)&&(data['id_contact'] == widget.contactId)){
+                return Container(
+                  transform: Matrix4.translationValues(fullWidth*0.1, 0.0, 0.0),
+                  child: GetSharedReply(passIdReply: data['body'], topLeft: const Radius.circular(55),topRight: const Radius.circular(10))
+                );
+              } else if((data['id_user_sender'] != passIdUser)&&(data['id_contact'] == widget.contactId)){
+                return Container(
+                  transform: Matrix4.translationValues(fullWidth*-0.1, 0.0, 0.0),
+                  child: GetSharedReply(passIdReply: data['body'], topLeft: const Radius.circular(10),topRight: const Radius.circular(55))
+                );
+              } else {
+                return const SizedBox();
               }
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           }).toList(),
         );
