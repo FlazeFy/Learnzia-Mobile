@@ -27,6 +27,7 @@ class _ReplyPageState extends State<ReplyPage> {
         'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
         'type': 'text', // for now. 
         'image': 'null', // for now. 
+        'status': 'null', 
       })
       .then((value) => print("Reply has been sended"))
       .catchError((error) => print("Failed to send reply: $error"));
