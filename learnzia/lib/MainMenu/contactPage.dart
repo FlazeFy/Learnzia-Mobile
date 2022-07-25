@@ -21,7 +21,7 @@ class _ContactPageState extends State<ContactPage> {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: fullHeight*0.08, left: 10),
+                margin: EdgeInsets.only(top: fullHeight*0.06, left: 10),
                 child: const Align(
                   alignment: Alignment.centerLeft,
                   child: Text("Contact", style: TextStyle(color: Color(0xFF313436), fontWeight:FontWeight.bold, fontSize: 18)),
@@ -42,7 +42,7 @@ class _ContactPageState extends State<ContactPage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 10, bottom: fullHeight*0.1),
+                margin: EdgeInsets.only(left: 10, bottom: fullHeight*0.04),
                 child: const Align(
                   alignment: Alignment.centerLeft,
                   child: Text("Show 2 Contact", style: TextStyle(color: Color(0xFF313436), fontWeight:FontWeight.bold, fontSize: 14)),

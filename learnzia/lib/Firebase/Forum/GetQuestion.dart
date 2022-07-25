@@ -32,7 +32,7 @@ class GetQuestion extends StatelessWidget {
         }
 
         return ListView(
-          padding: const EdgeInsets.all(3.0),
+          padding: const EdgeInsets.only(top: 0),
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
             Widget getImage(){

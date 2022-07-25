@@ -77,6 +77,40 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
                   )
                 ]
               );
+            } if((data['id_user'] != passIdUser)&&(data['id_channel'] == passIdChannel)){
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 20.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Image.asset(
+                        'assets/images/User.jpg', width: 35),
+                    ),
+                  ),
+                  GestureDetector(
+                    child: BubbleSpecialThree(
+                      text: data['body'],
+                      color: containerColor,
+                      tail: true,
+                      isSender: false,
+                      textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16
+                      ),
+                    ),
+                    onLongPress: () {
+                      
+                    },
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5, left: 30),
+                    alignment: Alignment.centerLeft,
+                    child: getDate(),
+                  )
+                ]
+              );
             } else {
               return const SizedBox();
             }

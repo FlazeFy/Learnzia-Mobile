@@ -14,6 +14,40 @@ class GetMyInvitation extends StatelessWidget {
 
   GetMyInvitation({Key key}) : super(key: key);
 
+  CollectionReference rel= FirebaseFirestore.instance.collection('classroom-relation');
+  CollectionReference contact= FirebaseFirestore.instance.collection('contact');
+  CollectionReference invt= FirebaseFirestore.instance.collection('invitation');
+
+  Future<void> joinClass(String idClass) {
+    return rel
+      .add({
+        'id_classroom': idClass, 
+        'id_user': passIdUser, 
+        'role': 'member', 
+      })
+      .then((value) => print("Successfully join classroom"))
+      .catchError((error) => print("Failed to join class: $error"));
+  }
+
+  Future<void> addToContact(String idClass) {
+    return contact
+      .add({
+        'id_user_1': passIdUser, 
+        'id_user_2': idClass, 
+        'type': 'classroom', 
+      })
+      .then((value) => print("Successfully add to contact"))
+      .catchError((error) => print("Failed to add contact: $error"));
+  }
+
+  Future<void> rejectInvitation(String idInvitation) {
+    return invt
+      .doc(idInvitation)
+      .delete()
+      .then((value) => print("Successfully reject invitation"))
+      .catchError((error) => print("Failed to delete invitation: $error"));
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -70,51 +104,44 @@ class GetMyInvitation extends StatelessWidget {
                                     child:IconButton(
                                       icon: const Icon(Icons.check),
                                       color: Colors.white,
-                                      onPressed: () => showDialog<String>(
-                                        context: context,
-                                        builder: (BuildContext context) => AlertDialog(
-                                          title: const Text('Attention'),
-                                          actions: <Widget>[
-                                            Column(
-                                              children: [
-                                                const Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text("Accept the invitation?", style: TextStyle(color: Colors.black)),
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                                                      child: ElevatedButton(
-                                                        onPressed: () {
-                                                          Navigator.pop(context);
-                                                        },
-                                                        style: ElevatedButton.styleFrom(
-                                                          primary: Colors.red, // Background color
-                                                        ),
-                                                        child: const Text("Cancel"),
-                                                      )
+                                      onPressed: () async {
+                                        joinClass(data['id_context']);
+                                        addToContact(data['id_context']);
+                                        rejectInvitation(document.id);
+                                        return showDialog<void>(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text('Success', style: TextStyle(fontWeight: FontWeight.bold)),
+                                              content: SingleChildScrollView(
+                                                child: ListBody(
+                                                  children: <Widget>[
+                                                    ClipRRect(
+                                                      child: Image.asset(
+                                                        'assets/icons/Channel.png', width: 20),
                                                     ),
-                                                    const Spacer(),
-                                                    Container(
-                                                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                                                      child: ElevatedButton(
-                                                        onPressed: () async {
-                                                          
-                                                        },
-                                                        style: ElevatedButton.styleFrom(
-                                                          primary: Colors.green, // Background color
-                                                        ),
-                                                        child: const Text("Yes"),
-                                                      )
-                                                    )
+                                                    Row(
+                                                      children: [
+                                                        Text("Congratulations, you are now a member of ", style: TextStyle(color: mainColor)),
+                                                        GetClassname(passDocumentId: data['id_context'], textColor: mainColor)
+                                                      ],
+                                                    ),
                                                   ],
-                                                )
+                                                ),
+                                              ),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text('Continue'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
                                               ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
+                                            );
+                                          }
+                                        );
+                                      }
                                     ),
                                     decoration: BoxDecoration(
                                       color: Colors.green,
@@ -126,51 +153,37 @@ class GetMyInvitation extends StatelessWidget {
                                     child:IconButton(
                                       icon: const Icon(Icons.cancel),
                                       color: Colors.white,
-                                      onPressed: () => showDialog<String>(
-                                        context: context,
-                                        builder: (BuildContext context) => AlertDialog(
-                                          title: const Text('Attention'),
-                                          actions: <Widget>[
-                                            Column(
-                                              children: [
-                                                const Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text("Accept the invitation?", style: TextStyle(color: Colors.black)),
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                                                      child: ElevatedButton(
-                                                        onPressed: () {
-                                                          Navigator.pop(context);
-                                                        },
-                                                        style: ElevatedButton.styleFrom(
-                                                          primary: Colors.red, // Background color
-                                                        ),
-                                                        child: const Text("Cancel"),
-                                                      )
+                                      onPressed: () async {
+                                        rejectInvitation(document.id);
+                                        return showDialog<void>(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text('Success', style: TextStyle(fontWeight: FontWeight.bold)),
+                                              content: SingleChildScrollView(
+                                                child: ListBody(
+                                                  children: <Widget>[
+                                                    ClipRRect(
+                                                      child: Image.asset(
+                                                        'assets/icons/success.png', width: 20),
                                                     ),
-                                                    const Spacer(),
-                                                    Container(
-                                                      margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                                                      child: ElevatedButton(
-                                                        onPressed: () async {
-                                                          
-                                                        },
-                                                        style: ElevatedButton.styleFrom(
-                                                          primary: Colors.green, // Background color
-                                                        ),
-                                                        child: const Text("Yes"),
-                                                      )
-                                                    )
+                                                    Text("You have rejected the invitation", style: TextStyle(color: mainColor)),
                                                   ],
-                                                )
+                                                ),
+                                              ),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text('Continue'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
                                               ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
+                                            );
+                                          }
+                                        );
+                                      }
                                     ),
                                     decoration: BoxDecoration(
                                       color: Colors.red,

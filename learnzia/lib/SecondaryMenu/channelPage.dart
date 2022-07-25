@@ -27,11 +27,7 @@ class _ChannelPageState extends State<ChannelPage> {
         'id_classroom': widget.passIdClass, 
         'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
       })
-      .then((value) => 
-        Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const NavBar()),
-      ))
+      .then((value) => print("Successfully create channel"))
       .catchError((error) => print("Failed to add user: $error"));
   }
   

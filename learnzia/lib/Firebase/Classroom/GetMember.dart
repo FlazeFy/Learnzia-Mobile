@@ -35,7 +35,9 @@ class _GetMemberState extends State<GetMember> {
             Widget getClassControl(){
               if(data['id_user'] == passIdUser){
                 return const SizedBox();
-              } 
+              } else {
+                return const SizedBox();
+              }
               //NOT FINISHED
             }
             return InkWell(

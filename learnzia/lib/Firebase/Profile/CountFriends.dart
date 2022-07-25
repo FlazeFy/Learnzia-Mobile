@@ -29,27 +29,38 @@ class _CountFriendsState extends State<CountFriends> {
         }
 
         int i = 0;
+        int count = 0;
         int total = snapshot.data.size;
         return Column( 
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
             if(data['id_user_1'] == widget.passDocumentId){
               i++;
+              count++;
             } else if(data['id_user_2'] == widget.passDocumentId){
               i++;
+              count++;
             } else {
-              return const SizedBox();
+              i++;
             }
-            if(i == total){
+            if((i == total)&&(count != 0)){
               return Container(
                 alignment: Alignment.centerRight,
                 width: fullWidth*0.45,
-                child: Text(i.toString(), maxLines: 1, overflow: TextOverflow.ellipsis, 
+                child: Text(count.toString(), maxLines: 1, overflow: TextOverflow.ellipsis, 
                   style: const TextStyle(color: Color(0xFF212121), fontSize: 22, fontWeight: FontWeight.bold)
                 ),
               );
+            } else if((i == total)&&(count == 0)){
+              return Container(
+                alignment: Alignment.centerRight,
+                width: fullWidth*0.45,
+                child: const Text("0", maxLines: 1, overflow: TextOverflow.ellipsis, 
+                  style: TextStyle(color: Color(0xFF212121), fontSize: 22, fontWeight: FontWeight.bold)
+                ),
+              );
             } else {
-              return const SizedBox();
+              return SizedBox();
             }
           }).toList(),
         );

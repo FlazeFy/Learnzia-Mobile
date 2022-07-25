@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: fullHeight*0.08, left: 10),
+                margin: EdgeInsets.only(top: fullHeight*0.06, left: 10),
                 child: const Align(
                   alignment: Alignment.centerLeft,
                   child: Text("Friend's Post", style: TextStyle(color: Color(0xFF313436), fontWeight:FontWeight.bold, fontSize: 18)),

@@ -141,7 +141,9 @@ class GetMyFriendsList extends StatelessWidget {
                   );
                 },                   
               );
-            }           
+            } else {
+              return SizedBox();
+            }
           }).toList(),
         );
       },

@@ -140,6 +140,8 @@ class GetContact extends StatelessWidget {
                     );
                   },                   
                 );
+              } else {
+                return SizedBox();
               }
             } else if(data['type'] == 'classroom') {
               if((data['id_user_1'] == passIdUser)){

@@ -56,6 +56,8 @@ class _CountClassroomState extends State<CountClassroom> {
                   style: TextStyle(color: Color(0xFF212121), fontSize: 22, fontWeight: FontWeight.bold)
                 ),
               );
+            } else {
+              return SizedBox();
             }
           }).toList(),
         );
