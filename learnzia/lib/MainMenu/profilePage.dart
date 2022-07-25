@@ -8,6 +8,7 @@ import 'package:learnzia/Firebase/Profile/GetMiniProfile.dart';
 import 'package:learnzia/MainMenu/loginPage.dart';
 import 'package:learnzia/SecondaryMenu/TabController/createPost.dart';
 import 'package:learnzia/SecondaryMenu/myDiscussionPage.dart';
+import 'package:learnzia/SecondaryMenu/notificationPage.dart';
 import 'package:learnzia/main.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -79,6 +80,35 @@ class _ProfilePageState extends State<ProfilePage> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           )
                         ),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const NotificationPage()),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(20),
+                            width: fullWidth*0.44,
+                            margin: const EdgeInsets.only(bottom: 5, left:10),
+                            child: Column(
+                              children: [
+                                ClipRRect(
+                                  child: Image.asset(
+                                  'assets/icons/Invitation.png', width: fullWidth*0.15),
+                                ),
+                                Container(
+                                  margin:const EdgeInsets.only(bottom: 15), 
+                                  child: const Text("Notification", style: TextStyle(color: Colors.white, fontSize: 16))
+                                ),
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                              color: containerColor,
+                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            )
+                          ),
+                        ),
                         Container(
                           padding: const EdgeInsets.all(20),
                           width: fullWidth*0.44,
@@ -88,11 +118,35 @@ class _ProfilePageState extends State<ProfilePage> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
                                 child: Image.asset(
-                                'assets/icons/Classroom.png', width: fullWidth*0.17),
+                                'assets/icons/setting.png', width: fullWidth*0.17),
                               ),
                               Container(
                                 margin:const EdgeInsets.only(bottom: 15), 
-                                child: const Text("Notification", style: TextStyle(color: Colors.white, fontSize: 16))
+                                child: const Text("Setting", style: TextStyle(color: Colors.white, fontSize: 16))
+                              ),
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                            color: containerColor,
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          )
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          width: fullWidth*0.44,
+                          margin: const EdgeInsets.only(bottom: 5, left:10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(60),
+                                child: Image.asset(
+                                'assets/icons/about.png', width: fullWidth*0.17),
+                              ),
+                              Container(
+                                margin:const EdgeInsets.only(bottom: 15), 
+                                child: const Text("About Us", style: TextStyle(color: Colors.white, fontSize: 16))
                               ),
                             ],
                           ),
@@ -243,6 +297,36 @@ class _ProfilePageState extends State<ProfilePage> {
                                 const Color.fromARGB(255, 75, 98, 180).withOpacity(0.9),
                               ],
                             ),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          )
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          margin: const EdgeInsets.only(bottom: 5, right:10),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(60),
+                                child: Image.asset(
+                                'assets/icons/privacy.png', width: fullWidth*0.17),
+                              ),
+                              const Spacer(),
+                              SizedBox(
+                                width: fullWidth*0.2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                      margin:const EdgeInsets.only(bottom: 15), 
+                                      child: const Text("Privacy & Condition", style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500))
+                                    ),
+                                  ],
+                                )
+                              ),
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                            color: containerColor,
                             borderRadius: const BorderRadius.all(Radius.circular(10)),
                           )
                         )
