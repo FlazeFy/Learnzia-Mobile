@@ -3,7 +3,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
+import 'package:learnzia/Firebase/Forum/CheckUpButton.dart';
 import 'package:learnzia/Firebase/Forum/CountReply.dart';
+import 'package:learnzia/Firebase/Forum/CountUp.dart';
 import 'package:learnzia/Firebase/Forum/GetContactToShare.dart';
 import 'package:learnzia/SecondaryMenu/replyPage.dart';
 import 'package:learnzia/main.dart';
@@ -111,25 +113,7 @@ class GetQuestion extends StatelessWidget {
                   getDate(),
                   Row(
                     children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        width: fullWidth*0.3,
-                        child: ElevatedButton.icon(
-                          icon: const Icon(Icons.arrow_upward),
-                          label: const Text("102", style: TextStyle(fontSize: 16)),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 226, 184, 14)),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                              )
-                            )
-                          ),
-                          onPressed: () {
-                            //
-                          },
-                        ),
-                      ),
+                      CheckUpButton(passDocumentId: document.id),
                       Container(
                         margin: const EdgeInsets.only(right: 5),
                         width: fullWidth*0.2,
