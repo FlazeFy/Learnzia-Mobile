@@ -152,7 +152,7 @@ class GetContactToShare extends StatelessWidget {
                   },                   
                 );
               } else {
-                return SizedBox();
+                return const SizedBox();
               }
             } else if(data['type'] == 'classroom') {
               if((data['id_user_1'] == passIdUser)){
@@ -251,10 +251,10 @@ class GetContactToShare extends StatelessWidget {
                   },                   
                 );
               } else {
-                return SizedBox();
+                return const SizedBox();
               }
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
             
           }).toList(),

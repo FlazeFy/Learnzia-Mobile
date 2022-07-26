@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnzia/Firebase/Contact/CountContact.dart';
 import 'package:learnzia/Firebase/Contact/GetContact.dart';
 import 'package:learnzia/Widgets/customPainter.dart';
 
@@ -42,11 +43,10 @@ class _ContactPageState extends State<ContactPage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 10, bottom: fullHeight*0.04),
-                child: const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Show 2 Contact", style: TextStyle(color: Color(0xFF313436), fontWeight:FontWeight.bold, fontSize: 14)),
-                )
+                alignment: Alignment.center,
+                padding: const EdgeInsets.only(bottom: 10),
+                margin: EdgeInsets.only(bottom: fullHeight*0.05, left: 10),
+                child: CountContact(),
               ),
               Expanded(
                 child: GetContact(),

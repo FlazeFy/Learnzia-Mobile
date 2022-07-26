@@ -3,6 +3,7 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/main.dart';
 
 class GetChatOnChannel extends StatefulWidget {
@@ -47,14 +48,6 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(right: 20.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(25),
-                      child: Image.asset(
-                        'assets/images/User.jpg', width: 35),
-                    ),
-                  ),
                   GestureDetector(
                     child: BubbleSpecialThree(
                       text: data['body'],
@@ -82,12 +75,20 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(left: 20.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(25),
-                      child: Image.asset(
-                        'assets/images/User.jpg', width: 35),
-                    ),
+                    margin: const EdgeInsets.only(left: 20.0, top: 10),
+                    child: Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child: Image.asset(
+                            'assets/images/User.jpg', width: 35),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 20, left: 5),
+                          child: GetUsername2(passDocumentId: data['id_user'], passIdClass: widget.classId)
+                        )
+                      ],
+                    )
                   ),
                   GestureDetector(
                     child: BubbleSpecialThree(

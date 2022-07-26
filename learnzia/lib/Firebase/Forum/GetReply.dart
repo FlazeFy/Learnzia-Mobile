@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
+import 'package:learnzia/Firebase/Forum/CheckUpButton.dart';
 import 'package:learnzia/Firebase/Forum/CountReply.dart';
 import 'package:learnzia/Firebase/Forum/GetContactToShare.dart';
 import 'package:learnzia/main.dart';
@@ -146,25 +147,7 @@ class _GetReplyState extends State<GetReply> {
                       getImage(),
                       Row(
                         children: [
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
-                            width: fullWidth*0.3,
-                            child: ElevatedButton.icon(
-                              icon: const Icon(Icons.arrow_upward),
-                              label: const Text("102", style: TextStyle(fontSize: 16)),
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 226, 184, 14)),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                  )
-                                )
-                              ),
-                              onPressed: () {
-                                
-                              },
-                            ),
-                          ),
+                          CheckUpButton(passDocumentId: document.id),
                           const Spacer(),
                           IconButton(
                             icon: const Icon(Icons.send, size: 20),
@@ -233,15 +216,18 @@ class _GetReplyState extends State<GetReply> {
                         ),
                         Container(
                           width: fullWidth*0.8,
-                          transform: Matrix4.translationValues(70.0, 5.0, 0.0),
+                          transform: Matrix4.translationValues(70.0, 0.0, 0.0),
                           child: Column(
                             children: [
-                              Row(
-                                children: [
-                                  Text("Showing ", style: TextStyle(color: mainColor, fontSize: 13, fontStyle: FontStyle.italic)),
-                                  CountReply2(passDocumentId: widget.passIdDisc),
-                                  Text(" replies", style: TextStyle(color: mainColor, fontSize: 13, fontStyle: FontStyle.italic)),
-                                ],
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 5),
+                                child:  Row(
+                                  children: [
+                                    Text("Showing ", style: TextStyle(color: mainColor, fontSize: 13, fontStyle: FontStyle.italic)),
+                                    CountReply2(passDocumentId: widget.passIdDisc),
+                                    Text(" replies", style: TextStyle(color: mainColor, fontSize: 13, fontStyle: FontStyle.italic)),
+                                  ],
+                                ),
                               ),
                               replyBox()
                             ],
@@ -285,7 +271,7 @@ class _GetReplyState extends State<GetReply> {
                 )
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           }).toList(),
         );

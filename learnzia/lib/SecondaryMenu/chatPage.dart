@@ -76,8 +76,24 @@ class _ChatPage extends State<ChatPage> {
                   ]
                 )    
               )
-            )
-          ],  
+            ), 
+          Ink(
+            decoration: const ShapeDecoration(
+              color: Colors.transparent,
+              shape: CircleBorder(),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.home),
+              color: containerColor,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NavBar()),
+                );
+              },
+            ),
+          ),
+        ],  
         backgroundColor: mainColor,
       ),
 

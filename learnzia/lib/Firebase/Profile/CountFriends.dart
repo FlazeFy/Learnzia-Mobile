@@ -60,7 +60,7 @@ class _CountFriendsState extends State<CountFriends> {
                 ),
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           }).toList(),
         );

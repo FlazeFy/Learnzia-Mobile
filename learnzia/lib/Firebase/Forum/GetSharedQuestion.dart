@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
+import 'package:learnzia/Firebase/Forum/CheckUpButton.dart';
 import 'package:learnzia/Firebase/Forum/CountReply.dart';
+import 'package:learnzia/Firebase/Forum/GetContactToShare.dart';
+import 'package:learnzia/SecondaryMenu/replyPage.dart';
 import 'package:learnzia/main.dart';
 
 class GetSharedQuestion extends StatelessWidget {
@@ -16,6 +19,7 @@ class GetSharedQuestion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double fullWidth = MediaQuery.of(context).size.width;
+    double fullHeight = MediaQuery.of(context).size.height;
 
     return StreamBuilder<QuerySnapshot>(
       stream: _diskusi,
@@ -110,35 +114,54 @@ class GetSharedQuestion extends StatelessWidget {
                     getDate(),
                     Row(
                       children: [
+                        CheckUpButton(passDocumentId: document.id),
                         Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 5),
-                          width: fullWidth*0.3,
-                          child: ElevatedButton.icon(
-                            icon: const Icon(Icons.arrow_upward),
-                            label: const Text("102", style: TextStyle(fontSize: 16)),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 226, 184, 14)),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                )
-                              )
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(right: 5),
                           width: fullWidth*0.2,
                           child: TextButton.icon(
                             onPressed: () {
-                                // Respond to button press
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ReplyPage(passIdDisc: document.id)),
+                              );
                             },
                             icon: const Icon(Icons.comment, size: 20, color: Colors.white),
                             label: CountReply(passDocumentId: document.id)
                           )
+                        ),
+                        Spacer(),
+                        IconButton(
+                          icon: const Icon(Icons.send, size: 20),
+                          color: Colors.white,
+                          onPressed: () async {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                contentPadding: const EdgeInsets.all(0),
+                                content: SizedBox(
+                                  height: fullHeight*0.7,
+                                  width: fullWidth*0.8,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children:[
+                                      Container(
+                                        transform: Matrix4.translationValues(20.0, 0.0, 0.0),
+                                        child: IconButton(
+                                          icon: Icon(Icons.close, color: mainColor),
+                                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: fullHeight*0.6,
+                                        width: fullWidth*0.8,
+                                        child: GetContactToShare(passIdQuestion: document.id, passTypeSend: "question")
+                                      ),
+                                    ]
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ]
                     ),

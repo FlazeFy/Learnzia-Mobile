@@ -35,16 +35,17 @@ class _CheckUpButtonState extends State<CheckUpButton> {
       .collection('up')
       .get()
       .then((QuerySnapshot querySnapshot) {
-          querySnapshot.docs.forEach((doc) {
-            if((doc["id_user"] == passIdUser)&&(doc["id_context"] == widget.passDocumentId)){
-              id_up = doc.id;
-            }
-          });
-          return up
-            .doc(id_up)
-            .delete()
-            .then((value) => print("Successfully re-up question"))
-            .catchError((error) => print("Failed to re-up question: $error"));
+        querySnapshot.docs.forEach((doc) {
+          if((doc["id_user"] == passIdUser)&&(doc["id_context"] == widget.passDocumentId)){
+            id_up = doc.id;
+          }
+        });
+
+        return up
+          .doc(id_up)
+          .delete()
+          .then((value) => print("Successfully re-up question"))
+          .catchError((error) => print("Failed to re-up question: $error"));
       });
     }
 
@@ -108,7 +109,7 @@ class _CheckUpButtonState extends State<CheckUpButton> {
                   width: fullWidth*0.3,
                   child: ElevatedButton.icon(
                     icon: const Icon(Icons.arrow_upward),
-                    label: CountUp(passDocumentId: document.id),
+                    label: CountUp(passDocumentId: widget.passDocumentId),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 226, 184, 14)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(

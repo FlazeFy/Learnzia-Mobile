@@ -43,12 +43,12 @@ class _CountUpState extends State<CountUp> {
 
             if(i == max){
               if(count > 0){
-                return Text(count.toString(), style: TextStyle(color: Colors.white));
+                return Text(count.toString(), style: const TextStyle(color: Colors.white));
               } else if(count == 0) {
-                return Text("0", style: TextStyle(color: Colors.white));
+                return const Text("0", style: TextStyle(color: Colors.white));
               }
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           }).toList(),
         );

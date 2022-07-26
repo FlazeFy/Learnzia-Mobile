@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learnzia/MainMenu/landingPage.dart';
 import 'package:learnzia/main.dart';
 
 class LoginPage extends StatefulWidget {
@@ -27,7 +28,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    double fullHeight= MediaQuery.of(context).size.height;
+    double fullHeight = MediaQuery.of(context).size.height;
+    double fullWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: SizedBox(
@@ -222,14 +224,19 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
+              width: fullWidth,
+              alignment: Alignment.center,
+              margin: const EdgeInsets.symmetric(horizontal: 90, vertical: 10),
               child: Row(
                 children: [
                   Text("Not a member?", style: TextStyle(color: mainColor)),
                   const Spacer(),
                   TextButton(
                     onPressed: () {
-                        // Respond to button press
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LandingPage()),
+                      );
                     },
                     child: const Text("Get Started", style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFF7289DA))),
                   )

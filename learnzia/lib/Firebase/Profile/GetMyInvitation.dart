@@ -3,9 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Classroom/GetClassname.dart';
-import 'package:learnzia/Firebase/Contact/GetLastFriendMessage.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
-import 'package:learnzia/SecondaryMenu/chatPage.dart';
 import 'package:learnzia/main.dart';
 
 class GetMyInvitation extends StatelessWidget {
@@ -91,8 +89,8 @@ class GetMyInvitation extends StatelessWidget {
                               GetUsername(passDocumentId: data['id_user_sender'], textColor: const Color(0xFFF1c40f)),
                               Row(
                                 children: [
-                                  Text("Invite you to join ", style: TextStyle(color: Colors.white)),
-                                  GetClassname(passDocumentId: data['id_context'], textColor: Color(0xFF7289DA))
+                                  const Text("Invite you to join ", style: const TextStyle(color: Colors.white)),
+                                  GetClassname(passDocumentId: data['id_context'], textColor: const Color(0xFF7289DA))
                                 ],
                               ),
                               Row(
@@ -204,7 +202,7 @@ class GetMyInvitation extends StatelessWidget {
                 },                   
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
                     
           }).toList(),
