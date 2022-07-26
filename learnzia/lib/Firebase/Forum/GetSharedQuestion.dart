@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
+import 'package:learnzia/Firebase/Forum/CountReply.dart';
 import 'package:learnzia/main.dart';
 
 class GetSharedQuestion extends StatelessWidget {
@@ -136,7 +137,7 @@ class GetSharedQuestion extends StatelessWidget {
                                 // Respond to button press
                             },
                             icon: const Icon(Icons.comment, size: 20, color: Colors.white),
-                            label: const Text("8", style: TextStyle(color: Colors.white)),
+                            label: CountReply(passDocumentId: document.id)
                           )
                         ),
                       ]

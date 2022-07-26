@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
+import 'package:learnzia/Firebase/Forum/CountReply.dart';
 import 'package:learnzia/Firebase/Forum/GetContactToShare.dart';
 import 'package:learnzia/SecondaryMenu/replyPage.dart';
 import 'package:learnzia/main.dart';
@@ -125,10 +126,7 @@ class GetQuestion extends StatelessWidget {
                             )
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ReplyPage(passIdDisc: document.id)),
-                            );
+                            //
                           },
                         ),
                       ),
@@ -137,10 +135,13 @@ class GetQuestion extends StatelessWidget {
                         width: fullWidth*0.2,
                         child: TextButton.icon(
                           onPressed: () {
-                              // Respond to button press
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ReplyPage(passIdDisc: document.id)),
+                            );
                           },
                           icon: const Icon(Icons.comment, size: 20, color: Colors.white),
-                          label: const Text("8", style: TextStyle(color: Colors.white)),
+                          label: CountReply(passDocumentId: document.id)
                         )
                       ),
                       const Spacer(),
@@ -312,7 +313,7 @@ class GetMyQuestion extends StatelessWidget {
                               )
                             ),
                             onPressed: () {
-                              Navigator.pop(context);
+                             
                             },
                           ),
                         ),
@@ -321,10 +322,13 @@ class GetMyQuestion extends StatelessWidget {
                           width: fullWidth*0.2,
                           child: TextButton.icon(
                             onPressed: () {
-                                // Respond to button press
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ReplyPage(passIdDisc: document.id)),
+                              );
                             },
                             icon: const Icon(Icons.comment, size: 20, color: Colors.white),
-                            label: const Text("8", style: TextStyle(color: Colors.white)),
+                            label: CountReply(passDocumentId: document.id)
                           )
                         ),
                         Container(

@@ -123,15 +123,7 @@ class GetContactToShare extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 GetUsername(passDocumentId: data['id_user_1'], textColor: const Color(0xFFF1c40f)),
-                                RichText(
-                                  text: const TextSpan(                     
-                                    text: 'lorem ipsum',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                    )
-                                  ),                              
-                                )
+                                GetLastFriendMessage(passDocumentId: document.id)
                               ]
                             )
                           ),
@@ -159,6 +151,8 @@ class GetContactToShare extends StatelessWidget {
                     //
                   },                   
                 );
+              } else {
+                return SizedBox();
               }
             } else if(data['type'] == 'classroom') {
               if((data['id_user_1'] == passIdUser)){
@@ -256,7 +250,11 @@ class GetContactToShare extends StatelessWidget {
                     //
                   },                   
                 );
+              } else {
+                return SizedBox();
               }
+            } else {
+              return SizedBox();
             }
             
           }).toList(),

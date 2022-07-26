@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
+import 'package:learnzia/Firebase/Forum/CountReply.dart';
 import 'package:learnzia/Firebase/Forum/GetContactToShare.dart';
 import 'package:learnzia/main.dart';
 
@@ -235,12 +236,12 @@ class _GetReplyState extends State<GetReply> {
                           transform: Matrix4.translationValues(70.0, 5.0, 0.0),
                           child: Column(
                             children: [
-                              Container(
-                                margin: const EdgeInsets.only(bottom: 10),
-                                alignment: Alignment.centerLeft,
-                                width: fullWidth,
-                                child: Text("Showing ${snapshot.data.size.toString()} replies", style: TextStyle(color: mainColor, fontSize: 13, fontStyle: FontStyle.italic)),
-                                //Showing total replies need to be fixed
+                              Row(
+                                children: [
+                                  Text("Showing ", style: TextStyle(color: mainColor, fontSize: 13, fontStyle: FontStyle.italic)),
+                                  CountReply2(passDocumentId: widget.passIdDisc),
+                                  Text(" replies", style: TextStyle(color: mainColor, fontSize: 13, fontStyle: FontStyle.italic)),
+                                ],
                               ),
                               replyBox()
                             ],
