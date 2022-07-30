@@ -5,8 +5,9 @@ import 'package:learnzia/Firebase/Forum/GetReply.dart';
 import 'package:learnzia/main.dart';
 
 class ReplyPage extends StatefulWidget {
-  const ReplyPage({Key key, this.passIdDisc}) : super(key: key);
+  const ReplyPage({Key key, this.passIdDisc, this.id_user}) : super(key: key);
   final String passIdDisc;
+  final String id_user;
 
   @override
   _ReplyPageState createState() => _ReplyPageState();
@@ -61,7 +62,7 @@ class _ReplyPageState extends State<ReplyPage> {
               child: GetQuestionOnReply(passIdDisc: widget.passIdDisc),
             ),
             Flexible(
-              child: GetReply(passIdDisc: widget.passIdDisc)
+              child: GetReply(passIdDisc: widget.passIdDisc, id_user: widget.id_user)
             ),
             Align(
               alignment: Alignment.bottomLeft,

@@ -120,7 +120,7 @@ class GetQuestion extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => ReplyPage(passIdDisc: document.id)),
+                              MaterialPageRoute(builder: (context) => ReplyPage(passIdDisc: document.id, id_user: data['id_user'])),
                             );
                           },
                           icon: const Icon(Icons.comment, size: 20, color: Colors.white),

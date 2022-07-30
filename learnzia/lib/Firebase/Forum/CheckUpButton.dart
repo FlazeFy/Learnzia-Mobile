@@ -86,7 +86,7 @@ class _CheckUpButtonState extends State<CheckUpButton> {
               if(count > 0){
                 return Container(
                   margin: const EdgeInsets.symmetric(horizontal: 5),
-                  width: fullWidth*0.3,
+                  width: fullWidth*0.25,
                   child: ElevatedButton.icon(
                     icon: const Icon(Icons.arrow_upward),
                     label: CountUp(passDocumentId: widget.passDocumentId),
@@ -106,7 +106,7 @@ class _CheckUpButtonState extends State<CheckUpButton> {
               } else if(count == 0) {
                 return Container(
                   margin: const EdgeInsets.symmetric(horizontal: 5),
-                  width: fullWidth*0.3,
+                  width: fullWidth*0.25,
                   child: ElevatedButton.icon(
                     icon: const Icon(Icons.arrow_upward),
                     label: CountUp(passDocumentId: widget.passDocumentId),

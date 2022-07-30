@@ -4,11 +4,13 @@ import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/Firebase/Forum/CheckUpButton.dart';
 import 'package:learnzia/Firebase/Forum/CountReply.dart';
 import 'package:learnzia/Firebase/Forum/GetContactToShare.dart';
+import 'package:learnzia/Firebase/Forum/GetVerifyButton.dart';
 import 'package:learnzia/main.dart';
 
 class GetReply extends StatefulWidget {
-  const GetReply({Key key, this.passIdDisc}) : super(key: key);
+  const GetReply({Key key, this.passIdDisc, this.id_user}) : super(key: key);
   final String passIdDisc;
+  final String id_user;
 
   @override
     _GetReplyState createState() => _GetReplyState();
@@ -63,6 +65,7 @@ class _GetReplyState extends State<GetReply> {
                   );
                 }
               }
+
               Widget getDate(){
                 var dt = DateTime.fromMicrosecondsSinceEpoch(data['datetime'].microsecondsSinceEpoch).toString();
                 var date = DateTime.parse(dt);
@@ -74,6 +77,7 @@ class _GetReplyState extends State<GetReply> {
                 );
               }
 
+              //For indicator.
               getVerified(){
                 if(data['status'] == "verified"){
                   return BoxDecoration(
@@ -96,6 +100,7 @@ class _GetReplyState extends State<GetReply> {
                 }
               }
 
+              //For reply box
               getVerified2(){
                 if(data['status'] == "verified"){
                   return Border.all(
@@ -104,6 +109,14 @@ class _GetReplyState extends State<GetReply> {
                   );              
                 } else {
                   return null;  
+                }
+              }
+
+              getVerify(){
+                if((widget.id_user == passIdUser)&&(data['id_user'] != passIdUser)){
+                  return GetVerifyButton(id_discussion: widget.passIdDisc, id_reply: document.id);
+                } else {
+                  return SizedBox();
                 }
               }
 
@@ -148,6 +161,7 @@ class _GetReplyState extends State<GetReply> {
                       Row(
                         children: [
                           CheckUpButton(passDocumentId: document.id),
+                          getVerify(),
                           const Spacer(),
                           IconButton(
                             icon: const Icon(Icons.send, size: 20),
@@ -194,6 +208,8 @@ class _GetReplyState extends State<GetReply> {
                   )
                 );
               }
+
+              //Instrinsic defect, when the text is to long!!
 
               //First item in looping.
               if(i == 0){
