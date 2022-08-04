@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learnzia/Firebase/Classroom/GetMemberControl.dart';
+import 'package:learnzia/Firebase/Classroom/GetMyRole.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/main.dart';
 
@@ -32,14 +34,6 @@ class _GetMemberState extends State<GetMember> {
           padding: const EdgeInsets.only(top: 0),
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            Widget getClassControl(){
-              if(data['id_user'] == passIdUser){
-                return const SizedBox();
-              } else {
-                return const SizedBox();
-              }
-              //NOT FINISHED
-            }
             return InkWell(
               child: Card(
                 color: containerColor,
@@ -65,7 +59,7 @@ class _GetMemberState extends State<GetMember> {
                         )
                       ),
                       const Spacer(),
-                      getClassControl()
+                      GetMyRole(passIdClass: widget.passIdClass, passIdMember: data['id_user'])
                     ]
                   )    
                 )

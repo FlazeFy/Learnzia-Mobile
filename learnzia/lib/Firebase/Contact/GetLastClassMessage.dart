@@ -32,20 +32,25 @@ class _GetLastClassMessageState extends State<GetLastClassMessage> {
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
             if(data['id_classroom'] == widget.passDocumentId){
-              return Row(
-                children: [
-                  GetChannelName(passDocumentId: data['id_channel']),
-                  RichText(
-                    text: TextSpan(                     
+              return RichText(
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                text: TextSpan(
+                  children: [
+                    WidgetSpan(
+                      child: GetChannelName(passDocumentId: data['id_channel']),
+                    ),
+                    TextSpan(                     
                       text: " ~ ${data['body']}",
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
                       ),
-                    ),                              
-                  ),
-                ]
+                    )
+                  ],
+                ),
               );
+              
             } else {
               return const SizedBox();
             }
