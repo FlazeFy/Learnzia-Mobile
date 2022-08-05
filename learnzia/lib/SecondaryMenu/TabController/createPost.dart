@@ -20,26 +20,39 @@ class CreatePost extends StatefulWidget {
 class _CreatePostState extends State<CreatePost> {
   CollectionReference disc = FirebaseFirestore.instance.collection('discussion');
   XFile file;
+  String seed = "null";
 
   //Create post.
-  Future<void> createDiscussion() {
-    String seed = "null";
-    if(file != null){
+  Future<void> createDiscussion(XFile imageFile, String seed) async {
+    if(imageFile != null){
       seed = getRandomString(20);
-      uploadImage(file, seed);
-    } else {
-      return disc
-        .add({
-          'subject': subjectCtrl.text, 
-          'question': questionCtrl.text, 
-          'category': categoryCtrl, 
-          'id_user': passIdUser, 
-          'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
-          'image': seed,
-        })
-        .then((value) => print("Discussion has been posted"))
-        .catchError((error) => print("Failed to add user: $error"));
-    }
+      
+      // Create a Reference to the file
+      Reference ref = FirebaseStorage.instance
+          .ref()
+          .child('discussion')
+          .child(seed);
+
+      final metadata = SettableMetadata(
+        //contentType: 'image', 
+        customMetadata: {'picked-file-path': imageFile.path},
+      );
+
+      //return await ref.putData(await imageFile.readAsBytes(), metadata);
+      await ref.putData(await imageFile.readAsBytes(), metadata);
+      seed = await ref.getDownloadURL();
+    } 
+    return disc
+      .add({
+        'subject': subjectCtrl.text, 
+        'question': questionCtrl.text, 
+        'category': categoryCtrl, 
+        'id_user': passIdUser, 
+        'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
+        'image': seed,
+      })
+      .then((value) => print("Discussion has been posted"))
+      .catchError((error) => print("Failed to add user: $error"));
   }
 
   //Create random string.
@@ -59,46 +72,6 @@ class _CreatePostState extends State<CreatePost> {
     return await ImagePicker().pickImage(source: ImageSource.gallery);
   }
 
-  //Upload image.
-  Future<void> uploadImage(XFile imageFile, String seed) async {
-    if (imageFile== null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No file was selected'),
-        ),
-      );
-
-      return null;
-    }
-
-    // Create a Reference to the file
-    Reference ref = FirebaseStorage.instance
-        .ref()
-        .child('discussion')
-        .child(seed);
-
-    final metadata = SettableMetadata(
-      //contentType: 'image', 
-      customMetadata: {'picked-file-path': imageFile.path},
-    );
-
-    //return await ref.putData(await imageFile.readAsBytes(), metadata);
-    await ref.putData(await imageFile.readAsBytes(), metadata);
-
-    return disc
-     .add({
-        'subject': subjectCtrl.text, 
-        'question': questionCtrl.text, 
-        'category': categoryCtrl, 
-        'id_user': passIdUser, 
-        'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
-        'image': await ref.getDownloadURL(),
-      })
-      .then((value) => print("Discussion has been posted"))
-      .catchError((error) => print("Failed to add user: $error"));
-  }
-  
-  
   var subjectCtrl = TextEditingController();
   var questionCtrl = TextEditingController();
   
@@ -180,7 +153,7 @@ class _CreatePostState extends State<CreatePost> {
                     )
                   ),
                   onPressed: () async{
-                    createDiscussion();
+                    createDiscussion(file, seed);
                     setState(() {});
                   },
                 ),

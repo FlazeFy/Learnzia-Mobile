@@ -56,6 +56,23 @@ class _GetLastFriendMessageState extends State<GetLastFriendMessage> {
               } else if((data['id_contact'] == widget.passDocumentId)&&(data['type'] == 'reply')){
                 i++;
                 return GetLastReplyMessage(passIdReply: data['body'], textColor: Colors.white);
+              } else if((data['id_contact'] == widget.passDocumentId)&&(data['type'] == 'image')){
+                i++;
+                return Align(
+                  alignment: Alignment.centerLeft,
+                  child: RichText(
+                    text: const TextSpan(
+                      children: [
+                        WidgetSpan(
+                          child: Icon(Icons.image, size: 16, color: Colors.white),
+                        ),
+                        TextSpan(
+                          text: " Image", style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
+                      ],
+                    ),
+                  )
+                );
               } else {
                 return const SizedBox();
               }

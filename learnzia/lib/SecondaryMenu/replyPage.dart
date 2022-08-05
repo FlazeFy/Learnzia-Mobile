@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:full_screen_menu/full_screen_menu.dart';
 import 'package:learnzia/Firebase/Forum/GetQuestionOnReply.dart';
 import 'package:learnzia/Firebase/Forum/GetReply.dart';
 import 'package:learnzia/main.dart';
@@ -91,7 +92,29 @@ class _ReplyPageState extends State<ReplyPage> {
               child: Row(
                 children: <Widget>[
                   GestureDetector(
-                    onTap: (){
+                    onTap: () async {
+                      //Bug : not close after back button is pressed
+                      FullScreenMenu.show(
+                        context,
+                        backgroundColor: Colors.transparent,
+                        items: [
+                          FSMenuItem(
+                            icon: Icon(Icons.mic, color: Colors.white),
+                            text: Text('Audio', style: TextStyle(color: mainColor)),
+                            gradient: blueGradient,
+                          ),
+                          FSMenuItem(
+                            icon: Icon(Icons.file_copy, color: Colors.white),
+                            text: Text('Document', style: TextStyle(color: mainColor)),
+                            gradient: purpleGradient,
+                          ),
+                          FSMenuItem(
+                            icon: Icon(Icons.image, color: Colors.white),
+                            text: Text('Image', style: TextStyle(color: mainColor)),
+                            gradient: redGradient,
+                          ),
+                        ],
+                      );
                     },
                     child: Container(
                       height: 30,

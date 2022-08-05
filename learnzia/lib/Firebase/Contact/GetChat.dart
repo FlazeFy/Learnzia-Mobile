@@ -48,21 +48,53 @@ class _GetChatState extends State<GetChat> {
                 )
               );
             }
-            if(data['type'] == 'text'){
+            
+            //Get file
+            Widget getUrl(double left, double right){
+              if(data['url'] != 'null'){
+                return Container( 
+                  width: fullWidth*0.5,
+                  padding: EdgeInsets.all(10),
+                  margin: EdgeInsets.only(right: right, left: left, bottom: 5),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(data['url']),
+                  ),
+                  decoration: BoxDecoration(
+                    color: containerColor,
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                );
+              } else {
+                return SizedBox();
+              }
+            }
+
+            Widget getBody(bool person){
+              if(data['body'] != ""){
+                return BubbleSpecialThree(
+                  text: data['body'],
+                  color: containerColor,
+                  tail: true,
+                  isSender: person,
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16
+                  ),
+                );
+              } else {
+                return SizedBox();
+              } 
+            }
+
+            if((data['type'] == 'text')||(data['type'] == 'image')){
               if((data['id_user_sender'] == passIdUser)&&(data['id_contact'] == widget.contactId)){
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
+                    getUrl(0, 20),
                     GestureDetector(
-                      child: BubbleSpecialThree(
-                        text: data['body'],
-                        color: containerColor,
-                        tail: true,
-                        isSender: true,
-                        textStyle: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16
-                        ),
-                      ),
+                      child: getBody(true),
                       onLongPress: () {
                         showDialog<String>(
                           context: context,
@@ -121,27 +153,18 @@ class _GetChatState extends State<GetChat> {
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 5, right: 30),
-                      alignment: Alignment.centerRight,
                       child: getDate(),
                     )
                   ]
                 );
               } else if((data['id_user_sender'] != passIdUser)&&(data['id_contact'] == widget.contactId)){
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BubbleSpecialThree(
-                      text: data['body'],
-                      color: containerColor,
-                      tail: true,
-                      isSender: false,
-                      textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16
-                      ),
-                    ),
+                    getUrl(20, 0),
+                    getBody(false),
                     Container(
                       margin: const EdgeInsets.only(top: 5, left: 30),
-                      alignment: Alignment.centerLeft,
                       child: getDate(),
                     )
                   ]

@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:full_screen_menu/full_screen_menu.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:learnzia/Firebase/Contact/GetChat.dart';
 import 'package:learnzia/Firebase/Contact/GetStatus.dart';
 import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/main.dart';
-
+import 'dart:math';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({key, this.passIdContact, this.passContactName}) : super(key: key);
@@ -20,16 +23,63 @@ class _ChatPage extends State<ChatPage> {
   final _messageTextCtrl = TextEditingController();
 
   CollectionReference message= FirebaseFirestore.instance.collection('message');
+  XFile file;
+  String seed = "null";
 
-  //Create account.
-  Future<void> sendChat() {
+  //Create random string.
+  var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
+
+  String getRandomString(int length) => 
+    String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(
+        _rnd.nextInt(_chars.length)
+      )
+    )
+  );
+
+  //Get image picker
+  Future<XFile> getImage() async {
+    return await ImagePicker().pickImage(source: ImageSource.gallery);
+  }
+
+  //Send chat.
+  Future<void> sendChat(XFile imageFile, String seed) async {
+    String type;
+    String url;
+
+    if (imageFile != null) {
+      seed = getRandomString(20);
+      
+      // Create a Reference to the file
+      Reference ref = FirebaseStorage.instance
+          .ref()
+          .child('reply')
+          .child(seed);
+
+      final metadata = SettableMetadata(
+        //contentType: 'image', 
+        customMetadata: {'picked-file-path': imageFile.path},
+      );
+
+      //return await ref.putData(await imageFile.readAsBytes(), metadata);
+      await ref.putData(await imageFile.readAsBytes(), metadata);
+
+      type = "image";
+      url = await ref.getDownloadURL();
+    } else {
+      type = "text";
+      url = "null";
+    }
+
     return message
       .add({
         'body': _messageTextCtrl.text, 
         'id_contact': widget.passIdContact, 
         'id_user_sender': passIdUser, 
         'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
-        'type': 'text', // for now. 
+        'type': type,
+        'url': url,
       })
       .then((value) => print("Chat has been sended"))
       .catchError((error) => print("Failed to send chat: $error"));
@@ -117,6 +167,31 @@ class _ChatPage extends State<ChatPage> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: (){
+                        //Bug : not close after back button is pressed
+                        FullScreenMenu.show(
+                          context,
+                          backgroundColor: Colors.transparent,
+                          items: [
+                            FSMenuItem(
+                              icon: Icon(Icons.mic, color: Colors.white),
+                              text: Text('Audio', style: TextStyle(color: mainColor)),
+                              gradient: blueGradient,
+                            ),
+                            FSMenuItem(
+                              icon: Icon(Icons.file_copy, color: Colors.white),
+                              text: Text('Document', style: TextStyle(color: mainColor)),
+                              gradient: purpleGradient,
+                            ),
+                            FSMenuItem(
+                              icon: Icon(Icons.image, color: Colors.white),
+                              text: Text('Image', style: TextStyle(color: mainColor)),
+                              gradient: redGradient,
+                              onTap: () async {
+                                file = await getImage();
+                              },
+                            ),
+                          ],
+                        );
                       },
                       child: Container(
                         height: 30,
@@ -144,7 +219,7 @@ class _ChatPage extends State<ChatPage> {
                     const SizedBox(width: 15,),
                     FloatingActionButton(
                       onPressed: () async{
-                        sendChat();
+                        sendChat(file, seed);
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ChatPage(passIdContact: widget.passIdContact, passContactName: widget.passContactName)),
