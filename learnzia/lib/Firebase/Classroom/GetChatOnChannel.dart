@@ -33,19 +33,29 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
           return const Text("Loading");
         }
 
+        //Store date chip n-1 index (before)
+        String dateChipBefore = "";
+        String timeBefore = "";
+        
         return ListView(
           padding: const EdgeInsets.only(top: 10),
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            Widget getDate(){
+            Widget getTime(){
               var dt = DateTime.fromMicrosecondsSinceEpoch(data['datetime'].microsecondsSinceEpoch).toString();
               var date = DateTime.parse(dt);
-              var formattedDate = "${date.hour} : ${date.minute}";
-              return Container(
-                margin: const EdgeInsets.only(top: 2),
-                  child: Text(formattedDate, style: const TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 11)
-                )
-              );
+              String check = "${date.hour} : ${date.minute}";
+
+              if(timeBefore != check){
+                timeBefore = check;
+                return Container(
+                  margin: const EdgeInsets.only(top: 2),
+                    child: Text(check, style: const TextStyle(color: Colors.white, fontStyle: FontStyle.italic, fontSize: 11)
+                  )
+                );
+              } else {
+                return const SizedBox();
+              }
             }
 
             //Get file
@@ -53,7 +63,7 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
               if(data['url'] != 'null'){
                 return Container( 
                   width: fullWidth*0.5,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   margin: EdgeInsets.only(right: right, left: left, bottom: 5, top: 5),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -65,7 +75,7 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
                   ),
                 );
               } else {
-                return SizedBox();
+                return const SizedBox();
               }
             }
 
@@ -82,14 +92,36 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
                   ),
                 );
               } else {
-                return SizedBox();
+                return const SizedBox();
               } 
             }
+
+            Widget getDateChip(){
+              var dt = DateTime.fromMicrosecondsSinceEpoch(data['datetime'].microsecondsSinceEpoch).toString();
+              var date = DateTime.parse(dt);
+
+              String check = ("${date.year}${date.month}${date.day}");
+              if(dateChipBefore != check){
+                dateChipBefore = check;
+
+                return Container(
+                  alignment: Alignment.center,
+                  child: DateChip(
+                    date: DateTime(date.year, date.month, date.day),
+                    color: const Color(0xFF7289DA).withOpacity(0.8),
+                  ),
+                );
+              } else {
+                return const SizedBox();
+              }
+            }
+
 
             if((data['id_user'] == passIdUser)&&(data['id_channel'] == passIdChannel)){
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
+                  getDateChip(),
                   getUrl(0, 20),
                   GestureDetector(
                     child: getBody(true),
@@ -152,7 +184,7 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
                   Container(
                     margin: const EdgeInsets.only(top: 5, right: 30),
                     alignment: Alignment.centerRight,
-                    child: getDate(),
+                    child: getTime(),
                   )
                 ]
               );
@@ -160,6 +192,7 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  getDateChip(),
                   Container(
                     margin: const EdgeInsets.only(left: 20.0, top: 10),
                     child: Row(
@@ -186,7 +219,7 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
                   Container(
                     margin: const EdgeInsets.only(top: 5, left: 30),
                     alignment: Alignment.centerLeft,
-                    child: getDate(),
+                    child: getTime(),
                   )
                 ]
               );

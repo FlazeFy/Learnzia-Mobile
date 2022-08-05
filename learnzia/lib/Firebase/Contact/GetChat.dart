@@ -34,11 +34,14 @@ class _GetChatState extends State<GetChat> {
           return const Text("Loading");
         }
 
+        //Store date chip n-1 index (before)
+        String dateChipBefore = "";
+        
         return ListView(
           padding: const EdgeInsets.only(top: 10),
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            Widget getDate(){
+            Widget getTime(){
               var dt = DateTime.fromMicrosecondsSinceEpoch(data['datetime'].microsecondsSinceEpoch).toString();
               var date = DateTime.parse(dt);
               var formattedDate = "${date.hour} : ${date.minute}";
@@ -54,7 +57,7 @@ class _GetChatState extends State<GetChat> {
               if(data['url'] != 'null'){
                 return Container( 
                   width: fullWidth*0.5,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   margin: EdgeInsets.only(right: right, left: left, bottom: 5),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -66,7 +69,7 @@ class _GetChatState extends State<GetChat> {
                   ),
                 );
               } else {
-                return SizedBox();
+                return const SizedBox();
               }
             }
 
@@ -83,8 +86,28 @@ class _GetChatState extends State<GetChat> {
                   ),
                 );
               } else {
-                return SizedBox();
+                return const SizedBox();
               } 
+            }
+
+            Widget getDateChip(){
+              var dt = DateTime.fromMicrosecondsSinceEpoch(data['datetime'].microsecondsSinceEpoch).toString();
+              var date = DateTime.parse(dt);
+
+              String check = ("${date.year}${date.month}${date.day}");
+              if(dateChipBefore != check){
+                dateChipBefore = check;
+
+                return Container(
+                  alignment: Alignment.center,
+                  child: DateChip(
+                    date: DateTime(date.year, date.month, date.day),
+                    color: const Color(0xFF7289DA).withOpacity(0.8),
+                  ),
+                );
+              } else {
+                return const SizedBox();
+              }
             }
 
             if((data['type'] == 'text')||(data['type'] == 'image')){
@@ -92,6 +115,7 @@ class _GetChatState extends State<GetChat> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
+                    getDateChip(),
                     getUrl(0, 20),
                     GestureDetector(
                       child: getBody(true),
@@ -153,7 +177,7 @@ class _GetChatState extends State<GetChat> {
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 5, right: 30),
-                      child: getDate(),
+                      child: getTime(),
                     )
                   ]
                 );
@@ -161,11 +185,12 @@ class _GetChatState extends State<GetChat> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    getDateChip(),
                     getUrl(20, 0),
                     getBody(false),
                     Container(
                       margin: const EdgeInsets.only(top: 5, left: 30),
-                      child: getDate(),
+                      child: getTime(),
                     )
                   ]
                 );
@@ -174,28 +199,48 @@ class _GetChatState extends State<GetChat> {
               }
             } else if(data['type'] == 'question') {
               if((data['id_user_sender'] == passIdUser)&&(data['id_contact'] == widget.contactId)){
-                return Container(
-                  transform: Matrix4.translationValues(fullWidth*0.1, 0.0, 0.0),
-                  child: GetSharedQuestion(passIdQuestion: data['body'], topLeft: const Radius.circular(55),topRight: const Radius.circular(10))
+                return Column(
+                  children: [
+                    getDateChip(),
+                    Container(
+                      transform: Matrix4.translationValues(fullWidth*0.1, 0.0, 0.0),
+                      child: GetSharedQuestion(passIdQuestion: data['body'], topLeft: const Radius.circular(55),topRight: const Radius.circular(10))
+                    )
+                  ],
                 );
               } else if((data['id_user_sender'] != passIdUser)&&(data['id_contact'] == widget.contactId)){
-                return Container(
-                  transform: Matrix4.translationValues(fullWidth*-0.1, 0.0, 0.0),
-                  child: GetSharedQuestion(passIdQuestion: data['body'], topLeft: const Radius.circular(10),topRight: const Radius.circular(55))
+                return Column(
+                  children: [
+                    getDateChip(),
+                    Container(
+                      transform: Matrix4.translationValues(fullWidth*-0.1, 0.0, 0.0),
+                      child: GetSharedQuestion(passIdQuestion: data['body'], topLeft: const Radius.circular(10),topRight: const Radius.circular(55))
+                    )
+                  ]
                 );
               } else {
                 return const SizedBox();
               }
             } else if(data['type'] == 'reply') {
               if((data['id_user_sender'] == passIdUser)&&(data['id_contact'] == widget.contactId)){
-                return Container(
-                  transform: Matrix4.translationValues(fullWidth*0.1, 0.0, 0.0),
-                  child: GetSharedReply(passIdReply: data['body'], topLeft: const Radius.circular(55),topRight: const Radius.circular(10))
+                return Column(
+                  children: [
+                    getDateChip(),
+                    Container(
+                      transform: Matrix4.translationValues(fullWidth*0.1, 0.0, 0.0),
+                      child: GetSharedReply(passIdReply: data['body'], topLeft: const Radius.circular(55),topRight: const Radius.circular(10))
+                    )
+                  ]
                 );
               } else if((data['id_user_sender'] != passIdUser)&&(data['id_contact'] == widget.contactId)){
-                return Container(
-                  transform: Matrix4.translationValues(fullWidth*-0.1, 0.0, 0.0),
-                  child: GetSharedReply(passIdReply: data['body'], topLeft: const Radius.circular(10),topRight: const Radius.circular(55))
+                return Column(
+                  children: [
+                    getDateChip(),
+                    Container(
+                      transform: Matrix4.translationValues(fullWidth*-0.1, 0.0, 0.0),
+                      child: GetSharedReply(passIdReply: data['body'], topLeft: const Radius.circular(10),topRight: const Radius.circular(55))
+                    )
+                  ]
                 );
               } else {
                 return const SizedBox();
