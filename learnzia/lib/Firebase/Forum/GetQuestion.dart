@@ -49,9 +49,12 @@ class GetQuestion extends StatelessWidget {
                   child: Column(
                     children:[
                       ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        'assets/images/${data['image']}'),
+                        borderRadius: BorderRadius.circular(10),
+                        child: 
+                        // Image.asset(
+                        //   'assets/images/${data['image']}'),
+                        // ),
+                        Image.network('https://firebasestorage.googleapis.com/v0/b/learnzia-3b02f.appspot.com/o/discussion%2F0r46ayu2XkMfAmmROQ8N.jpg?alt=media&token=2a092817-ff87-49a8-81e0-72e1a864f16c'),
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 5),
