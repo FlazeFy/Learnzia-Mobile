@@ -27,18 +27,19 @@ class _CreatePostState extends State<CreatePost> {
     if(file != null){
       seed = getRandomString(20);
       uploadImage(file, seed);
+    } else {
+      return disc
+        .add({
+          'subject': subjectCtrl.text, 
+          'question': questionCtrl.text, 
+          'category': categoryCtrl, 
+          'id_user': passIdUser, 
+          'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
+          'image': seed,
+        })
+        .then((value) => print("Discussion has been posted"))
+        .catchError((error) => print("Failed to add user: $error"));
     }
-    return disc
-      .add({
-        'subject': subjectCtrl.text, 
-        'question': questionCtrl.text, 
-        'category': categoryCtrl, 
-        'id_user': passIdUser, 
-        'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
-        'image': seed,
-      })
-      .then((value) => print("Discussion has been posted"))
-      .catchError((error) => print("Failed to add user: $error"));
   }
 
   //Create random string.
@@ -52,6 +53,11 @@ class _CreatePostState extends State<CreatePost> {
       )
     )
   );
+
+  //Get image picker
+  Future<XFile> getImage() async {
+    return await ImagePicker().pickImage(source: ImageSource.gallery);
+  }
 
   //Upload image.
   Future<void> uploadImage(XFile imageFile, String seed) async {
@@ -76,8 +82,20 @@ class _CreatePostState extends State<CreatePost> {
       customMetadata: {'picked-file-path': imageFile.path},
     );
 
-    return await ref.putData(await imageFile.readAsBytes(), metadata);
-    
+    //return await ref.putData(await imageFile.readAsBytes(), metadata);
+    await ref.putData(await imageFile.readAsBytes(), metadata);
+
+    return disc
+     .add({
+        'subject': subjectCtrl.text, 
+        'question': questionCtrl.text, 
+        'category': categoryCtrl, 
+        'id_user': passIdUser, 
+        'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
+        'image': await ref.getDownloadURL(),
+      })
+      .then((value) => print("Discussion has been posted"))
+      .catchError((error) => print("Failed to add user: $error"));
   }
   
   
@@ -177,6 +195,3 @@ class _CreatePostState extends State<CreatePost> {
   }
 }
 
-Future<XFile> getImage() async {
-  return await ImagePicker().pickImage(source: ImageSource.gallery);
-}

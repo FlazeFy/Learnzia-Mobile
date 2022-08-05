@@ -41,6 +41,7 @@ class _ChatPage extends State<ChatPage> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         iconTheme:  
           const IconThemeData(
           color: Color(0xFF313436),

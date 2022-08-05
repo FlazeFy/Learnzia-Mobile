@@ -51,10 +51,9 @@ class GetSharedQuestion extends StatelessWidget {
                       children:[
                         ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          'assets/images/${data['image']}'),
-                        ),
+                        child: Image.network(data['image'])),
                         Container(
+                          alignment: Alignment.topLeft,
                           margin: const EdgeInsets.only(top: 5),
                           child: Text("${data['subject']} - ${data['question']}", style: const TextStyle(color: Colors.white))
                         )

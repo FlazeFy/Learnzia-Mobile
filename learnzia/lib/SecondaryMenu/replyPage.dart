@@ -39,6 +39,7 @@ class _ReplyPageState extends State<ReplyPage> {
     double fullWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         iconTheme:  
           const IconThemeData(
           color: Color(0xFF313436),
@@ -46,79 +47,95 @@ class _ReplyPageState extends State<ReplyPage> {
         ),
         actions: [
           Container(
-            margin: EdgeInsets.only(top: 5, right: fullWidth*0.5),
+            margin: EdgeInsets.only(top: 5, right: fullWidth*0.45),
             child: const Align(
               alignment: Alignment.centerLeft,
               child: Text("Reply Discussion", style: TextStyle(color: Color(0xFF313436), fontWeight:FontWeight.bold, fontSize: 18)),
             )
           ),
+          Ink(
+            decoration: const ShapeDecoration(
+              color: Colors.transparent,
+              shape: CircleBorder(),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.home),
+              color: containerColor,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NavBar()),
+                );
+              },
+            ),
+          ),
         ],
         backgroundColor: mainColor,
       ),
       body: Column(
-          children:[
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: GetQuestionOnReply(passIdDisc: widget.passIdDisc),
-            ),
-            Flexible(
-              child: GetReply(passIdDisc: widget.passIdDisc, id_user: widget.id_user)
-            ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Container(
-                padding: const EdgeInsets.only(left: 10,bottom: 10,top: 10),
-                height: 60,
-                width: double.infinity,
-                color: containerColor,
-                child: Row(
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: (){
-                      },
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: mainColor,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: const Icon(Icons.add, color: Colors.white, size: 20, ),
+        children:[
+          // Container(
+          //   margin: const EdgeInsets.symmetric(vertical: 10),
+          //   child: GetQuestionOnReply(passIdDisc: widget.passIdDisc),
+          // ),
+          Flexible(
+            child: GetReply(passIdDisc: widget.passIdDisc, id_user: widget.id_user)
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              padding: const EdgeInsets.only(left: 10,bottom: 10,top: 10),
+              height: 60,
+              width: double.infinity,
+              color: containerColor,
+              child: Row(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: (){
+                    },
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: mainColor,
+                        borderRadius: BorderRadius.circular(30),
                       ),
+                      child: const Icon(Icons.add, color: Colors.white, size: 20, ),
                     ),
-                    const SizedBox(width: 15,),
-                    Expanded(
-                      child: TextField(
-                        controller: _replyTextCtrl,
-                        decoration: const InputDecoration(
-                          hintText: "Type your message...",
-                          hintStyle: TextStyle(color: Colors.white),
-                          fillColor: Colors.white,
-                          border: InputBorder.none
-                        ),
-                        style: const TextStyle(color: Colors.white),
+                  ),
+                  const SizedBox(width: 15,),
+                  Expanded(
+                    child: TextField(
+                      controller: _replyTextCtrl,
+                      decoration: const InputDecoration(
+                        hintText: "Type your message...",
+                        hintStyle: TextStyle(color: Colors.white),
+                        fillColor: Colors.white,
+                        border: InputBorder.none
                       ),
+                      style: const TextStyle(color: Colors.white),
                     ),
-                    const SizedBox(width: 15,),
-                    FloatingActionButton(
-                      onPressed: () async{
-                        sendReply();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ReplyPage(passIdDisc: widget.passIdDisc)),
-                        );
-                      },
-                      child: const Icon(Icons.send,color: Colors.white,size: 18,),
-                      backgroundColor: Colors.green,
-                      elevation: 0,
-                    ),
-                  ],
-                  
-                ),
+                  ),
+                  const SizedBox(width: 15,),
+                  FloatingActionButton(
+                    onPressed: () async{
+                      sendReply();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ReplyPage(passIdDisc: widget.passIdDisc)),
+                      );
+                    },
+                    child: const Icon(Icons.send,color: Colors.white,size: 18,),
+                    backgroundColor: Colors.green,
+                    elevation: 0,
+                  ),
+                ],
+                
               ),
             ),
-          ]
-        )
+          ),
+        ]
+      )
       
     );
   }

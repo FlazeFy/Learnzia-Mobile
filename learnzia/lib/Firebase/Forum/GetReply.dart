@@ -4,6 +4,7 @@ import 'package:learnzia/Firebase/Contact/GetUsername.dart';
 import 'package:learnzia/Firebase/Forum/CheckUpButton.dart';
 import 'package:learnzia/Firebase/Forum/CountReply.dart';
 import 'package:learnzia/Firebase/Forum/GetContactToShare.dart';
+import 'package:learnzia/Firebase/Forum/GetQuestionOnReply.dart';
 import 'package:learnzia/Firebase/Forum/GetVerifyButton.dart';
 import 'package:learnzia/main.dart';
 
@@ -214,44 +215,53 @@ class _GetReplyState extends State<GetReply> {
               //First item in looping.
               if(i == 0){
                 i++;
-                return SizedBox(
-                  width: fullWidth,
-                  child: IntrinsicHeight(
-                    child: Stack(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: fullWidth*0.1),
-                          width: 3,
-                          color: mainColor,
-                        ),
-                        Container(
-                          width: 25,
-                          margin: EdgeInsets.symmetric(horizontal: fullWidth*0.075),
-                          transform: Matrix4.translationValues(0.0, -30.0, 0.0),
-                          decoration: getVerified(),
-                        ),
-                        Container(
-                          width: fullWidth*0.8,
-                          transform: Matrix4.translationValues(70.0, 0.0, 0.0),
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.symmetric(vertical: 5),
-                                child:  Row(
-                                  children: [
-                                    Text("Showing ", style: TextStyle(color: mainColor, fontSize: 13, fontStyle: FontStyle.italic)),
-                                    CountReply2(passDocumentId: widget.passIdDisc),
-                                    Text(" replies", style: TextStyle(color: mainColor, fontSize: 13, fontStyle: FontStyle.italic)),
-                                  ],
-                                ),
-                              ),
-                              replyBox()
-                            ],
-                          )
-                        ),
-                      ],
+                return Column(
+                  children: [
+                    //If there's an error or bug. Delete this container and column!!!
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      child: GetQuestionOnReply(passIdDisc: widget.passIdDisc),
                     ),
-                  )
+                    SizedBox(
+                      width: fullWidth,
+                      child: IntrinsicHeight(
+                        child: Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: fullWidth*0.1),
+                              width: 3,
+                              color: mainColor,
+                            ),
+                            Container(
+                              width: 25,
+                              margin: EdgeInsets.symmetric(horizontal: fullWidth*0.075),
+                              transform: Matrix4.translationValues(0.0, -30.0, 0.0),
+                              decoration: getVerified(),
+                            ),
+                            Container(
+                              width: fullWidth*0.8,
+                              transform: Matrix4.translationValues(70.0, 0.0, 0.0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.symmetric(vertical: 5),
+                                    child:  Row(
+                                      children: [
+                                        Text("Showing ", style: TextStyle(color: mainColor, fontSize: 13, fontStyle: FontStyle.italic)),
+                                        CountReply2(passDocumentId: widget.passIdDisc),
+                                        Text(" replies", style: TextStyle(color: mainColor, fontSize: 13, fontStyle: FontStyle.italic)),
+                                      ],
+                                    ),
+                                  ),
+                                  replyBox()
+                                ],
+                              )
+                            ),
+                          ],
+                        ),
+                      )
+                    )
+                  ],
                 );
               }
 
