@@ -31,7 +31,7 @@ class _GetLastClassMessageState extends State<GetLastClassMessage> {
         return Column(
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            if(data['id_classroom'] == widget.passDocumentId){
+            if((data['id_classroom'] == widget.passDocumentId)&&(data['type'] == 'text')){
               return RichText(
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -50,7 +50,28 @@ class _GetLastClassMessageState extends State<GetLastClassMessage> {
                   ],
                 ),
               );
-              
+            } else if((data['id_classroom'] == widget.passDocumentId)&&(data['type'] == 'image')){
+              return Align(
+                alignment: Alignment.centerLeft,
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      WidgetSpan(
+                        child: GetChannelName(passDocumentId: data['id_channel']),
+                      ),
+                      TextSpan(
+                        text: " ~ ", style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                      WidgetSpan(
+                        child: Icon(Icons.image, size: 16, color: Colors.white),
+                      ),
+                      TextSpan(
+                        text: " Image", style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    ],
+                  ),
+                )
+              );
             } else {
               return const SizedBox();
             }
