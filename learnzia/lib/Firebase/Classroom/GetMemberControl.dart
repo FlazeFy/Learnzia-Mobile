@@ -15,6 +15,32 @@ class GetMemberControl extends StatefulWidget {
 }
 
 class _GetMemberControlState extends State<GetMemberControl> {
+  CollectionReference class_rel = FirebaseFirestore.instance.collection('classroom-relation');
+  CollectionReference contact = FirebaseFirestore.instance.collection('contact');
+
+  Future<void> deleteRel(String id) async {
+    return class_rel
+      .doc(id)
+      .delete()
+      .then((value) => print("Successfully edit member's role"))
+      .catchError((error) => print("Failed to update role: $error"));                  
+  }
+
+  Future<void> deleteContact(String id_user) async {
+    return contact
+      .get()
+      .then((QuerySnapshot querySnapshot) {
+          querySnapshot.docs.forEach((doc) {
+            if((doc["id_user_1"] == id_user)&&(doc["id_user_2"] == widget.passIdClass)){
+              return contact
+                .doc(doc.id)
+                .delete()
+                .then((value) => print("Successfully edit member's role"))
+                .catchError((error) => print("Failed to update role: $error"));
+            }
+          });
+      });
+  }
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _classrel = FirebaseFirestore.instance.collection('classroom-relation').where('id_classroom', isEqualTo: widget.passIdClass).snapshots();
@@ -39,7 +65,6 @@ class _GetMemberControlState extends State<GetMemberControl> {
                 child: ElevatedButton(
                   onPressed: () async {
                     String role;
-                    CollectionReference class_rel = FirebaseFirestore.instance.collection('classroom-relation');
 
                     if(data['role'] == 'co-founder'){
                       role = "founder";
@@ -85,8 +110,6 @@ class _GetMemberControlState extends State<GetMemberControl> {
                 margin: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: ElevatedButton(
                   onPressed: () async {
-                    CollectionReference class_rel = FirebaseFirestore.instance.collection('classroom-relation');
-
                     return class_rel
                       .doc(document.id)
                       .update({
@@ -107,13 +130,8 @@ class _GetMemberControlState extends State<GetMemberControl> {
                 margin: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: ElevatedButton(
                   onPressed: () async {
-                    CollectionReference class_rel = FirebaseFirestore.instance.collection('classroom-relation');
-
-                    return class_rel
-                      .doc(document.id)
-                      .delete()
-                      .then((value) => print("Successfully edit member's role"))
-                      .catchError((error) => print("Failed to update role: $error"));
+                    deleteRel(document.id);
+                    deleteContact(data['id_user']);
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.red, // Background color

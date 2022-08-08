@@ -33,9 +33,11 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
           return const Text("Loading");
         }
 
-        //Store date chip n-1 index (before)
+        //Store date chip and username n-1 index (before)
         String dateChipBefore = "";
+        String dateChipBefore2 = "";
         String timeBefore = "";
+        String idUserBefore = "";
         
         return ListView(
           padding: const EdgeInsets.only(top: 10),
@@ -116,6 +118,36 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
               }
             }
 
+            Widget getUserImage(){
+              var dt = DateTime.fromMicrosecondsSinceEpoch(data['datetime'].microsecondsSinceEpoch).toString();
+              var date = DateTime.parse(dt);
+              String checkDate = ("${date.year}${date.month}${date.day}");
+              String check = data['id_user'];
+
+              if((idUserBefore != check)||(dateChipBefore2 != checkDate)){
+                idUserBefore = check;
+                dateChipBefore2 = checkDate;
+
+                return Container(
+                  margin: const EdgeInsets.only(left: 20.0, top: 5),
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(25),
+                        child: Image.asset(
+                          'assets/images/User.jpg', width: 35),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20, left: 5),
+                        child: GetUsername2(passDocumentId: data['id_user'], passIdClass: widget.classId)
+                      )
+                    ],
+                  )
+                );
+              } else {
+                return SizedBox();
+              }
+            }
 
             if((data['id_user'] == passIdUser)&&(data['id_channel'] == passIdChannel)){
               return Column(
@@ -193,22 +225,7 @@ class _GetChatOnChannelState extends State<GetChatOnChannel> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   getDateChip(),
-                  Container(
-                    margin: const EdgeInsets.only(left: 20.0, top: 10),
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(25),
-                          child: Image.asset(
-                            'assets/images/User.jpg', width: 35),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 20, left: 5),
-                          child: GetUsername2(passDocumentId: data['id_user'], passIdClass: widget.classId)
-                        )
-                      ],
-                    )
-                  ),
+                  getUserImage(),
                   getUrl(20, 0),
                   GestureDetector(
                     child: getBody(false),

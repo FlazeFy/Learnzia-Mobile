@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learnzia/Firebase/Classroom/GetLastChannelMessage.dart';
 import 'package:learnzia/SecondaryMenu/classroomPage.dart';
 import 'package:learnzia/main.dart';
 
@@ -35,8 +36,19 @@ class _GetChannelState extends State<GetChannel> {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
             if(data['id_classroom'] == widget.passDocumentId){
               return ListTile(
-                title: Text('#${data['channel_name']}', style: TextStyle(color: mainColor, fontSize: 16)),
-                subtitle: Text(data['channel_description'], style: const TextStyle(color: Colors.white, fontSize: 14)),
+                title: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '#${data['channel_name']} - ', style: TextStyle(color: mainColor, fontSize: 16)
+                      ),
+                      TextSpan(
+                        text: data['channel_description'], style: const TextStyle(color: Colors.white, fontSize: 14)
+                      ),
+                    ],
+                  ),
+                ),
+                subtitle: GetLastChannelMessage(passDocumentId: document.id),
                 onTap: () {
                   passIdChannel = document.id;
                   Navigator.push(
