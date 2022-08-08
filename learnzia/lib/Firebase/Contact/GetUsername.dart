@@ -33,11 +33,18 @@ class _GetUsernameState extends State<GetUsername> {
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
             if(document.id == widget.passDocumentId){
+              getText(){
+                if(document.id == passIdUser){
+                  return "You";
+                } else {
+                  return data['username'];
+                }
+              }
               return Align(
                 alignment: Alignment.centerLeft,
                 child: RichText(
                   text: TextSpan(                     
-                    text: data['username'],
+                    text: getText(),
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: widget.textColor,

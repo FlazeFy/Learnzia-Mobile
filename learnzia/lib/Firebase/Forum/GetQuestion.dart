@@ -65,7 +65,7 @@ class GetQuestion extends StatelessWidget {
             Widget getDate(){
               var dt = DateTime.fromMicrosecondsSinceEpoch(data['datetime'].microsecondsSinceEpoch).toString();
               var date = DateTime.parse(dt);
-              var formattedDate = "${date.day}-${date.month}-${date.year}";
+              var formattedDate = "${date.day}-${date.month}-${date.year} ${date.hour}:${date.minute}";
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                   child: Text(formattedDate, style: const TextStyle(fontSize: 12, color: Colors.grey, fontStyle: FontStyle.italic)

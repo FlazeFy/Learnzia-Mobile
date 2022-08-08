@@ -54,7 +54,7 @@ class _ChatPage extends State<ChatPage> {
       // Create a Reference to the file
       Reference ref = FirebaseStorage.instance
           .ref()
-          .child('reply')
+          .child('message')
           .child(seed);
 
       final metadata = SettableMetadata(

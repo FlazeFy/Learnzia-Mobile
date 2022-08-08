@@ -42,7 +42,7 @@ class _GetReplyState extends State<GetReply> {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
             if(data['id_discussion'] ==  widget.passIdDisc){
               Widget getImage(){
-                if(data['image'] == "null"){
+                if(data['url'] == "null"){
                   return Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                     child: Text("${data['body']}", style: const TextStyle(color: Colors.white))
@@ -53,11 +53,10 @@ class _GetReplyState extends State<GetReply> {
                     child: Column(
                       children:[
                         ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          'assets/images/${data['image']}'),
-                        ),
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(data['url'])),
                         Container(
+                          alignment: Alignment.topLeft,
                           margin: const EdgeInsets.only(top: 5),
                           child: Text("${data['body']}", style: const TextStyle(color: Colors.white))
                         )
@@ -70,7 +69,7 @@ class _GetReplyState extends State<GetReply> {
               Widget getDate(){
                 var dt = DateTime.fromMicrosecondsSinceEpoch(data['datetime'].microsecondsSinceEpoch).toString();
                 var date = DateTime.parse(dt);
-                var formattedDate = "${date.day}-${date.month}-${date.year}";
+                var formattedDate = "${date.day}-${date.month}-${date.year} ${date.hour}:${date.minute}";
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 5),
                     child: Text(formattedDate, style: const TextStyle(fontSize: 12, color: Colors.grey, fontStyle: FontStyle.italic)

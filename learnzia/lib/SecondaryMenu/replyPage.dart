@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:full_screen_menu/full_screen_menu.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:learnzia/Firebase/Forum/GetQuestionOnReply.dart';
 import 'package:learnzia/Firebase/Forum/GetReply.dart';
 import 'package:learnzia/main.dart';
+import 'dart:math';
 
 class ReplyPage extends StatefulWidget {
   const ReplyPage({Key key, this.passIdDisc, this.id_user}) : super(key: key);
@@ -18,17 +21,62 @@ class _ReplyPageState extends State<ReplyPage> {
   final _replyTextCtrl = TextEditingController();
 
   CollectionReference reply = FirebaseFirestore.instance.collection('reply');
+  XFile file;
+  String seed = "null";
+
+  //Create random string.
+  var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
+
+  String getRandomString(int length) => 
+    String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(
+        _rnd.nextInt(_chars.length)
+      )
+    )
+  );
+
+  //Get image picker
+  Future<XFile> getImage() async {
+    return await ImagePicker().pickImage(source: ImageSource.gallery);
+  }
 
   //send reply.
-  Future<void> sendReply() {
+  Future<void> sendReply(XFile imageFile, String seed) async {
+    String type;
+    String url;
+
+    if (imageFile != null) {
+      seed = getRandomString(20);
+      
+      // Create a Reference to the file
+      Reference ref = FirebaseStorage.instance
+          .ref()
+          .child('reply')
+          .child(seed);
+
+      final metadata = SettableMetadata(
+        //contentType: 'image', 
+        customMetadata: {'picked-file-path': imageFile.path},
+      );
+
+      //return await ref.putData(await imageFile.readAsBytes(), metadata);
+      await ref.putData(await imageFile.readAsBytes(), metadata);
+
+      type = "image";
+      url = await ref.getDownloadURL();
+    } else {
+      type = "text";
+      url = "null";
+    }
     return reply
       .add({
         'body': _replyTextCtrl.text, 
         'id_discussion': widget.passIdDisc, 
         'id_user': passIdUser, 
         'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
-        'type': 'text', // for now. 
-        'image': 'null', // for now. 
+        'type': type,
+        'url': url,
         'status': 'null', 
       })
       .then((value) => print("Reply has been sended"))
@@ -112,6 +160,9 @@ class _ReplyPageState extends State<ReplyPage> {
                             icon: Icon(Icons.image, color: Colors.white),
                             text: Text('Image', style: TextStyle(color: mainColor)),
                             gradient: redGradient,
+                            onTap: () async {
+                              file = await getImage();
+                            },
                           ),
                         ],
                       );
@@ -142,7 +193,7 @@ class _ReplyPageState extends State<ReplyPage> {
                   const SizedBox(width: 15,),
                   FloatingActionButton(
                     onPressed: () async{
-                      sendReply();
+                      sendReply(file, seed);
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => ReplyPage(passIdDisc: widget.passIdDisc)),
