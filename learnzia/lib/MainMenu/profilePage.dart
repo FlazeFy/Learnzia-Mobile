@@ -7,6 +7,7 @@ import 'package:learnzia/Firebase/Profile/FriendsListPage.dart';
 import 'package:learnzia/Firebase/Profile/GetMiniProfile.dart';
 import 'package:learnzia/MainMenu/loginPage.dart';
 import 'package:learnzia/SecondaryMenu/TabController/createPost.dart';
+import 'package:learnzia/SecondaryMenu/collectionPage.dart';
 import 'package:learnzia/SecondaryMenu/myDiscussionPage.dart';
 import 'package:learnzia/SecondaryMenu/notificationPage.dart';
 import 'package:learnzia/main.dart';
@@ -140,6 +141,29 @@ class _ProfilePageState extends State<ProfilePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               ClipRRect(
+                                child: Image.asset(
+                                'assets/icons/Help.png', width: fullWidth*0.14),
+                              ),
+                              Container(
+                                margin:const EdgeInsets.only(bottom: 15), 
+                                child: const Text("Help Center", style: TextStyle(color: Colors.white, fontSize: 16))
+                              ),
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                            color: containerColor,
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          )
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          width: fullWidth*0.44,
+                          margin: const EdgeInsets.only(bottom: 5, left:10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ClipRRect(
                                 borderRadius: BorderRadius.circular(60),
                                 child: Image.asset(
                                 'assets/icons/about.png', width: fullWidth*0.17),
@@ -238,6 +262,51 @@ class _ProfilePageState extends State<ProfilePage> {
                                         child: const Text("Classroom", style: TextStyle(color: Color(0xFF212121), fontSize: 14, fontWeight: FontWeight.w500))
                                       ),
                                       CountClassroom(passDocumentId: passIdUser)
+                                    ],
+                                  )
+                                ),
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  const Color(0xFFF1C40F).withOpacity(0.9),
+                                  const Color.fromARGB(255, 244, 140, 13).withOpacity(0.9),
+                                ],
+                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            )
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const CollectionPage()),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(20),
+                            margin: const EdgeInsets.only(bottom: 5, right:10),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  child: Image.asset(
+                                  'assets/icons/Collection.png', width: fullWidth*0.15),
+                                ),
+                                const Spacer(),
+                                SizedBox(
+                                  width: fullWidth*0.2,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        margin:const EdgeInsets.only(bottom: 15), 
+                                        child: const Text("Collection", style: TextStyle(color: Color(0xFF212121), fontSize: 14, fontWeight: FontWeight.w500))
+                                      ),
+                                      // CountFriends(passDocumentId: passIdUser)
                                     ],
                                   )
                                 ),

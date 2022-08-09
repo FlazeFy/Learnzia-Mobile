@@ -37,6 +37,21 @@ class GetQuestion extends StatelessWidget {
           padding: const EdgeInsets.only(top: 0),
           children: snapshot.data.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+            addBookmark() async {
+              CollectionReference bookmark= FirebaseFirestore.instance.collection('bookmark');
+
+              return bookmark
+              .add({
+                'id_user': passIdUser, 
+                'id_context': document.id, 
+                'type': 'question', 
+                'datetime': DateTime.tryParse(DateTime.now().toIso8601String()), 
+                'description': 'null',
+              })
+              .then((value) => print("Question has been added to bookmark"))
+              .catchError((error) => print("Failed add to bookmark: $error"));
+            }
+
             Widget getImage(){
               if(data['image'] == "null"){
                 return Container(
@@ -102,8 +117,83 @@ class GetQuestion extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.more_vert),
                         color: Colors.white,
-                        onPressed: () async {
-
+                        onPressed: () {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              backgroundColor: containerColor,
+                              content: Container(
+                                height: 145,
+                                transform: Matrix4.translationValues(0.0, -20.0, 0.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children:[
+                                    Container(
+                                      transform: Matrix4.translationValues(20.0, 0.0, 0.0),
+                                      child: IconButton(
+                                        icon: Icon(Icons.close, color: mainColor),
+                                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: OutlinedButton.icon(
+                                        onPressed: () async {
+                                          addBookmark();
+                                          return showDialog<void>(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                backgroundColor: containerColor,
+                                                title: Text('Success', style: TextStyle(fontWeight: FontWeight.bold, color: mainColor)),
+                                                content: SingleChildScrollView(
+                                                  child: ListBody(
+                                                    children: <Widget>[
+                                                      ClipRRect(
+                                                        child: Image.asset(
+                                                          'assets/icons/success.png', width: 20),
+                                                      ),
+                                                      const Text('Question has been added to bookmark', style: TextStyle(color: Colors.white)),
+                                                    ],
+                                                  ),
+                                                ),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    child: Text('Continue', style: TextStyle(color: mainColor)),
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            }
+                                          );
+                                        },
+                                        icon: Icon(Icons.bookmark, size: 18, color: containerColor),
+                                        label: Text("Add To Bookmark", style: TextStyle(color: containerColor)),
+                                        style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all<Color>(mainColor),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: OutlinedButton.icon(
+                                        onPressed: () async{
+                                          
+                                        },
+                                        icon: Icon(Icons.delete, size: 18, color: containerColor),
+                                        label: Text("Report", style: TextStyle(color: containerColor)),
+                                        style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all<Color>(mainColor),
+                                        ),
+                                      )
+                                    )
+                                  ]
+                                ),
+                              ),
+                            ),
+                          );
                         },
                       ),
                     ]
@@ -273,7 +363,9 @@ class GetMyQuestion extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.more_vert),
                           color: Colors.white,
-                          onPressed: () {},
+                          onPressed: () {
+                            
+                          },
                         ),
                       ]
                     ),
