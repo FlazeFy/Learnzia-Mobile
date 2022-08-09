@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnzia/Firebase/Profile/GetMyInvitation.dart';
+import 'package:learnzia/Firebase/Profile/collection/getMyStories.dart';
 import 'package:learnzia/SecondaryMenu/TabController/myPost.dart';
 import 'package:learnzia/main.dart';
 
@@ -38,13 +39,13 @@ class _CollectionPageState extends State<CollectionPage> with SingleTickerProvid
           labelColor: containerColor,
           controller: _tabController,
           tabs: <Widget>[
-            Tab(
+            const Tab(
               text: "My Question",
             ),
-            Tab(
+            const Tab(
               text: "My Stories",
             ),
-            Tab(
+            const Tab(
               text: "Bookmarks",
             )
           ],
@@ -54,17 +55,8 @@ class _CollectionPageState extends State<CollectionPage> with SingleTickerProvid
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          MyPost(),
-          Container(
-            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-            height: fullHeight,
-            child: Column(
-              children: [
-                
-              ], 
-            ),
-          ),
-
+          const MyPost(),
+          GetMyStories(),
           Container(
             padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
             height: fullHeight,
