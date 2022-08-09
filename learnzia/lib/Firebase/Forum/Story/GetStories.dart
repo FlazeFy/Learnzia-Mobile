@@ -2,6 +2,7 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:full_screen_menu/full_screen_menu.dart';
+import 'package:learnzia/Firebase/Forum/Story/GetComment.dart';
 import 'package:learnzia/main.dart';
 import 'package:stories_for_flutter/stories_for_flutter.dart';
 
@@ -71,7 +72,7 @@ class _GetStoriesState extends State<GetStories> {
                       ),
                       RichText(
                         text: TextSpan(
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+                          style: TextStyle(color: mainColor, fontWeight: FontWeight.bold, fontSize: 15),
                           children: [
                             TextSpan(
                               text: "Comment", 
@@ -82,9 +83,11 @@ class _GetStoriesState extends State<GetStories> {
                           ]
                         )
                       ),
-                      // Flexible(
-                        
-                      // ),
+                      Container(
+                        height: fullHeight*0.6,
+                        margin: EdgeInsets.only(top:5),
+                        child: GetStoriesComment(passIdStories: document.id),  
+                      ),
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
