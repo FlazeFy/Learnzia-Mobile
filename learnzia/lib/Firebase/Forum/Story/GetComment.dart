@@ -54,7 +54,7 @@ class _GetStoriesCommentState extends State<GetStoriesComment> {
                   padding: const EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Row(
                         children:[
@@ -87,7 +87,7 @@ class _GetStoriesCommentState extends State<GetStoriesComment> {
                       ),
                       Container(
                         alignment: Alignment.topLeft,
-                        margin: const EdgeInsets.only(top: 5),
+                        margin: const EdgeInsets.only(top: 5, bottom: 5),
                         child: Text("${data['body']}", style: const TextStyle(color: Colors.white))
                       ),
                     ],
@@ -108,7 +108,7 @@ class _GetStoriesCommentState extends State<GetStoriesComment> {
               //First item in looping.
               if(i == 0){
                 i++;
-                SizedBox(
+                return SizedBox(
                   width: fullWidth,
                   child: IntrinsicHeight(
                     child: Stack(
