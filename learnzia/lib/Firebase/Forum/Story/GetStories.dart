@@ -1,8 +1,10 @@
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:learnzia/Firebase/Forum/Story/CountComment.dart';
 import 'package:learnzia/Firebase/Forum/Story/GetComment.dart';
 import 'package:learnzia/Firebase/Forum/Story/GetRespond.dart';
+import 'package:learnzia/Firebase/Forum/Story/VoteButton.dart';
 import 'package:learnzia/main.dart';
 import 'package:stories_for_flutter/stories_for_flutter.dart';
 
@@ -93,22 +95,7 @@ class _GetStoriesState extends State<GetStories> with TickerProviderStateMixin {
                             Navigator.pop(context);
                           },
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 10),
-                          child: RichText(
-                            text: TextSpan(
-                              style: TextStyle(color: mainColor, fontWeight: FontWeight.bold, fontSize: 15),
-                              children: [
-                                const TextSpan(
-                                  text: "Comment", 
-                                ),
-                                const TextSpan(
-                                  text: " (8)", 
-                                ),
-                              ]
-                            )
-                          ),
-                        ),
+                        CountComment(passDocumentId: document.id),
                         Container(
                           height: fullHeight*0.63,
                           margin: const EdgeInsets.only(top:5),
@@ -245,26 +232,8 @@ class _GetStoriesState extends State<GetStories> with TickerProviderStateMixin {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 3),
-                        width: fullWidth*0.4,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            print(data['option1']);
-                          },
-                          child: Text(data['option1']),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 3),
-                        width: fullWidth*0.4,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            print(data['option2']);
-                          },
-                          child: Text(data['option2']),
-                        ),
-                      ),
+                      VoteButton(passIdStories: document.id, passOption: data['option1']),
+                      VoteButton(passIdStories: document.id, passOption: data['option2']),
                     ],
                   )
                 );
